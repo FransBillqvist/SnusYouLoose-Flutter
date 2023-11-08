@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Config/app_routes.dart';
+import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+
+import 'Pages/login_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -9,12 +13,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Urbanist',
+        scaffoldBackgroundColor: AppColors.example5,
+        brightness: Brightness.dark,
       ),
+      initialRoute: AppRoutes.login,
+      routes: AppRoutes.pages,
     );
   }
 }
