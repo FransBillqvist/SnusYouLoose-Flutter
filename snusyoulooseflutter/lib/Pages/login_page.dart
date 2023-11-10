@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: Column(children: [
             Expanded(
-              flex: 2,
+              flex: 5,
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -22,11 +22,9 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Column(
+            Row(
+              children: [
+                Column(
                   children: [
                     SizedBox(height: 32),
                     TextField(
@@ -59,7 +57,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
           ]),
         ),
