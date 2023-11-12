@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:snusyoulooseflutter/Components/app_iconbutton.dart';
 import 'package:snusyoulooseflutter/Config/app_media.dart';
 
 class LoginPage extends StatelessWidget {
@@ -12,14 +13,10 @@ class LoginPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              IconButton(
-                onPressed: () => {print("asdasda")},
-                icon: SvgPicture.asset(AppIcons.timer_v1),
-              )
-            ],
-          ),
+          child: Column(children: [
+            AppIconButton(
+                onPressed: () => print("object"), icon: AppIcons.timer_v1),
+          ]),
         ),
       ),
     );
