@@ -4,6 +4,7 @@ import '../Styles/app_colors.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
+  final String labelText;
   final String helperText;
   final TextEditingController controllerName;
   final onChanged;
@@ -12,7 +13,8 @@ class AppTextField extends StatelessWidget {
       this.hintText = "",
       this.helperText = "",
       required this.controllerName,
-      this.onChanged})
+      this.onChanged,
+      required this.labelText})
       : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class AppTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText == "" ? null : hintText,
-          labelText: hintText == "" ? null : hintText,
+          labelText: labelText,
           labelStyle: TextStyle(color: Colors.white),
           helperText: helperText == "" ? null : helperText,
           hintStyle: TextStyle(color: Color.fromARGB(202, 0, 0, 0)),
