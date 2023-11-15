@@ -9,4 +9,5 @@ class AppColors {
   static const example5 = Color(0xFFFCFFFD);
   static final textFieldHintColor = const Color(0xffD9D9D9).withOpacity(0.6);
   static const textOnFocus = Color.fromARGB(178, 44, 15, 232);
+  static const loginBackgroundColor = Color(0xFF001A27);
 }
