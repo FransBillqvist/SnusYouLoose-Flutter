@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.loginBackgroundColor,
+      backgroundColor: AppColors.loginDeepBackgroundColor,
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: SizedBox(
