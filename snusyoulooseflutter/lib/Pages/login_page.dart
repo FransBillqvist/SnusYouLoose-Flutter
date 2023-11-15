@@ -19,12 +19,24 @@ class LoginPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           child: Column(children: [
             SizedBox(height: 100),
+            Image.asset(
+              AppImages.logo_background,
+              height: 200,
+            ),
             Text(AppStrings.appName, textScaleFactor: 2),
             SizedBox(height: 40),
             AppTextField(
-                controllerName: UNController, labelText: AppStrings.username),
+              controllerName: UNController,
+              labelText: AppStrings.username,
+              textAlignment: "center",
+              keyboardType: "number",
+            ),
+            SizedBox(height: 16),
             AppTextField(
-                controllerName: PWController, labelText: AppStrings.password),
+              controllerName: PWController,
+              labelText: AppStrings.password,
+              textAlignment: "center",
+            ),
           ]),
         ),
       ),
