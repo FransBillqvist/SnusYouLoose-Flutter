@@ -6,25 +6,58 @@ import 'package:snusyoulooseflutter/Config/app_media.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   final UNController = TextEditingController();
   final PWController = TextEditingController();
 
-  LoginPage({Key? key}) : super(key: key);
+  late final AnimationController _controller;
+  late final Animation<Color?> _colorAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _colorAnimation = ColorTween(
+      begin: Color(0xFF2E5B69),
+      end: Color(0xFF001A27),
+    ).animate(_controller);
+
+    // You can listen to the controller and set the state to update the color in real time
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    UNController.dispose();
+    PWController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.loginDeepBackgroundColor,
+      backgroundColor: _colorAnimation.value, // Animated background color
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(children: [
             SizedBox(height: 100),
-            Image.asset(
-              AppImages.logo_background,
-              height: 200,
-            ),
             Text(AppStrings.appName, textScaleFactor: 2),
             SizedBox(height: 40),
             AppTextField(
@@ -37,8 +70,9 @@ class LoginPage extends StatelessWidget {
             AppTextField(
               controllerName: PWController,
               labelText: AppStrings.password,
-              textAlignment: "center",
+              textAlignment: "center", // Assuming you want to hide the password
             ),
+            // Other widgets...
           ]),
         ),
       ),
