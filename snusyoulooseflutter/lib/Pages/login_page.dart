@@ -4,6 +4,7 @@ import 'package:snusyoulooseflutter/Components/app_iconbutton.dart';
 import 'package:snusyoulooseflutter/Components/app_textfield.dart';
 import 'package:snusyoulooseflutter/Config/app_media.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
+import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
 class LoginPage extends StatelessWidget {
   final UNController = TextEditingController();
@@ -13,6 +14,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.loginBackgroundColor,
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: SizedBox(
