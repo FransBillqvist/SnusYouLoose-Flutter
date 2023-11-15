@@ -6,6 +6,8 @@ class AppTextField extends StatelessWidget {
   final String hintText;
   final String labelText;
   final String helperText;
+  final String textAlignment;
+  final String keyboardType;
   final TextEditingController controllerName;
   final onChanged;
   const AppTextField(
@@ -14,30 +16,51 @@ class AppTextField extends StatelessWidget {
       this.helperText = "",
       required this.controllerName,
       this.onChanged,
-      required this.labelText})
+      required this.labelText,
+      this.textAlignment = "",
+      this.keyboardType = ""})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-        controller: controllerName,
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          hintText: hintText == "" ? null : hintText,
-          labelText: labelText,
-          labelStyle: TextStyle(color: Colors.white),
-          helperText: helperText == "" ? null : helperText,
-          hintStyle: TextStyle(color: Color.fromARGB(202, 0, 0, 0)),
-          border: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(18),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(18),
-          ),
-          filled: true,
-          fillColor: AppColors.textFieldHintColor,
-          focusColor: AppColors.textOnFocus,
-        ));
+      controller: controllerName,
+      onChanged: onChanged,
+      textAlign: textAlignment == ""
+          ? TextAlign.start
+          : textAlignment == "center"
+              ? TextAlign.center
+              : textAlignment == "left"
+                  ? TextAlign.left
+                  : textAlignment == "right"
+                      ? TextAlign.right
+                      : TextAlign.start,
+      keyboardType: keyboardType == ""
+          ? TextInputType.text
+          : keyboardType == "email"
+              ? TextInputType.emailAddress
+              : keyboardType == "number"
+                  ? TextInputType.number
+                  : keyboardType == "phone"
+                      ? TextInputType.phone
+                      : TextInputType.text,
+      decoration: InputDecoration(
+        hintText: hintText == "" ? null : hintText,
+        labelText: labelText,
+        labelStyle: TextStyle(color: Colors.white),
+        helperText: helperText == "" ? null : helperText,
+        hintStyle: TextStyle(color: Color.fromARGB(202, 0, 0, 0)),
+        border: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        filled: true,
+        fillColor: AppColors.textFieldHintColor,
+        focusColor: AppColors.textOnFocus,
+      ),
+    );
   }
 }
