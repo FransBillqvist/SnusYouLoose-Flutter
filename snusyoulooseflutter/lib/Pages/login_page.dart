@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:snusyoulooseflutter/Components/app_iconbutton.dart';
-import 'package:snusyoulooseflutter/Components/app_textfield.dart';
-import 'package:snusyoulooseflutter/Config/app_media.dart';
-import 'package:snusyoulooseflutter/Config/app_strings.dart';
-import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+
+import '../Components/app_iconbutton.dart';
+import '../Components/app_textfield.dart';
+import '../Config/app_media.dart';
+import '../Config/app_strings.dart';
+import '../Styles/app_colors.dart';
+import '../Model/User.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -83,7 +85,40 @@ class _LoginPageState extends State<LoginPage>
                     textAlignment: "center",
                     obscureText: true,
                   ),
-                  // Other widgets...
+                  SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        print("Login");
+                      },
+                      child: Text(AppStrings.login),
+                      style: ElevatedButton.styleFrom(
+                        primary: _textColorAnimation.value,
+                        onPrimary: _bgColorAnimation.value,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 38),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: Container(
+                        color: Colors.red,
+                        child: Text(AppStrings.loginWithGoogle)),
+                  ),
+                  SizedBox(height: 18),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: Container(
+                        color: Colors.red,
+                        child: Text(AppStrings.loginWithFacebook)),
+                  ),
                 ],
               ),
             ),
@@ -92,4 +127,8 @@ class _LoginPageState extends State<LoginPage>
       },
     );
   }
+}
+
+Future<User> doLogin(BuildContext ctex) async {
+  return User(false, '', '', '', '', '', '', '', '', '', '', '');
 }
