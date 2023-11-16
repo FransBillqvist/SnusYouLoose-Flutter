@@ -2,6 +2,8 @@ class AppImages {
   static const _img = 'Assets/Images/';
 
   static const logo_background = '${_img}login_background.png';
+  static const logoFacebook = '${_img}FacebookLogo.png';
+  static const logoGoogle = '${_img}GoogleLogo.png';
 }
 
 class AppIcons {
