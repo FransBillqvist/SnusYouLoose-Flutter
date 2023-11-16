@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
   final String helperText;
   final String textAlignment;
   final String keyboardType;
+  final bool? obscureText;
   final TextEditingController controllerName;
   final onChanged;
   const AppTextField(
@@ -18,7 +19,8 @@ class AppTextField extends StatelessWidget {
       this.onChanged,
       required this.labelText,
       this.textAlignment = "",
-      this.keyboardType = ""})
+      this.keyboardType = "",
+      this.obscureText})
       : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class AppTextField extends StatelessWidget {
                   : keyboardType == "phone"
                       ? TextInputType.phone
                       : TextInputType.text,
+      obscureText: obscureText ?? false,
       decoration: InputDecoration(
         hintText: hintText == "" ? null : hintText,
         labelText: labelText,
