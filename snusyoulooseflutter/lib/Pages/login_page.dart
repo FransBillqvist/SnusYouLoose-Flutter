@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage>
 
     _bgColorAnimation = ColorTween(
       begin: AppColors.loginLightBackgroundColor,
-      end: Color.fromARGB(255, 19, 55, 84),
+      end: AppColors.loginDeepBackgroundColor,
     ).animate(_controller);
 
     _textColorAnimation = ColorTween(
@@ -95,8 +95,8 @@ class _LoginPageState extends State<LoginPage>
                       },
                       child: Text(AppStrings.login),
                       style: ElevatedButton.styleFrom(
-                        primary: _textColorAnimation.value,
-                        onPrimary: _bgColorAnimation.value,
+                        backgroundColor: AppColors.example2,
+                        foregroundColor: AppColors.example4,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
                         ),
@@ -108,16 +108,56 @@ class _LoginPageState extends State<LoginPage>
                     width: double.infinity,
                     height: 48,
                     child: Container(
-                        color: Colors.red,
-                        child: Text(AppStrings.loginWithGoogle)),
+                        color: Colors.transparent,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              print("Exec");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black87,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(36),
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(AppImages.logoGoogle,
+                                      width: 34, height: 34),
+                                  Padding(padding: EdgeInsets.only(right: 24)),
+                                  Text(AppStrings.loginWithGoogle)
+                                ]))),
                   ),
                   SizedBox(height: 18),
                   SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: Container(
-                        color: Colors.red,
-                        child: Text(AppStrings.loginWithFacebook)),
+                        color: Colors.transparent,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              print("Exec");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black87,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(36),
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(AppImages.logoFacebook,
+                                      width: 34, height: 34),
+                                  Padding(padding: EdgeInsets.only(left: 10)),
+                                  Text(AppStrings.loginWithFacebook)
+                                ]))),
                   ),
                 ],
               ),
