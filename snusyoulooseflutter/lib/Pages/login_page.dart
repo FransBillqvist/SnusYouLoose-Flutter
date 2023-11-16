@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage>
     ).animate(_controller);
 
     _textColorAnimation = ColorTween(
-      begin: Color.fromARGB(255, 255, 255, 255),
-      end: Color.fromARGB(255, 195, 227, 215),
+      begin: AppColors.loginDeepTextColor,
+      end: AppColors.loginLightTextColor,
     ).animate(_controller);
   }
 
