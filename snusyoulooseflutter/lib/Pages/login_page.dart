@@ -24,6 +24,9 @@ class _LoginPageState extends State<LoginPage>
   final UNController = TextEditingController();
   final PWController = TextEditingController();
 
+  var usernamefield = '';
+  var passwordfield = '';
+
   late final AnimationController _controller;
   late final Animation<Color?> _bgColorAnimation;
   late final Animation<Color?> _textColorAnimation;
@@ -81,6 +84,9 @@ class _LoginPageState extends State<LoginPage>
                     labelText: AppStrings.username,
                     textAlignment: "center",
                     keyboardType: "email",
+                    onChanged: (value) {
+                      usernamefield = value;
+                    },
                   ),
                   SizedBox(height: 16),
                   AppTextField(
@@ -88,6 +94,9 @@ class _LoginPageState extends State<LoginPage>
                     labelText: AppStrings.password,
                     textAlignment: "center",
                     obscureText: true,
+                    onChanged: (value) {
+                      passwordfield = value;
+                    },
                   ),
                   SizedBox(height: 16),
                   SizedBox(
