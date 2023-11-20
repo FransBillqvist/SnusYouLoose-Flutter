@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../Components/app_iconbutton.dart';
 import '../Components/app_textfield.dart';
 import '../Config/app_media.dart';
+import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
 import '../Styles/app_colors.dart';
@@ -103,8 +104,15 @@ class _LoginPageState extends State<LoginPage>
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: () {
-                        print("Login");
+                      onPressed: () async {
+                        final user = await doLogin(
+                            context, usernamefield, passwordfield);
+                        if (user.Success == false) {
+                          print("Login failed");
+                        } else {
+                          Navigator.of(context)
+                              .pushReplacementNamed(AppRoutes.home);
+                        }
                       },
                       child: Text(AppStrings.login),
                       style: ElevatedButton.styleFrom(
@@ -187,10 +195,10 @@ class _LoginPageState extends State<LoginPage>
   }
 }
 
-Future<User> doLogin(BuildContext ctex) async {
+Future<User> doLogin(BuildContext ctex, String email, String password) async {
   final body = {
-    'username': 'username',
-    'password': 'password',
+    'Email': email,
+    'Password': password,
   };
   final response = await http.post(Uri.parse(AppUrls.loginGateway),
       headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
