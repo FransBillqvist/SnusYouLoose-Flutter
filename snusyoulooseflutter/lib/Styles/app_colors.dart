@@ -13,4 +13,5 @@ class AppColors {
   static const loginLightBackgroundColor = Color(0xFF2E5B69);
   static const loginDeepTextColor = Color(0xFFC2E2D6);
   static const loginLightTextColor = Color(0xFFFCFAFA);
+  static const textPrimary = Color(0xF0000000);
 }
