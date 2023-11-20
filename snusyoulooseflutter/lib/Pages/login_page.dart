@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage>
                       child: Text(AppStrings.login),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.example2,
-                        foregroundColor: AppColors.example4,
+                        foregroundColor: AppColors.textPrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
                         ),
