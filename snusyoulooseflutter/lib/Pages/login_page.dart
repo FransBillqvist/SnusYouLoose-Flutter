@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -5,6 +8,7 @@ import '../Components/app_iconbutton.dart';
 import '../Components/app_textfield.dart';
 import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
+import '../Config/app_urls.dart';
 import '../Styles/app_colors.dart';
 import '../Model/User.dart';
 
@@ -76,7 +80,7 @@ class _LoginPageState extends State<LoginPage>
                     controllerName: UNController,
                     labelText: AppStrings.username,
                     textAlignment: "center",
-                    keyboardType: "number",
+                    keyboardType: "email",
                   ),
                   SizedBox(height: 16),
                   AppTextField(
@@ -105,7 +109,7 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   SizedBox(height: 38),
                   SizedBox(
-                    width: double.infinity,
+                    width: 230,
                     height: 48,
                     child: Container(
                         color: Colors.transparent,
@@ -125,39 +129,44 @@ class _LoginPageState extends State<LoginPage>
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(AppImages.logoGoogle,
+                                  Image.asset(AppImages.editGoogle,
                                       width: 34, height: 34),
-                                  Padding(padding: EdgeInsets.only(right: 24)),
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(12, 0, 8, 0)),
                                   Text(AppStrings.loginWithGoogle)
                                 ]))),
                   ),
                   SizedBox(height: 18),
                   SizedBox(
-                    width: double.infinity,
+                    width: 230,
                     height: 48,
                     child: Container(
-                        color: Colors.transparent,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              print("Exec");
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.black87,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(36),
-                                ),
-                              ),
+                      color: Colors.transparent,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print("Exec Facebook");
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black87,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(36),
                             ),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(AppImages.logoFacebook,
-                                      width: 34, height: 34),
-                                  Padding(padding: EdgeInsets.only(left: 10)),
-                                  Text(AppStrings.loginWithFacebook)
-                                ]))),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(AppImages.logoFacebook,
+                                width: 34, height: 34),
+                            Padding(padding: EdgeInsets.only(left: 10)),
+                            Text(AppStrings.loginWithFacebook)
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -170,5 +179,18 @@ class _LoginPageState extends State<LoginPage>
 }
 
 Future<User> doLogin(BuildContext ctex) async {
-  return User(false, '', '', '', '', '', '', '', '', '', '', '');
+  final body = {
+    'username': 'username',
+    'password': 'password',
+  };
+  final response = await http.post(Uri.parse(AppUrls.loginGateway),
+      headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+  if (response.statusCode == 200) {
+    final json = jsonDecode(response.body);
+    print(json);
+    final user = User.fromJson(json);
+    return user;
+  } else {
+    return User(false, '', '', '', '', '', '', '', '', '', '', '');
+  }
 }
