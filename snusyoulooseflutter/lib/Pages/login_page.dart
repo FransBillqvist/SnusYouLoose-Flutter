@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 import '../Components/app_iconbutton.dart';
 import '../Components/app_textfield.dart';
@@ -10,8 +9,9 @@ import '../Config/app_media.dart';
 import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
-import '../Styles/app_colors.dart';
+import '../Model/LoginResponse.dart';
 import '../Model/User.dart';
+import '../Styles/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -195,7 +195,8 @@ class _LoginPageState extends State<LoginPage>
   }
 }
 
-Future<User> doLogin(BuildContext ctex, String email, String password) async {
+Future<LoginResponse> doLogin(
+    BuildContext ctex, String email, String password) async {
   final body = {
     'Email': email,
     'Password': password,
@@ -205,9 +206,10 @@ Future<User> doLogin(BuildContext ctex, String email, String password) async {
   if (response.statusCode == 200) {
     final json = jsonDecode(response.body);
     print(json);
-    final user = User.fromJson(json);
-    return user;
+    final responseValue = LoginResponse.fromJson(json);
+    return responseValue;
   } else {
-    return User(false, '', '', '', '', '', '', '', '', '', '', '');
+    return LoginResponse(
+        false, '', '', '', '', '', DateTime.parse('1991-01-22'));
   }
 }
