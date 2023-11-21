@@ -10,12 +10,12 @@ class AppImages {
 class AppIcons {
   static const _icn = 'Assets/Icons/';
 
-  static const add = '${_icn}add.svg';
-  static const favorite = '${_icn}favorite.svg';
-  static const home = '${_icn}home.svg';
-  static const location = '${_icn}location.svg';
-  static const messages = '${_icn}messages.svg';
-  static const user = '${_icn}user.svg';
+  static const add = '${_icn}ic_add.svg';
+  static const favorite = '${_icn}ic_favorite.svg';
+  static const home = '${_icn}ic_home.svg';
+  static const location = '${_icn}ic_location.svg';
+  static const messages = '${_icn}ic_messages.svg';
+  static const user = '${_icn}ic_user.svg';
   static const timer_v1 = '${_icn}timer_v1.svg';
   static const timer_v2 = '${_icn}timer_v2.svg';
   static const timer_v2_ = '${_icn}timer_v2_.svg';
