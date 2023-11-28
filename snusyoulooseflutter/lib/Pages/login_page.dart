@@ -10,7 +10,6 @@ import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
 import '../Model/LoginResponse.dart';
-import '../Model/User.dart';
 import '../Styles/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,6 +24,7 @@ class _LoginPageState extends State<LoginPage>
   final UNController = TextEditingController();
   final PWController = TextEditingController();
 
+  var userId = '';
   var usernamefield = '';
   var passwordfield = '';
 
@@ -79,6 +79,7 @@ class _LoginPageState extends State<LoginPage>
                     textScaleFactor: 2,
                     style: TextStyle(color: _textColorAnimation.value),
                   ),
+                  Image.asset(AppImages.logoWithoutBg, width: 200, height: 200),
                   SizedBox(height: 40),
                   AppTextField(
                     controllerName: UNController,
@@ -110,6 +111,7 @@ class _LoginPageState extends State<LoginPage>
                         if (user.Success == false) {
                           print("Login failed");
                         } else {
+                          userId = user.UserId!;
                           Navigator.of(context)
                               .pushReplacementNamed(AppRoutes.home);
                         }
