@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage>
                           backgroundColor: AppColors.example2,
                           foregroundColor: AppColors.textPrimary,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(36),
                           ),
                         ),
                       ),
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   SizedBox(height: 38),
                   SizedBox(
-                    width: 230,
+                    width: 260,
                     height: 48,
                     child: Container(
                         color: Colors.transparent,
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage>
                               ),
                             ),
                             child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Image.asset(AppImages.editGoogle,
                                       width: 34, height: 34),
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   SizedBox(height: 18),
                   SizedBox(
-                    width: 230,
+                    width: 260,
                     height: 48,
                     child: Container(
                       color: Colors.transparent,
@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage>
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Image.asset(AppImages.logoFacebook,
                                 width: 34, height: 34),
