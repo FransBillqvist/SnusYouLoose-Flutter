@@ -81,47 +81,56 @@ class _LoginPageState extends State<LoginPage>
                   ),
                   Image.asset(AppImages.logoWithoutBg, width: 200, height: 200),
                   SizedBox(height: 40),
-                  AppTextField(
-                    controllerName: UNController,
-                    labelText: AppStrings.username,
-                    textAlignment: "center",
-                    keyboardType: "email",
-                    onChanged: (value) {
-                      usernamefield = value;
-                    },
-                  ),
-                  SizedBox(height: 16),
-                  AppTextField(
-                    controllerName: PWController,
-                    labelText: AppStrings.password,
-                    textAlignment: "center",
-                    obscureText: true,
-                    onChanged: (value) {
-                      passwordfield = value;
-                    },
-                  ),
-                  SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final user = await doLogin(
-                            context, usernamefield, passwordfield);
-                        if (user.Success == false) {
-                          print("Login failed");
-                        } else {
-                          userId = user.UserId!;
-                          Navigator.of(context)
-                              .pushReplacementNamed(AppRoutes.home);
-                        }
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: AppTextField(
+                      controllerName: UNController,
+                      labelText: AppStrings.username,
+                      textAlignment: "center",
+                      keyboardType: "email",
+                      onChanged: (value) {
+                        usernamefield = value;
                       },
-                      child: Text(AppStrings.login),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.example2,
-                        foregroundColor: AppColors.textPrimary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: AppTextField(
+                      controllerName: PWController,
+                      labelText: AppStrings.password,
+                      textAlignment: "center",
+                      obscureText: true,
+                      onChanged: (value) {
+                        passwordfield = value;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 65, right: 65),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final user = await doLogin(
+                              context, usernamefield, passwordfield);
+                          if (user.Success == false) {
+                            print("Login failed");
+                          } else {
+                            userId = user.UserId!;
+                            Navigator.of(context)
+                                .pushReplacementNamed(AppRoutes.home);
+                          }
+                        },
+                        child: Text(AppStrings.login),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.example2,
+                          foregroundColor: AppColors.textPrimary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
                         ),
                       ),
                     ),
