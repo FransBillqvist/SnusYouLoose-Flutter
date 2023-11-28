@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage>
                                       width: 34, height: 34),
                                   Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(12, 0, 8, 0)),
+                                          EdgeInsets.fromLTRB(12, 0, 0, 0)),
                                   Text(AppStrings.loginWithGoogle)
                                 ]))),
                   ),
@@ -189,7 +189,7 @@ class _LoginPageState extends State<LoginPage>
                           children: [
                             Image.asset(AppImages.logoFacebook,
                                 width: 34, height: 34),
-                            Padding(padding: EdgeInsets.only(left: 10)),
+                            Padding(padding: EdgeInsets.only(left: 13)),
                             Text(AppStrings.loginWithFacebook)
                           ],
                         ),
