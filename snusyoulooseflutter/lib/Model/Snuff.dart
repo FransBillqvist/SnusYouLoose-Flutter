@@ -1,11 +1,12 @@
 class Snuff {
-  final String Brand;
-  final String Type;
-  final int Price;
-  final int DefaultAmount;
-  final String ImageUrl;
-  final int Size;
+  String Brand;
+  String Type;
+  int Price;
+  int DefaultAmount;
+  String ImageUrl;
+  int Size;
+  bool selected;
 
   Snuff(this.Brand, this.Type, this.Price, this.DefaultAmount, this.ImageUrl,
-      this.Size);
+      this.Size, this.selected);
 }
