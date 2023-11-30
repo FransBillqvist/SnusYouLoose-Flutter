@@ -5,11 +5,9 @@ import 'app_state.dart';
 
 AppState updatedSnuffReducer(AppState state, dynamic action) {
   if (action is UpdateSnuffAction) {
-    action.updatedSnuff.selected = !action.updatedSnuff.selected;
-
     return AppState(
       snuffs: state.snuffs
-          .map((snuff) => snuff.Brand == action.updatedSnuff.Brand
+          .map((snuff) => snuff.Type == action.updatedSnuff.Type
               ? action.updatedSnuff
               : snuff)
           .toList(),
