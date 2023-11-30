@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
+import 'package:snusyoulooseflutter/Redux/actions.dart';
 
 import '../Components/app_iconbutton.dart';
+import '../Model/Snuff.dart';
+import '../Redux/app_state.dart';
 import '../Styles/app_colors.dart';
 import '../Config/app_media.dart';
 import '../Config/app_routes.dart';
 import '../Config/app_urls.dart';
+import '../Widgets/snuff_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,18 +24,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text(
-              'Home Page',
-              style: TextStyle(color: AppColors.primary),
+        child: StoreConnector<AppState, List<Snuff>>(
+          converter: (store) => store.state.snuffs,
+          builder: (context, List<Snuff> stateSnuff) =>
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: 164,
+              width: MediaQuery.of(context).size.width,
             ),
-            SizedBox(height: 200),
-            AppIconButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(AppRoutes.login),
-                icon: AppIcons.home)
-          ],
+            Text(
+              "SNUS",
+              style: TextStyle(color: AppColors.primary, fontSize: 48),
+            ),
+            ...stateSnuff
+                .map((snuff) => SnuffWidget(
+                      snuff: snuff,
+                      onChanged: (onChange) {
+                        snuff.selected = !snuff.selected;
+                        StoreProvider.of<AppState>(context)
+                            .dispatch(UpdateSnuffAction(snuff));
+                      },
+                      key: ValueKey(snuff.id),
+                    ))
+                .toList(),
+          ]),
         ),
       ),
     );
