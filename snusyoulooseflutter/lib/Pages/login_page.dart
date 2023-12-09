@@ -10,6 +10,8 @@ import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
 import '../Model/LoginResponse.dart';
+import '../Model/User.dart';
+import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -114,12 +116,11 @@ class _LoginPageState extends State<LoginPage>
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final user = await doLogin(
-                              context, usernamefield, passwordfield);
-                          if (user.Success == false) {
+                          final user =
+                              await doLogin(usernamefield, passwordfield);
+                          if (user is! User) {
                             print("Login failed");
                           } else {
-                            userId = user.UserId!;
                             Navigator.of(context)
                                 .pushReplacementNamed(AppRoutes.home);
                           }
@@ -206,21 +207,20 @@ class _LoginPageState extends State<LoginPage>
   }
 }
 
-Future<LoginResponse> doLogin(
-    BuildContext ctex, String email, String password) async {
-  final body = {
-    'Email': email,
-    'Password': password,
-  };
-  final response = await http.post(Uri.parse(AppUrls.loginGateway),
-      headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-  if (response.statusCode == 200) {
-    final json = jsonDecode(response.body);
-    print(json);
-    final responseValue = LoginResponse.fromJson(json);
-    return responseValue;
-  } else {
-    return LoginResponse(
-        false, '', '', '', '', '', DateTime.parse('1991-01-22'));
-  }
-}
+// Future<LoginResponse> doLogin(
+//     BuildContext ctex, String email, String password) async {
+//   final body = {
+//     'Email': email,
+//     'Password': password,
+//   };
+//   final response = await http.post(Uri.parse(AppUrls.loginGateway),
+//       headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+//   if (response.statusCode == 200) {
+//     final json = jsonDecode(response.body);
+//     print(json);
+//     final responseValue = LoginResponse.fromJson(json);
+//     return responseValue;
+//   } else {
+//     throw Exception('Failed to login');
+//   }
+// }
