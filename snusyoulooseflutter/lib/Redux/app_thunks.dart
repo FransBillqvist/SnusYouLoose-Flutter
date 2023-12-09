@@ -12,8 +12,11 @@ ThunkAction<AppState> doLogin(String email, String password) {
     try {
       final loginResponse = await loginRequest(
           email, password); // Ersätt med din faktiska inloggningslogik
+      print("this is the loginResponse: $loginResponse ");
+      print(loginResponse.UserId!);
       final userDetails = await fetchUserDetails(
           loginResponse.UserId!); // Hämta användaruppgifter
+      print("this is the userDetails: $userDetails ");
 
       store.dispatch(SignInUserAction(
           userDetails)); // Dispatcha SignInUserAction med användardetaljer
