@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +12,7 @@ import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
 import '../Model/LoginResponse.dart';
 import '../Model/User.dart';
+import '../Redux/app_state.dart';
 import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
 
@@ -116,13 +118,16 @@ class _LoginPageState extends State<LoginPage>
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final user =
-                              await doLogin(usernamefield, passwordfield);
-                          if (user is! User) {
-                            print("Login failed");
-                          } else {
+                          var store = StoreProvider.of<AppState>(context);
+                          var current = store.state;
+                          print(current.user);
+                          print("Line Is 124");
+                          if (current.user != null) {
                             Navigator.of(context)
                                 .pushReplacementNamed(AppRoutes.home);
+                          } else {
+                            store.dispatch(
+                                doLogin(usernamefield, passwordfield));
                           }
                         },
                         child: Text(AppStrings.login),
