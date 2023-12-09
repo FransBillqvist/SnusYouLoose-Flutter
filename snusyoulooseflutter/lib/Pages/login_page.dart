@@ -120,8 +120,8 @@ class _LoginPageState extends State<LoginPage>
                         onPressed: () async {
                           var store = StoreProvider.of<AppState>(context);
                           var current = store.state;
-                          print(current.user);
-                          print("Line Is 124");
+                          // print(current.user);
+                          // print("Line Is 124");
                           if (current.user != null) {
                             Navigator.of(context)
                                 .pushReplacementNamed(AppRoutes.home);
