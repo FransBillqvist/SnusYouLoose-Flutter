@@ -19,3 +19,9 @@ class SignInUserAction {
 
   SignInUserAction(this.user);
 }
+
+class SignOutUserAction {
+  final User user;
+
+  SignOutUserAction(this.user);
+}
