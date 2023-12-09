@@ -7,6 +7,7 @@ import 'package:snusyoulooseflutter/Model/User.dart';
 import 'package:snusyoulooseflutter/Redux/actions.dart';
 
 import '../Components/app_iconbutton.dart';
+import '../Config/app_strings.dart';
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Redux/app_state.dart';
@@ -55,6 +56,27 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                   .toList(),
+              ElevatedButton(
+                onPressed: () async {
+                  var store = StoreProvider.of<AppState>(context);
+                  var current = store.state;
+                  // print(current.user);
+                  // print("Line Is 124");
+                  if (current.user != null) {
+                    store.dispatch(SignOutUserAction(current.user!));
+                  } else {
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+                  }
+                },
+                child: Text(AppStrings.logout),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.example2,
+                  foregroundColor: AppColors.textPrimary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(36),
+                  ),
+                ),
+              )
             ],
           ),
         ),
