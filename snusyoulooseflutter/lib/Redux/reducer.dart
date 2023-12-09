@@ -8,7 +8,7 @@ AppState appReducer(AppState state, action) {
   return AppState(
     snuffs: snuffReducer(state.snuffs, action),
     habit: habitReducer(state.habit, action),
-    user: userReducer(state.user!, action),
+    user: userReducer(state.user, action),
   );
 }
 
@@ -30,10 +30,15 @@ Habit? habitReducer(Habit? habit, action) {
   return habit; // Returnera den oförändrade habit om ingen action matchar
 }
 
-User userReducer(User user, action) {
+User? userReducer(User? user, action) {
   if (action is SignInUserAction) {
-    user = action.user;
+    print('userReducer => SignInUserAction');
     return action.user;
+  }
+
+  if (action is SignOutUserAction) {
+    print('userReducer => SignOutUserAction');
+    return null;
   }
   return user; // Returnera den oförändrade användaren om ingen action matchar
 }
