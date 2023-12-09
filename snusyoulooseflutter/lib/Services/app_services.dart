@@ -13,14 +13,17 @@ Future<LoginResponse> loginRequest(String email, String password) async {
   };
   print(body);
   try {
-    final response = await http.post(Uri.parse(AppUrls.loginGateway),
-        headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
+    final response = await http
+        .post(Uri.parse(AppUrls.loginGateway),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(body))
+        .timeout(const Duration(seconds: 5));
 
     if (response.statusCode == 200) {
       print("this is the response: ${response.body} ");
       return LoginResponse.fromJson(jsonDecode(response.body));
     } else {
-      print("FAILED TO LOGIN loginRequest");
+      print("FAILED TO LOGIN loginRequest ESLE Line 23");
       throw Exception('Failed to login');
     }
   } catch (e) {
