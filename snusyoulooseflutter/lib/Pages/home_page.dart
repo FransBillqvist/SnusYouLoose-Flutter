@@ -24,18 +24,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<User> futureUser;
-  late Future<Habit> futureHabit;
-
-  @override
-  void initState() {
-    super.initState();
-    futureUser = fetchUserInfo('userId');
-    futureHabit = fetchUserHabit('userId');
-  }
-
   @override
   Widget build(BuildContext context) {
+    final store = StoreProvider.of<AppState>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: StoreConnector<AppState, List<Snuff>>(
