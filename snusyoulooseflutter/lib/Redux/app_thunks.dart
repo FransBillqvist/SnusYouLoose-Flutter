@@ -18,8 +18,9 @@ ThunkAction<AppState> doLogin(String email, String password) {
           loginResponse.UserId!); // Hämta användaruppgifter
       print("this is the userDetails: $userDetails ");
 
-      store.dispatch(SignInUserAction(
-          userDetails)); // Dispatcha SignInUserAction med användardetaljer
+      store.dispatch(SignInUserAction(userDetails));
+
+      // Dispatcha SignInUserAction med användardetaljer
     } catch (error) {
       SnackBar(
         content: Text('Error '),
