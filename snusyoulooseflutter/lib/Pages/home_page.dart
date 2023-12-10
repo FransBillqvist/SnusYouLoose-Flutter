@@ -84,40 +84,40 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<User> fetchUserInfo(String userId) async {
-    // Make API call with the authUserId
-    final response = await http.post(Uri.parse(AppUrls.fetchUserGateway),
-        body: {'authUserId': userId});
+  // Future<User> fetchUserInfo(String userId) async {
+  //   // Make API call with the authUserId
+  //   final response = await http.post(Uri.parse(AppUrls.fetchUserGateway),
+  //       body: {'authUserId': userId});
 
-    // Handle the response
-    if (response.statusCode == 200) {
-      // Successful login
-      final responseData = jsonDecode(response.body);
-      final user = User.fromJson(responseData);
-      print('Successfully fetched user info');
-      return user;
-    } else {
-      print('Failed to fetch user info');
-      throw Exception('Failed to fetch user info');
-    }
-  }
+  //   // Handle the response
+  //   if (response.statusCode == 200) {
+  //     // Successful login
+  //     final responseData = jsonDecode(response.body);
+  //     final user = User.fromJson(responseData);
+  //     print('Successfully fetched user info');
+  //     return user;
+  //   } else {
+  //     print('Failed to fetch user info');
+  //     throw Exception('Failed to fetch user info');
+  //   }
+  // }
 
-  Future<Habit> fetchUserHabit(String userId) async {
-    // Make API call with the authUserId
-    final response = await http.post(Uri.parse(AppUrls.fetchHabitGateway),
-        body: {'authUserId': userId});
+  // Future<Habit> fetchUserHabit(String userId) async {
+  //   // Make API call with the authUserId
+  //   final response = await http.post(Uri.parse(AppUrls.fetchHabitGateway),
+  //       body: {'authUserId': userId});
 
-    // Handle the response
-    if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
-      final habit = Habit.fromJson(responseData);
-      print('SUCCESFULLY fetched user habit');
-      return habit;
-    } else {
-      // Failed login
-      print('FAILED to fetch user habit');
-      throw Exception('Failed to fetch user habit');
-      // return Habit('','',-999,'','',-999,DateTime.parse('1970-01-12'),DateTime.parse('1970-01-12'),'','');
-    }
-  }
+  //   // Handle the response
+  //   if (response.statusCode == 200) {
+  //     final responseData = jsonDecode(response.body);
+  //     final habit = Habit.fromJson(responseData);
+  //     print('SUCCESFULLY fetched user habit');
+  //     return habit;
+  //   } else {
+  //     // Failed login
+  //     print('FAILED to fetch user habit');
+  //     throw Exception('Failed to fetch user habit');
+  //     // return Habit('','',-999,'','',-999,DateTime.parse('1970-01-12'),DateTime.parse('1970-01-12'),'','');
+  //   }
+  // }
 }
