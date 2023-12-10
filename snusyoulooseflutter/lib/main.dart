@@ -5,6 +5,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'Model/Snuff.dart';
 import 'Redux/app_state.dart';
 import 'Config/app_routes.dart';
+import 'Redux/app_middleware.dart';
 import 'Redux/reducer.dart';
 import 'Styles/app_colors.dart';
 
@@ -25,7 +26,7 @@ class MainApp extends StatelessWidget {
             "assets/images/general.png", 1, false),
       ],
     ),
-    middleware: [thunkMiddleware], // Lägg till thunkMiddleware här
+    middleware: [thunkMiddleware, loggingMiddleware],
   );
 
   MainApp({super.key});
