@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
@@ -27,20 +28,24 @@ Future<LoginResponse> loginRequest(String email, String password) async {
       throw Exception('Failed to login');
     }
   } catch (e) {
-    print("FAILED TO LOGIN loginRequest");
+    print("FAILED TO LOGIN loginRequest $e");
     throw Exception('Failed to login');
   }
 }
 
 Future<User> fetchUserDetails(String userId) async {
-  final response = await http.get(Uri.parse(AppUrls.fetchUserGateway + userId),
-      headers: {'Content-Type': 'application/json'});
-  print("This is the FetchUserDetails response: ${response.body} ");
-  if (response.statusCode == 200) {
-    final newUser = User.fromJson(jsonDecode(response.body));
-    print("YESSS SIIIR");
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to fetch user details');
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchUserGateway + userId),
+        headers: {'Content-Type': 'application/json'});
+    print("This is the FetchUserDetails response: ${response.body} ");
+    if (response.statusCode == 200) {
+      final newUser = User.fromJson(jsonDecode(response.body));
+      print("YESSS SIIIR");
+      return User.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    print("FAILED TO FETCH USER DETAILS $e");
   }
+  throw Exception('Failed to fetch user details');
 }
