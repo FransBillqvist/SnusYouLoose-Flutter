@@ -7,6 +7,11 @@ import 'app_state.dart';
 AppState appReducer(AppState state, action) {
   return AppState(
     snuffs: snuffReducer(state.snuffs, action),
+    selectedSnuff: snuffSelectedReducer(
+        state.selectedSnuff ??
+            Snuff("1", "Skruf", "Original Portion2", 50, 20,
+                "assets/images/skruf.png", 1, false),
+        action),
     habit: habitReducer(state.habit, action),
     user: userReducer(state.user, action),
   );
@@ -21,6 +26,13 @@ List<Snuff> snuffReducer(List<Snuff> snuffs, action) {
         .toList();
   }
   return snuffs; // Returnera den oförändrade listan om ingen action matchar
+}
+
+Snuff snuffSelectedReducer(Snuff state, dynamic action) {
+  if (action is SelectSnuffAction) {
+    return action.snuff;
+  }
+  return state;
 }
 
 Habit? habitReducer(Habit? habit, action) {
