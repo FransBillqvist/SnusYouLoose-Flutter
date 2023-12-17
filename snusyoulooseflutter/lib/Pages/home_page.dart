@@ -43,19 +43,23 @@ class _HomePageState extends State<HomePage> {
                 "SNUS",
                 style: TextStyle(color: AppColors.primary, fontSize: 48),
               ),
-              ...stateSnuff
-                  .map(
-                    (snuff) => SnuffWidget(
-                      snuff: snuff,
-                      onChanged: (onChange) {
-                        snuff.selected = !snuff.selected;
-                        StoreProvider.of<AppState>(context)
-                            .dispatch(UpdateSnuffAction(snuff));
-                      },
-                      key: ValueKey(snuff.id),
-                    ),
-                  )
-                  .toList(),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: SnuffWidget(snuffs: stateSnuff)),
+              // ...stateSnuff
+              //     .map(
+              //       (snuff) => SnuffWidget(
+              //         snuffs: snuff,
+              //         onChanged: (onChange) {
+              //           snuff.selected = !snuff.selected;
+              //           StoreProvider.of<AppState>(context)
+              //               .dispatch(UpdateSnuffAction(snuff));
+              //         },
+              //         key: ValueKey(snuff.id),
+              //       ),
+              //     )
+              //     .toList(),
               ElevatedButton(
                 onPressed: () async {
                   var store = StoreProvider.of<AppState>(context);
