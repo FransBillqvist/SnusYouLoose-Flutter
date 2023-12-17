@@ -25,3 +25,9 @@ class SignOutUserAction {
 
   SignOutUserAction(this.user);
 }
+
+class SelectSnuffAction {
+  final Snuff snuff;
+
+  SelectSnuffAction(this.snuff);
+}
