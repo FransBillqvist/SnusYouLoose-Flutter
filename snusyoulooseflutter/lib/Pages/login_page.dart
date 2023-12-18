@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:snusyoulooseflutter/Widgets/image_widiget.dart';
 
 import '../Components/app_iconbutton.dart';
 import '../Components/app_textfield.dart';
@@ -120,14 +121,12 @@ class _LoginPageState extends State<LoginPage>
                         onPressed: () async {
                           var store = StoreProvider.of<AppState>(context);
                           var current = store.state;
-                          // print(current.user);
-                          // print("Line Is 124");
                           if (current.user != null) {
                             Navigator.of(context)
                                 .pushReplacementNamed(AppRoutes.home);
                           } else {
                             store.dispatch(
-                                doLogin(usernamefield, passwordfield));
+                                doLogin(usernamefield, passwordfield, context));
                           }
                         },
                         child: Text(AppStrings.login),
