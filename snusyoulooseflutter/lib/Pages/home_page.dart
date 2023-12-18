@@ -43,10 +43,13 @@ class _HomePageState extends State<HomePage> {
                 "SNUS",
                 style: TextStyle(color: AppColors.primary, fontSize: 48),
               ),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  child: SnuffWidget(snuffs: stateSnuff)),
+              Padding(
+                padding: const EdgeInsets.only(left: 55),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.74,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: SnuffWidget(snuffs: stateSnuff)),
+              ),
               // ...stateSnuff
               //     .map(
               //       (snuff) => SnuffWidget(
@@ -68,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                   // print("Line Is 124");
                   if (current.user != null) {
                     store.dispatch(SignOutUserAction(current.user!));
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
                   } else {
                     Navigator.of(context).pushReplacementNamed(AppRoutes.login);
                   }
