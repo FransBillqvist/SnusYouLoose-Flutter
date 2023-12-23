@@ -127,6 +127,7 @@ class _LoginPageState extends State<LoginPage>
                           } else {
                             store.dispatch(
                                 doLogin(usernamefield, passwordfield, context));
+                            PWController.clear();
                           }
                         },
                         child: Text(AppStrings.login),
