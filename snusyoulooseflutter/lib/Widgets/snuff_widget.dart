@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:snusyoulooseflutter/Redux/app_state.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
+import '../Config/app_strings.dart';
 import '../Model/Snuff.dart';
 import '../Redux/actions.dart';
 import 'image_widiget.dart';
@@ -41,24 +42,34 @@ class _SnuffWidgetState extends State<SnuffWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        PageView.builder(
-          itemCount: widget.snuffs.length,
-          itemBuilder: (context, index) {
-            final snuff = widget.snuffs[index];
-            return Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: ImageWidget(
-                imageUrl: snuff.ImageUrl,
-                width: 250,
-                height: 250,
-                fit: BoxFit.scaleDown,
-              ),
-            );
-          },
-        ),
-      ],
+    final store = StoreProvider.of<AppState>(context);
+    return StoreProvider<AppState>(
+      store: store, // replace 'store' with your actual Store<AppState> instance
+      child: Stack(
+        children: [
+          PageView.builder(
+            itemCount: widget.snuffs.length,
+            itemBuilder: (context, index) {
+              final snuff = widget.snuffs[index];
+              if (store.state.snuffs.isNotEmpty) {
+                print("Snuff is Empty: False");
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: ImageWidget(
+                    imageUrl: snuff.ImageUrl,
+                    width: 250,
+                    height: 250,
+                    fit: BoxFit.scaleDown,
+                  ),
+                );
+              } else {
+                print("Snuff is Empty: True");
+                return const Text(AppStrings.noInventory);
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
