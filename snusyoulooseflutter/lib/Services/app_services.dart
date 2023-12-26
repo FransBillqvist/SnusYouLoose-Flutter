@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
+import '../Model/CurrentSnuff.dart';
+import '../Model/Snuff.dart';
 import '/Model/User.dart';
 import '/Model/LoginResponse.dart';
 import '/Config/app_urls.dart';
@@ -48,4 +50,21 @@ Future<User> fetchUserDetails(String userId) async {
     print("FAILED TO FETCH USER DETAILS $e");
   }
   throw Exception('Failed to fetch user details');
+}
+
+Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchUsersInventory + userId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchUsersInventory response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final inventory = jsonDecode(response.body) as List<dynamic>;
+      print('This is the inventory: $inventory');
+      return inventory.map((item) => CurrentSnuff.fromJson(item)).toList();
+    }
+  } catch (err) {
+    print('FAILED TO FETCH USERS INVENTORY $err');
+  }
+  throw Exception('Failed to fetch users inventory');
 }
