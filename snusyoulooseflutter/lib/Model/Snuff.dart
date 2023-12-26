@@ -12,16 +12,17 @@ class Snuff {
 
   Snuff(this.id, this.Brand, this.Type, this.Price, this.DefaultAmount,
       this.ImageUrl, this.Size, this.selected);
-}
+  factory Snuff.fromJson(Map<String, dynamic> json) {
+    var id = json['id'];
+    var Brand = json['Brand'];
+    var Type = json['Type'];
+    var Price = json['Price'];
+    var DefaultAmount = json['DefaultAmount'];
+    var ImageUrl = json['ImageUrl'];
+    var Size = json['Size'];
+    var selected = json['selected'];
 
-class BoughtSnuff {
-  Snuff snuff;
-  DateTime BoughtDate;
-  DateTime FirstDoseDate;
-  int AmountLeft;
-  bool InUse;
-  bool Empty;
-
-  BoughtSnuff(this.snuff, this.BoughtDate, this.FirstDoseDate, this.AmountLeft,
-      this.InUse, this.Empty);
+    return Snuff(
+        id, Brand, Type, Price, DefaultAmount, ImageUrl, Size, selected);
+  }
 }
