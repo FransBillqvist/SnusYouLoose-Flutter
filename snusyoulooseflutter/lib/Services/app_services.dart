@@ -68,3 +68,19 @@ Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
   }
   throw Exception('Failed to fetch users inventory');
 }
+
+Future<Snuff> fetchSnuffDetails(String snuffId) async {
+  try {
+    final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchSnuffDetails response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final snuff = Snuff.fromJson(jsonDecode(response.body));
+      print('This is the snuff: $snuff');
+      return Snuff.fromJson(jsonDecode(response.body));
+    }
+  } catch (err) {
+    print('FAILED TO FETCH SNUFF DETAILS $err');
+  }
+  throw Exception('Failed to fetch snuff details');
+}
