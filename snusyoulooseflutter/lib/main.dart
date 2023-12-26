@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
   final Store<AppState> _store = Store<AppState>(
     appReducer,
     initialState: AppState(
-      snuffs: [],
+      inventorySnuffs: [],
     ),
     middleware: [thunkMiddleware, loggingMiddleware],
   );
