@@ -1,3 +1,4 @@
+import '../Model/CurrentSnuff.dart';
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
@@ -17,10 +18,10 @@ AppState appReducer(AppState state, action) {
   );
 }
 
-List<Snuff> snuffReducer(List<Snuff> snuffs, action) {
+List<CurrentSnuff> snuffReducer(List<CurrentSnuff> snuffs, action) {
   if (action is UpdateSnuffAction) {
     return snuffs
-        .map((snuff) => snuff.Type == action.updatedSnuff.Type
+        .map((snuff) => snuff.snusId == action.updatedSnuff.snusId
             ? action.updatedSnuff
             : snuff)
         .toList();
