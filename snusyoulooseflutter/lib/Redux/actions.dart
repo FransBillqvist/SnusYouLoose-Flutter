@@ -1,9 +1,11 @@
+import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
+
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
 
 class UpdateSnuffAction {
-  final Snuff updatedSnuff;
+  final CurrentSnuff updatedSnuff;
 
   UpdateSnuffAction(this.updatedSnuff);
 }
