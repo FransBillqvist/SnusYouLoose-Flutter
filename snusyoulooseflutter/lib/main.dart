@@ -17,35 +17,7 @@ class MainApp extends StatelessWidget {
   final Store<AppState> _store = Store<AppState>(
     appReducer,
     initialState: AppState(
-      snuffs: [
-        Snuff(
-            "56",
-            "Skruf",
-            "Nordic Liquorice",
-            47,
-            20,
-            "https://media.snusbolaget.se/snusbolaget/images/302187-g-2022-11-16-140021849/555/555/2/skruf-super-white-nordic-liquorice.png",
-            200,
-            false),
-        Snuff(
-            "7",
-            "General",
-            "Strong Slim White Portion",
-            39,
-            20,
-            "https://media.snusbolaget.se/snusbolaget/images/201279-g-2023-11-20-141059496/555/555/2/xr-general-strong-slim-white-portion.png",
-            200,
-            false),
-        Snuff(
-            "8",
-            "Grov",
-            "Original Portion",
-            47,
-            20,
-            "https://cdn.cdon.com/media-dynamic/images/product/cloud/store/Tobacco/000/042/375/402/91026774-172230647-11453-org.jpg?cache=133318297422833596&impolicy=product&width=",
-            200,
-            false),
-      ],
+      snuffs: [],
     ),
     middleware: [thunkMiddleware, loggingMiddleware],
   );
