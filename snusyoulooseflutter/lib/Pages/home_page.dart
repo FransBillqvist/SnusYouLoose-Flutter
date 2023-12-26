@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
+import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
 import 'package:snusyoulooseflutter/Model/User.dart';
 import 'package:snusyoulooseflutter/Redux/actions.dart';
 
@@ -30,9 +31,9 @@ class _HomePageState extends State<HomePage> {
     final store = StoreProvider.of<AppState>(context);
     return Scaffold(
       body: SingleChildScrollView(
-        child: StoreConnector<AppState, List<Snuff>>(
-          converter: (store) => store.state.snuffs,
-          builder: (context, List<Snuff> stateSnuff) => Column(
+        child: StoreConnector<AppState, List<CurrentSnuff>>(
+          converter: (store) => store.state.inventorySnuffs,
+          builder: (context, List<CurrentSnuff> stateSnuff) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
