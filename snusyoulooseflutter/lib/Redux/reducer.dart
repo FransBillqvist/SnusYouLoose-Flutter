@@ -7,7 +7,7 @@ import 'app_state.dart';
 
 AppState appReducer(AppState state, action) {
   return AppState(
-    snuffs: snuffReducer(state.snuffs, action),
+    inventorySnuffs: snuffReducer(state.inventorySnuffs, action),
     selectedSnuff: snuffSelectedReducer(
         state.selectedSnuff ??
             Snuff("1", "Skruf", "Original Portion2", 50, 20,
