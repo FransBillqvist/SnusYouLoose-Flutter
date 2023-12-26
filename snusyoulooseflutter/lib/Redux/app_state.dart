@@ -1,9 +1,11 @@
+import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
+
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
 
 class AppState {
-  List<Snuff> snuffs;
+  List<CurrentSnuff> snuffs;
   Snuff? selectedSnuff;
   Habit? habit;
   User? user;
