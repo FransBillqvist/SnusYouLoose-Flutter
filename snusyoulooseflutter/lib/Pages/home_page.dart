@@ -1,22 +1,14 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:http/http.dart' as http;
 import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
-import 'package:snusyoulooseflutter/Model/User.dart';
 import 'package:snusyoulooseflutter/Redux/actions.dart';
+import 'package:snusyoulooseflutter/Widgets/inventory_widget.dart';
 
-import '../Components/app_iconbutton.dart';
 import '../Config/app_strings.dart';
-import '../Model/Habit.dart';
-import '../Model/Snuff.dart';
 import '../Redux/app_state.dart';
+import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
-import '../Config/app_media.dart';
 import '../Config/app_routes.dart';
-import '../Config/app_urls.dart';
-import '../Widgets/snuff_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final store = StoreProvider.of<AppState>(context);
+    final userid = store.state.user?.UserId.toString();
+    store.dispatch(getSnuffInventory(userid!));
     return Scaffold(
       body: SingleChildScrollView(
         child: StoreConnector<AppState, List<CurrentSnuff>>(
@@ -49,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.74,
                     height: MediaQuery.of(context).size.height * 0.4,
-                    child: SnuffWidget(snuffs: stateSnuff)),
+                    child: InventoryWidget(currentSnuffs: stateSnuff)),
               ),
               // ...stateSnuff
               //     .map(

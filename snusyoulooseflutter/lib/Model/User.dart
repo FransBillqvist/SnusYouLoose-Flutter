@@ -1,17 +1,30 @@
 class User {
   final String? Password;
+
   final String? Avatar;
+
   final String? Location;
+
   final String? UserId;
+
   final String? UserName;
+
   final String? Email;
+
   final String? Mobile;
+
   final String? FirstName;
+
   final String? LastName;
+
   final String? BirthDate;
+
   final String? Gender;
+
   final String? Id;
+
   final DateTime? CreatedAtUtc;
+
   final String? StringCreatedAtUtc;
 
   User(
@@ -31,23 +44,42 @@ class User {
       this.StringCreatedAtUtc);
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        json['Password'] as String?,
-        json['Avatar'] as String?,
-        json['Location'] as String?,
-        json['UserId'] as String?,
-        json['UserName'] as String?,
-        json['Email'] as String?,
-        json['Mobile'] as String?, // Ändrad från 'Mobil'
-        json['FirstName'] as String?,
-        json['LastName'] as String?,
-        json['BirthDate'] as String?,
-        json['Gender'] as String?,
-        json['Id'] as String?,
-        json['CreatedAtUtc'] == null
+        json['password'] as String?,
+        json['avatar'] as String?,
+        json['location'] as String?,
+        json['userId'] as String?,
+        json['userName'] as String?,
+        json['email'] as String?,
+        json['mobile'] as String?,
+        json['firstName'] as String?,
+        json['lastName'] as String?,
+        json['birthDate'] as String?,
+        json['gender'] as String?,
+        json['id'] as String?,
+        json['createdAtUtc'] == null
             ? null
-            : DateTime.parse(json['CreatedAtUtc']),
-        json['StringCreatedAtUtc'] as String?,
+            : DateTime.parse(json['createdAtUtc']),
+        json['stringCreatedAtUtc'] as String?,
       );
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['userId'] = this.UserId;
+  //   data['username'] = this.UserName;
+  //   data['firstName'] = this.FirstName;
+  //   data['lastName'] = this.LastName;
+  //   data['mobile'] = this.Mobile;
+  //   data['birthDate'] = this.BirthDate;
+  //   data['gender'] = this.Gender;
+  //   data['location'] = this.Location;
+  //   data['password'] = this.Password;
+  //   data['avatar'] = this.Avatar;
+  //   data['email'] = this.Email;
+  //   data['id'] = this.Id;
+  //   data['createdAtUtc'] = this.CreatedAtUtc;
+  //   data['stringCreatedAtUtc'] = this.StringCreatedAtUtc;
+  //   return data;
+  // }
 
   // factory User.fromJson(Map<String, dynamic> json) => User(
   //       json['Password'],

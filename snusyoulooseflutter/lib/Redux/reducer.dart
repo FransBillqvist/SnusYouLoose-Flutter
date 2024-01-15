@@ -7,11 +7,11 @@ import 'app_state.dart';
 
 AppState appReducer(AppState state, action) {
   return AppState(
-    inventorySnuffs: snuffReducer(state.inventorySnuffs, action),
+    inventorySnuffs: fetchInventoryReducer(state.inventorySnuffs, action),
     selectedSnuff: snuffSelectedReducer(
         state.selectedSnuff ??
             Snuff("1", "Skruf", "Original Portion2", 50, 20,
-                "assets/images/skruf.png", 1, false),
+                "assets/images/skruf.png", 1),
         action),
     habit: habitReducer(state.habit, action),
     user: userReducer(state.user, action),
@@ -54,6 +54,13 @@ User? userReducer(User? user, action) {
     return null;
   }
   return user; // Returnera den oförändrade användaren om ingen action matchar
+}
+
+List<CurrentSnuff> fetchInventoryReducer(List<CurrentSnuff> inventory, action) {
+  if (action is FetchInventoryAction) {
+    return action.inventory;
+  }
+  return inventory;
 }
 
 

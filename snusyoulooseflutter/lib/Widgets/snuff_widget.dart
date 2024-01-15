@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:snusyoulooseflutter/Redux/app_state.dart';
+import 'package:snusyoulooseflutter/Services/app_services.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
 import '../Config/app_strings.dart';
+import '../Model/CurrentSnuff.dart';
 import '../Model/Snuff.dart';
 import '../Redux/actions.dart';
-import 'image_widiget.dart';
+import 'image_widget.dart';
 
 class SnuffWidget extends StatefulWidget {
-  final List<Snuff> snuffs;
+  final List<CurrentSnuff> snuffs;
   SnuffWidget({required this.snuffs});
 
   @override
@@ -44,35 +46,76 @@ class _SnuffWidgetState extends State<SnuffWidget>
   Widget build(BuildContext context) {
     final store = StoreProvider.of<AppState>(context);
     return StoreProvider<AppState>(
-      store: store, // replace 'store' with your actual Store<AppState> instance
+      store: store,
       child: Stack(
         children: [
           PageView.builder(
             itemCount: widget.snuffs.length,
             itemBuilder: (context, index) {
               final snuff = widget.snuffs[index];
-              if (store.state.snuffs.isNotEmpty) {
-                print("Snuff is Empty: False");
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: ImageWidget(
-                    imageUrl: snuff.ImageUrl,
-                    width: 250,
-                    height: 250,
-                    fit: BoxFit.scaleDown,
-                  ),
-                );
-              } else {
-                print("Snuff is Empty: True");
-                return const Text(AppStrings.noInventory);
-              }
+              return FutureBuilder<Snuff>(
+                future: fetchSnuffDetails(snuff.snusId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator(); // or some other placeholder
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    final snuffsort = snapshot.data;
+                    if (store.state.inventorySnuffs.isNotEmpty) {
+                      print("Snuff is Empty: False");
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: ImageWidget(
+                          imageUrl: snuffsort!.ImageUrl,
+                          width: 250,
+                          height: 250,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      );
+                    } else {
+                      print("Snuff is Empty: True");
+                      return const Text(AppStrings.noInventory);
+                    }
+                  }
+                },
+              );
             },
-          ),
+          )
         ],
       ),
     );
   }
 }
+
+
+
+          //         PageView.builder(
+          //           itemCount: widget.snuffs.length,
+          //           itemBuilder: (context, index)  {
+          //             final snuff = widget.snuffs[index];
+          //             final snuffsort = fetchSnuffDetails(snuff.snusId);
+          //             if (store.state.inventorySnuffs.isNotEmpty) {
+          //               print("Snuff is Empty: False");
+          //               return SizedBox(
+          //                 width: MediaQuery.of(context).size.width * 0.8,
+          //                 child: ImageWidget(
+          //                   imageUrl: snuffsort.ImageUrl,
+          //                   width: 250,
+          //                   height: 250,
+          //                   fit: BoxFit.scaleDown,
+          //                 ),
+          //               );
+          //             } else {
+          //               print("Snuff is Empty: True");
+          //               return const Text(AppStrings.noInventory);
+          //             }
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //   );
+          // }
 
 
 // class SnuffWidget extends StatefulWidget {

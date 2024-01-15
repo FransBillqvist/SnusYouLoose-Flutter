@@ -31,3 +31,14 @@ ThunkAction<AppState> doLogin(
     }
   };
 }
+
+ThunkAction<AppState> getSnuffInventory(String userId) {
+  return (Store<AppState> store) async {
+    try {
+      final snuffInventory = await fetchUsersInventory(userId);
+      store.dispatch(FetchInventoryAction(snuffInventory));
+    } catch (error) {
+      print(error);
+    }
+  };
+}

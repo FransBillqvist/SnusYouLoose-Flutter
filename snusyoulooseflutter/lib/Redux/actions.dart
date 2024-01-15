@@ -33,3 +33,9 @@ class SelectSnuffAction {
 
   SelectSnuffAction(this.snuff);
 }
+
+class FetchInventoryAction {
+  final List<CurrentSnuff> inventory;
+
+  FetchInventoryAction(this.inventory);
+}

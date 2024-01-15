@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
@@ -43,8 +44,9 @@ Future<User> fetchUserDetails(String userId) async {
     print("This is the FetchUserDetails response: ${response.body} ");
     if (response.statusCode == 200) {
       final newUser = User.fromJson(jsonDecode(response.body));
-      print("YESSS SIIIR");
-      return User.fromJson(jsonDecode(response.body));
+      print("This is the newUser: $newUser");
+      inspect(newUser);
+      return newUser;
     }
   } catch (e) {
     print("FAILED TO FETCH USER DETAILS $e");
@@ -59,9 +61,13 @@ Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
         headers: {'Content-Type': 'application/json'});
     print('This is the fetchUsersInventory response: ${response.body} ');
     if (response.statusCode == 200) {
-      final inventory = jsonDecode(response.body) as List<dynamic>;
+      final inventory = jsonDecode(response.body);
       print('This is the inventory: $inventory');
-      return inventory.map((item) => CurrentSnuff.fromJson(item)).toList();
+      inspect(inventory);
+      var result = List<CurrentSnuff>.from(
+          inventory.map((x) => CurrentSnuff.fromJson(x))).toList();
+      return result;
+      // return inventory as List<CurrentSnuff>;
     }
   } catch (err) {
     print('FAILED TO FETCH USERS INVENTORY $err');
@@ -75,8 +81,9 @@ Future<Snuff> fetchSnuffDetails(String snuffId) async {
         headers: {'Content-Type': 'application/json'});
     print('This is the fetchSnuffDetails response: ${response.body} ');
     if (response.statusCode == 200) {
-      final snuff = Snuff.fromJson(jsonDecode(response.body));
+      final snuff = jsonDecode(response.body) as List<dynamic>;
       print('This is the snuff: $snuff');
+
       return Snuff.fromJson(jsonDecode(response.body));
     }
   } catch (err) {
