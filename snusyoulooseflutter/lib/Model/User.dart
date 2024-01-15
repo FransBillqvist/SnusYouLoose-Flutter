@@ -1,30 +1,17 @@
 class User {
   final String? Password;
-
   final String? Avatar;
-
   final String? Location;
-
   final String? UserId;
-
   final String? UserName;
-
   final String? Email;
-
   final String? Mobile;
-
   final String? FirstName;
-
   final String? LastName;
-
   final String? BirthDate;
-
   final String? Gender;
-
   final String? Id;
-
   final DateTime? CreatedAtUtc;
-
   final String? StringCreatedAtUtc;
 
   User(
