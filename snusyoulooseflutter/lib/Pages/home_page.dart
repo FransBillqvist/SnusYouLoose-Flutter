@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
-import 'package:snusyoulooseflutter/Redux/actions.dart';
-import 'package:snusyoulooseflutter/Widgets/inventory_widget.dart';
 
+import '../Redux/actions.dart';
+import '../Model/CurrentSnuff.dart';
+import '../Widgets/inventory_widget.dart';
 import '../Config/app_strings.dart';
+import '../Model/CurrentSnuffDto.dart';
 import '../Redux/app_state.dart';
 import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
@@ -25,9 +26,9 @@ class _HomePageState extends State<HomePage> {
     store.dispatch(getSnuffInventory(userid!));
     return Scaffold(
       body: SingleChildScrollView(
-        child: StoreConnector<AppState, List<CurrentSnuff>>(
+        child: StoreConnector<AppState, List<CurrentSnuffDto>>(
           converter: (store) => store.state.inventorySnuffs,
-          builder: (context, List<CurrentSnuff> stateSnuff) => Column(
+          builder: (context, List<CurrentSnuffDto> stateSnuff) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
