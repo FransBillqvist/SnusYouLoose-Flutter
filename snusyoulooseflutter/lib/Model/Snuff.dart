@@ -30,21 +30,21 @@ class Snuff {
         // json['selected'] as bool,
       );
 
-  static Future<Snuff> fetchSnuffDetails(String snuffId) async {
-    try {
-      final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
-          headers: {'Content-Type': 'application/json'});
-      print('This is the fetchSnuffDetails response: ${response.body} ');
-      if (response.statusCode == 200) {
-        final snuff = jsonDecode(response.body);
-        print('This is the snuff: $snuff');
-        inspect(snuff);
+  // static Future<Snuff> fetchSnuffDetails(String snuffId) async {
+  //   try {
+  //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
+  //         headers: {'Content-Type': 'application/json'});
+  //     print('This is the fetchSnuffDetails response: ${response.body} ');
+  //     if (response.statusCode == 200) {
+  //       final snuff = jsonDecode(response.body);
+  //       print('This is the snuff: $snuff');
+  //       inspect(snuff);
 
-        return Snuff.fromJson(jsonDecode(response.body));
-      }
-    } catch (err) {
-      print('FAILED TO FETCH SNUFF DETAILS $err');
-    }
-    throw Exception('Failed to fetch snuff details');
-  }
+  //       return Snuff.fromJson(jsonDecode(response.body));
+  //     }
+  //   } catch (err) {
+  //     print('FAILED TO FETCH SNUFF DETAILS $err');
+  //   }
+  //   throw Exception('Failed to fetch snuff details');
+  // }
 }
