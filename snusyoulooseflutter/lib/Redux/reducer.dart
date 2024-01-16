@@ -1,4 +1,5 @@
 import '../Model/CurrentSnuff.dart';
+import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
@@ -29,6 +30,13 @@ List<CurrentSnuff> snuffReducer(List<CurrentSnuff> snuffs, action) {
   return snuffs; // Returnera den oförändrade listan om ingen action matchar
 }
 
+List<Snuff> snuffDetailsReducer(List<Snuff> snuffs, action) {
+  if (action is FetchSnuffDetailsAction) {
+    return action.snuffs;
+  }
+  return snuffs;
+}
+
 Snuff snuffSelectedReducer(Snuff state, dynamic action) {
   if (action is SelectSnuffAction) {
     return action.snuff;
@@ -56,7 +64,8 @@ User? userReducer(User? user, action) {
   return user; // Returnera den oförändrade användaren om ingen action matchar
 }
 
-List<CurrentSnuff> fetchInventoryReducer(List<CurrentSnuff> inventory, action) {
+List<CurrentSnuffDto> fetchInventoryReducer(
+    List<CurrentSnuffDto> inventory, action) {
   if (action is FetchInventoryAction) {
     return action.inventory;
   }
