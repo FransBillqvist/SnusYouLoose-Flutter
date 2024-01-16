@@ -1,5 +1,6 @@
 import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
 
+import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
@@ -35,7 +36,13 @@ class SelectSnuffAction {
 }
 
 class FetchInventoryAction {
-  final List<CurrentSnuff> inventory;
+  final List<CurrentSnuffDto> inventory;
 
   FetchInventoryAction(this.inventory);
+}
+
+class FetchSnuffDetailsAction {
+  final List<Snuff> snuffs;
+
+  FetchSnuffDetailsAction(this.snuffs);
 }
