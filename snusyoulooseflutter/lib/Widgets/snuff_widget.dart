@@ -1,92 +1,92 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:snusyoulooseflutter/Redux/app_state.dart';
-import 'package:snusyoulooseflutter/Services/app_services.dart';
-import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_redux/flutter_redux.dart';
+// import 'package:snusyoulooseflutter/Redux/app_state.dart';
+// import 'package:snusyoulooseflutter/Services/app_services.dart';
+// import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
-import '../Config/app_strings.dart';
-import '../Model/CurrentSnuff.dart';
-import '../Model/Snuff.dart';
-import '../Redux/actions.dart';
-import 'image_widget.dart';
+// import '../Config/app_strings.dart';
+// import '../Model/CurrentSnuff.dart';
+// import '../Model/Snuff.dart';
+// import '../Redux/actions.dart';
+// import 'image_widget.dart';
 
-class SnuffWidget extends StatefulWidget {
-  final List<CurrentSnuff> snuffs;
-  SnuffWidget({required this.snuffs});
+// class SnuffWidget extends StatefulWidget {
+//   final List<CurrentSnuff> snuffs;
+//   SnuffWidget({required this.snuffs});
 
-  @override
-  _SnuffWidgetState createState() => _SnuffWidgetState();
-}
+//   @override
+//   _SnuffWidgetState createState() => _SnuffWidgetState();
+// }
 
-class _SnuffWidgetState extends State<SnuffWidget>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _animation;
+// class _SnuffWidgetState extends State<SnuffWidget>
+//     with SingleTickerProviderStateMixin {
+//   late final AnimationController _controller;
+//   late final Animation<double> _animation;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = AnimationController(
+//       duration: const Duration(seconds: 1),
+//       vsync: this,
+//     )..repeat(reverse: true);
+//     _animation = CurvedAnimation(
+//       parent: _controller,
+//       curve: Curves.easeIn,
+//     );
+//   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    final store = StoreProvider.of<AppState>(context);
-    return StoreProvider<AppState>(
-      store: store,
-      child: Stack(
-        children: [
-          PageView.builder(
-            itemCount: widget.snuffs.length,
-            itemBuilder: (context, index) {
-              final snuff = widget.snuffs[index];
-              return FutureBuilder<Snuff>(
-                future: fetchSnuffDetails(snuff.snusId),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // or some other placeholder
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    final snuffsort = snapshot.data;
-                    if (store.state.inventorySnuffs.isNotEmpty) {
-                      print("Snuff is Empty: False");
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: ImageWidget(
-                          imageUrl: snuffsort!.ImageUrl,
-                          width: 250,
-                          height: 250,
-                          fit: BoxFit.scaleDown,
-                        ),
-                      );
-                    } else {
-                      print("Snuff is Empty: True");
-                      return const Text(AppStrings.noInventory);
-                    }
-                  }
-                },
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final store = StoreProvider.of<AppState>(context);
+//     return StoreProvider<AppState>(
+//       store: store,
+//       child: Stack(
+//         children: [
+//           PageView.builder(
+//             itemCount: widget.snuffs.length,
+//             itemBuilder: (context, index) {
+//               final snuff = widget.snuffs[index];
+//               return FutureBuilder<Snuff>(
+//                 future: fetchSnuffDetails(snuff.snusId),
+//                 builder: (context, snapshot) {
+//                   if (snapshot.connectionState == ConnectionState.waiting) {
+//                     return const CircularProgressIndicator(); // or some other placeholder
+//                   } else if (snapshot.hasError) {
+//                     return Text('Error: ${snapshot.error}');
+//                   } else {
+//                     final snuffsort = snapshot.data;
+//                     if (store.state.inventorySnuffs.isNotEmpty) {
+//                       print("Snuff is Empty: False");
+//                       return SizedBox(
+//                         width: MediaQuery.of(context).size.width * 0.8,
+//                         child: ImageWidget(
+//                           imageUrl: snuffsort!.ImageUrl,
+//                           width: 250,
+//                           height: 250,
+//                           fit: BoxFit.scaleDown,
+//                         ),
+//                       );
+//                     } else {
+//                       print("Snuff is Empty: True");
+//                       return const Text(AppStrings.noInventory);
+//                     }
+//                   }
+//                 },
+//               );
+//             },
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 
 
