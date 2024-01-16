@@ -35,7 +35,7 @@ ThunkAction<AppState> doLogin(
 ThunkAction<AppState> getSnuffInventory(String userId) {
   return (Store<AppState> store) async {
     try {
-      final snuffInventory = await fetchUsersInventory(userId);
+      final snuffInventory = await fetchUsersInventoryService(userId);
       store.dispatch(FetchInventoryAction(snuffInventory));
     } catch (error) {
       print(error);
