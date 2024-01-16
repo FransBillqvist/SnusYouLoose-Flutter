@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 import '../Model/CurrentSnuff.dart';
+import '../Model/CurrentSnuffDto.dart';
 import '../Model/Snuff.dart';
 import '/Model/User.dart';
 import '/Model/LoginResponse.dart';
@@ -54,7 +55,7 @@ Future<User> fetchUserDetails(String userId) async {
   throw Exception('Failed to fetch user details');
 }
 
-Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
+Future<List<CurrentSnuffDto>> fetchUsersInventoryService(String userId) async {
   try {
     final response = await http.get(
         Uri.parse(AppUrls.fetchUsersInventory + userId),
@@ -64,8 +65,8 @@ Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
       final inventory = jsonDecode(response.body);
       print('This is the inventory: $inventory');
       inspect(inventory);
-      var result = List<CurrentSnuff>.from(
-          inventory.map((x) => CurrentSnuff.fromJson(x))).toList();
+      var result = List<CurrentSnuffDto>.from(
+          inventory.map((x) => CurrentSnuffDto.fromJson(x))).toList();
       return result;
       // return inventory as List<CurrentSnuff>;
     }
@@ -75,19 +76,19 @@ Future<List<CurrentSnuff>> fetchUsersInventory(String userId) async {
   throw Exception('Failed to fetch users inventory');
 }
 
-Future<Snuff> fetchSnuffDetails(String snuffId) async {
-  try {
-    final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
-        headers: {'Content-Type': 'application/json'});
-    print('This is the fetchSnuffDetails response: ${response.body} ');
-    if (response.statusCode == 200) {
-      final snuff = jsonDecode(response.body) as List<dynamic>;
-      print('This is the snuff: $snuff');
+// Future<Snuff> fetchSnuffDetails(String snuffId) async {
+//   try {
+//     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
+//         headers: {'Content-Type': 'application/json'});
+//     print('This is the fetchSnuffDetails response: ${response.body} ');
+//     if (response.statusCode == 200) {
+//       final snuff = jsonDecode(response.body) as List<dynamic>;
+//       print('This is the snuff: $snuff');
 
-      return Snuff.fromJson(jsonDecode(response.body));
-    }
-  } catch (err) {
-    print('FAILED TO FETCH SNUFF DETAILS $err');
-  }
-  throw Exception('Failed to fetch snuff details');
-}
+//       return Snuff.fromJson(jsonDecode(response.body));
+//     }
+//   } catch (err) {
+//     print('FAILED TO FETCH SNUFF DETAILS $err');
+//   }
+//   throw Exception('Failed to fetch snuff details');
+// }
