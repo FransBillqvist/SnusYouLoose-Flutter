@@ -42,3 +42,14 @@ ThunkAction<AppState> getSnuffInventory(String userId) {
     }
   };
 }
+
+ThunkAction<AppState> getUserHabit(String userId, BuildContext context) {
+  return (Store<AppState> store) async {
+    try {
+      final userHabit = await fetchUserHabitService(userId, context);
+      store.dispatch(FetchHabitsAction(userHabit));
+    } catch (error) {
+      print(error);
+    }
+  };
+}
