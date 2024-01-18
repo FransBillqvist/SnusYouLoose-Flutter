@@ -1,4 +1,5 @@
 import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
+import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
@@ -12,9 +13,15 @@ class UpdateSnuffAction {
 }
 
 class CreateHabitAction {
-  final Habit habit;
+  final HabitDto habit;
 
   CreateHabitAction(this.habit);
+}
+
+class FetchHabitsAction {
+  final HabitDto habits;
+
+  FetchHabitsAction(this.habits);
 }
 
 class SignInUserAction {
