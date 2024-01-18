@@ -9,6 +9,9 @@ class Habit {
   DateTime EndDate;
   String StringStartDate;
   String StringEndDate;
+  String Id;
+  DateTime? CreatedAtUtc;
+  String StringCreatedAtUtc;
 
   Habit(
       this.UserId,
@@ -20,31 +23,39 @@ class Habit {
       this.StartDate,
       this.EndDate,
       this.StringStartDate,
-      this.StringEndDate);
+      this.StringEndDate,
+      this.Id,
+      this.CreatedAtUtc,
+      this.StringCreatedAtUtc);
 
-  factory Habit.fromJson(Map<String, dynamic> json) {
-    var userid = json['UserId'];
-    var doseType = json['DoseType'];
-    var doseAmount = json['DoseAmount'];
-    var progressionType = json['ProgressionType'];
-    var speed = json['Speed'];
-    var numberOfHoursPerDay = json['NumberOfHoursPerDay'];
-    var startDate = DateTime.parse(json['StartDate']);
-    var endDate = DateTime.parse(json['EndDate']);
-    var stringStartDate = json['StringStartDate'];
-    var stringEndDate = json['StringEndDate'];
+  factory Habit.fromJson(Map<String, dynamic> json) => Habit(
+        json['userId'] as String,
+        json['doseType'] as String,
+        json['doseAmount'] as int,
+        json['progressionType'] as String,
+        json['speed'] as String,
+        json['numberOfHoursPerDay'] as int,
+        DateTime.parse(json['startDate']),
+        DateTime.parse(json['endDate']),
+        json['stringStartDate'] as String,
+        json['stringEndDate'] as String,
+        json['id'] as String,
+        json['createdAtUtc'] == null
+            ? null
+            : DateTime.parse(json['createdAtUtc']),
+        json['stringCreatedAtUtc'] as String,
+      );
 
-    return Habit(
-      userid,
-      doseType,
-      doseAmount,
-      progressionType,
-      speed,
-      numberOfHoursPerDay,
-      startDate,
-      endDate,
-      stringStartDate,
-      stringEndDate,
-    );
-  }
+  // return Habit(
+  //   userid,
+  //   doseType,
+  //   doseAmount,
+  //   progressionType,
+  //   speed,
+  //   numberOfHoursPerDay,
+  //   startDate,
+  //   endDate,
+  //   stringStartDate,
+  //   stringEndDate,
+  // );
 }
