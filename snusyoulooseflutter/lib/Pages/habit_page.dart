@@ -4,9 +4,14 @@ import 'package:snusyoulooseflutter/Config/app_media.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
-class HabitPage extends StatelessWidget {
+class HabitPage extends StatefulWidget {
   const HabitPage({super.key});
 
+  @override
+  State<HabitPage> createState() => _HabitPageState();
+}
+
+class _HabitPageState extends State<HabitPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
