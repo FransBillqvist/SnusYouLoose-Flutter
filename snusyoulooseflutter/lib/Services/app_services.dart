@@ -1,15 +1,20 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../Config/app_routes.dart';
 import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
+import '../Model/Habit.dart';
+import '../Model/HabitDto.dart';
 import '../Model/Snuff.dart';
-import '/Model/User.dart';
-import '/Model/LoginResponse.dart';
-import '/Config/app_urls.dart';
+import '../Model/User.dart';
+import '../Model/LoginResponse.dart';
+import '../Config/app_urls.dart';
 
 Future<LoginResponse> loginRequest(String email, String password) async {
   final body = {
@@ -76,6 +81,29 @@ Future<List<CurrentSnuffDto>> fetchUsersInventoryService(String userId) async {
   throw Exception('Failed to fetch users inventory');
 }
 
+Future<HabitDto> fetchUserHabitService(
+    String userId, BuildContext context) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchHabitGateway + userId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchUserHabit response: ${response.body} ');
+    print('The response status code is: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final habit = HabitDto.fromJson(jsonDecode(response.body));
+      print('This is the habit: $habit');
+      inspect(habit);
+      return habit;
+    }
+    if (response.statusCode == 404) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.habit);
+    }
+  } catch (err) {
+    Navigator.of(context).pushReplacementNamed(AppRoutes.habit);
+    print('FAILED TO FETCH USER HABIT $err  ${DateTime.now()}');
+  }
+  throw Exception('Failed to fetch user habit');
+}
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
 //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
