@@ -1,3 +1,5 @@
+import 'package:snusyoulooseflutter/Model/HabitDto.dart';
+
 import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
@@ -14,7 +16,11 @@ AppState appReducer(AppState state, action) {
             Snuff("1", "Skruf", "Original Portion2", 50, 20,
                 "assets/images/skruf.png", 1),
         action),
-    habit: habitReducer(state.habit, action),
+    habit: habitReducer(
+        state.habit ??
+            HabitDto("ERROR", 1, "", "", 1, DateTime(1970, 01, 01),
+                DateTime(1970, 01, 01)),
+        action),
     user: userReducer(state.user, action),
   );
 }
@@ -44,9 +50,12 @@ Snuff snuffSelectedReducer(Snuff state, dynamic action) {
   return state;
 }
 
-Habit? habitReducer(Habit? habit, action) {
+HabitDto habitReducer(HabitDto habit, action) {
   if (action is CreateHabitAction) {
-    // Logik för att skapa eller uppdatera en habit
+    return action.habit;
+  }
+  if (action is FetchHabitsAction) {
+    return action.habits;
   }
   return habit; // Returnera den oförändrade habit om ingen action matchar
 }
