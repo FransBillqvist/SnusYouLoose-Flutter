@@ -1,4 +1,5 @@
 import 'package:snusyoulooseflutter/Model/CurrentSnuff.dart';
+import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
@@ -9,7 +10,7 @@ class AppState {
   List<CurrentSnuffDto> inventorySnuffs;
   List<Snuff> snuffsDetailsInInventory;
   Snuff? selectedSnuff;
-  Habit? habit;
+  HabitDto? habit;
   User? user;
 
   AppState(
