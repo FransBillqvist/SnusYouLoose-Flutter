@@ -13,4 +13,6 @@ class AppStrings {
   static const String snuffsLeft = 'snuffs left';
   static const String snuffLeft = 'snuff left';
   static const String thereis = 'There is';
+  static const String habitInfo = 'Now you need to choose wich mode to use.';
+  static const String appMode = 'App Mode';
 }
