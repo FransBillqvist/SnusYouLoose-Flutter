@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StepTwoWidget extends StatefulWidget {
@@ -9,8 +10,26 @@ class StepTwoWidget extends StatefulWidget {
 }
 
 class _StepTwoWidgetState extends State<StepTwoWidget> {
+  DateTime _date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.time,
+          initialDateTime: _date,
+          onDateTimeChanged: (DateTime newDate) {
+            setState(() {
+              _date = newDate;
+            });
+          },
+        ),
+        ElevatedButton(
+          onPressed: widget.onDone,
+          child: Text('Complete Step Two'),
+        ),
+      ],
+    );
   }
 }
