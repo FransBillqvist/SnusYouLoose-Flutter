@@ -25,9 +25,6 @@ class _HomePageState extends State<HomePage> {
     final userid = store.state.user?.UserId.toString();
     store.dispatch(getSnuffInventory(userid!));
     store.dispatch(getUserHabit(userid, context));
-    // if (store.state.habit?.doseType == "ERROR") {
-    //   Navigator.of(context).pushReplacementNamed(AppRoutes.habit);
-    // }
     return Scaffold(
       body: SingleChildScrollView(
         child: StoreConnector<AppState, List<CurrentSnuffDto>>(
