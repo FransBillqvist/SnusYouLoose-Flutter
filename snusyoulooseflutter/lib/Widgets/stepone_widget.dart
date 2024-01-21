@@ -7,6 +7,9 @@ import '../Config/app_strings.dart';
 import '../Styles/app_colors.dart';
 
 class StepOneWidget extends StatefulWidget {
+  final ValueChanged<DateTime> onMorningDateChanged;
+
+  StepOneWidget({required this.onMorningDateChanged});
   @override
   _StepOneWidgetState createState() => _StepOneWidgetState();
 }
@@ -15,6 +18,10 @@ class _StepOneWidgetState extends State<StepOneWidget> {
   Time _time = Time(hour: 05, minute: 30, second: 00);
   DateTime _date = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 5, 30);
+
+  void _onDateChanged(DateTime newDate) {
+    widget.onMorningDateChanged(newDate);
+  }
 
   @override
   Widget build(BuildContext context) {
