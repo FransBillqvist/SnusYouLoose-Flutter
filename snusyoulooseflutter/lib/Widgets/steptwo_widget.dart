@@ -2,34 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StepTwoWidget extends StatefulWidget {
-  final VoidCallback onDone;
-  const StepTwoWidget({required this.onDone});
-
   @override
   State<StepTwoWidget> createState() => _StepTwoWidgetState();
 }
 
 class _StepTwoWidgetState extends State<StepTwoWidget> {
-  DateTime _date = DateTime.now();
+  DateTime _date = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day, 22, 30);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CupertinoDatePicker(
-          mode: CupertinoDatePickerMode.time,
-          initialDateTime: _date,
-          onDateTimeChanged: (DateTime newDate) {
-            setState(() {
-              _date = newDate;
-            });
-          },
-        ),
-        ElevatedButton(
-          onPressed: widget.onDone,
-          child: Text('Complete Step Two'),
-        ),
-      ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 300,
+      child: CupertinoDatePicker(
+        mode: CupertinoDatePickerMode.time,
+        use24hFormat: true,
+        initialDateTime: _date,
+        onDateTimeChanged: (DateTime newDate) {
+          setState(() {
+            _date = newDate;
+          });
+        },
+      ),
     );
   }
 }
