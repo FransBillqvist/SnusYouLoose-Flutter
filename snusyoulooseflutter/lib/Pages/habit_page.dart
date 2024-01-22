@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:snusyoulooseflutter/Components/app_iconbutton.dart';
-import 'package:snusyoulooseflutter/Config/app_media.dart';
-import 'package:snusyoulooseflutter/Config/app_strings.dart';
-import 'package:snusyoulooseflutter/Styles/app_colors.dart';
-import 'package:snusyoulooseflutter/Widgets/stepone_widget.dart';
 
+import '../Config/app_media.dart';
+import '../Config/app_strings.dart';
+import '../Styles/app_colors.dart';
+import '../Widgets/stepone_widget.dart';
+import '../Widgets/stepthree_widget.dart';
 import '../Widgets/steptwo_widget.dart';
 
 class HabitPage extends StatefulWidget {
@@ -123,84 +123,63 @@ class _HabitPageState extends State<HabitPage>
                         TextStyle(fontSize: 17, color: AppColors.textOnFocus),
                   ),
                 ),
-                Row(
-                  children: [
-                    if (habitStep == 0)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 58.0),
-                        child: AnimatedPositioned(
-                          duration: _controller.duration!,
-                          curve: _curve.curve,
-                          right: habitStep >= 1 ? 300 : 100,
-                          child: const Icon(Icons.star, size: 40),
+                Padding(
+                  padding: const EdgeInsets.only(top: 68.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.46,
+                        width: MediaQuery.of(context).size.width * 0.96,
+                        child: ListView(
+                          children: [
+                            if (habitStep <= 1)
+                              DecoratedBox(
+                                decoration: const BoxDecoration(
+                                  color: AppColors.example2,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                child: getDateStepWidget(
+                                    habitStep, _handleDateChanged),
+                              ),
+                            if (habitStep >= 2)
+                              DecoratedBox(
+                                decoration: const BoxDecoration(
+                                  color: AppColors.example2,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                child: getOtherStepWidget(habitStep),
+                              ),
+                          ],
                         ),
                       ),
-                    if (habitStep == 1)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 58.0),
-                        child: AnimatedPositioned(
-                          duration: _controller.duration!,
-                          curve: _curve.curve,
-                          right: habitStep >= 2 ? 100 : 300,
-                          child: const Icon(Icons.star_border, size: 40),
+                      if (habitStep == 0)
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              habitStep++;
+                              _handleDateChanged(_selectedMorningDate);
+                              inspect(_selectedMorningDate);
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
                         ),
-                      ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.46,
-                      width: MediaQuery.of(context).size.width * 0.96,
-                      child: Column(
-                        children: [
-                          if (habitStep <= 1)
-                            DecoratedBox(
-                              decoration: const BoxDecoration(
-                                color: AppColors.example2,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: getDateStepWidget(
-                                  habitStep, _handleDateChanged),
-                            ),
-                          if (habitStep >= 2)
-                            DecoratedBox(
-                              decoration: const BoxDecoration(
-                                color: AppColors.example2,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: getOtherStepWidget(habitStep),
-                            ),
-                        ],
-                      ),
-                    ),
-                    if (habitStep == 0)
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            habitStep++;
-                            _handleDateChanged(_selectedMorningDate);
-                            inspect(_selectedMorningDate);
-                          });
-                        },
-                        child: Icon(Icons.arrow_forward, size: 20),
-                      ),
-                    if (habitStep == 1)
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _handleDateChanged(_selectedEveningDate);
-                            habitStep++;
-                            inspect(_selectedEveningDate);
-                          });
-                        },
-                        child: Icon(Icons.arrow_forward, size: 20),
-                      ),
-                  ],
+                      if (habitStep == 1)
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _handleDateChanged(_selectedEveningDate);
+                              habitStep++;
+                              inspect(_selectedEveningDate);
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
+                        ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -241,9 +220,9 @@ Widget getDateStepWidget(int habitStep, ValueChanged<DateTime> onDateChanged) {
 
 Widget getOtherStepWidget(int habitStep) {
   switch (habitStep) {
-    case 0:
-      return Container();
-    case 1:
+    case 2:
+      return const StepThreeWidget();
+    case 3:
       return Container();
     default:
       return Container();
