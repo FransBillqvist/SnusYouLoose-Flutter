@@ -14,6 +14,7 @@ class AppStrings {
   static const String snuffLeft = 'snuff left';
   static const String snuffBox = 'snuffbox';
   static const String portions = 'portions of snuff';
+  static const String portionType = 'portions type';
   static const String thereis = 'There is';
   static const String habitInfo = 'Now you need to choose wich mode to use.';
   static const String appMode = 'App Mode';
