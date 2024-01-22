@@ -12,9 +12,13 @@ class StepTwoWidget extends StatefulWidget {
 class _StepTwoWidgetState extends State<StepTwoWidget> {
   DateTime _date = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 22, 30);
+  DateTime _selectedDate = DateTime.now();
 
   void _onDateChanged(DateTime newDate) {
     widget.onDateChanged(newDate);
+    setState(() {
+      _selectedDate = newDate;
+    });
   }
 
   @override
@@ -26,10 +30,8 @@ class _StepTwoWidgetState extends State<StepTwoWidget> {
         mode: CupertinoDatePickerMode.time,
         use24hFormat: true,
         initialDateTime: _date,
-        onDateTimeChanged: (DateTime newDate) {
-          setState(() {
-            _date = newDate;
-          });
+        onDateTimeChanged: (newDate) {
+          _onDateChanged(newDate);
         },
       ),
     );
