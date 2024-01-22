@@ -1,5 +1,3 @@
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
-import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +13,15 @@ class StepOneWidget extends StatefulWidget {
 }
 
 class _StepOneWidgetState extends State<StepOneWidget> {
-  Time _time = Time(hour: 05, minute: 30, second: 00);
   DateTime _date = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 5, 30);
+  DateTime _selectedDate = DateTime.now();
 
   void _onDateChanged(DateTime newDate) {
     widget.onMorningDateChanged(newDate);
+    setState(() {
+      _selectedDate = newDate;
+    });
   }
 
   @override
@@ -32,10 +33,8 @@ class _StepOneWidgetState extends State<StepOneWidget> {
         mode: CupertinoDatePickerMode.time,
         use24hFormat: true,
         initialDateTime: _date,
-        onDateTimeChanged: (DateTime newDate) {
-          setState(() {
-            _date = newDate;
-          });
+        onDateTimeChanged: (newDate) {
+          _onDateChanged(newDate);
         },
       ),
     );
