@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../Redux/actions.dart';
-import '../Model/CurrentSnuff.dart';
 import '../Widgets/inventory_widget.dart';
 import '../Config/app_strings.dart';
 import '../Model/CurrentSnuffDto.dart';
