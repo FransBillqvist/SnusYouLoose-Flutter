@@ -37,4 +37,11 @@ class AppStrings {
   static const String quest4 =
       'Choose how fast you want to reduce your snuffhabit';
   static const String quest5 = 'Choose an enddate for your snuffhabit';
+  static const String quest6 = 'Final recap of your snuffhabit';
+  static const String recapHabit = 'This is the values you have selected';
+  static const String wakeUpTime = 'Wake Up Time';
+  static const String sleepTime = 'Sleep Time';
+  static const String doseType = 'Dose Type';
+  static const String amountOf = 'Dose Type';
+  static const String modeSelected = 'Mode Selected';
 }
