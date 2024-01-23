@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
 import '../Styles/app_colors.dart';
+import '../Widgets/stepfive_widget.dart';
 import '../Widgets/stepfour_widget.dart';
 import '../Widgets/stepone_widget.dart';
 import '../Widgets/stepthree_widget.dart';
@@ -24,7 +25,9 @@ class _HabitPageState extends State<HabitPage>
   late DateTime _selectedEveningDate = DateTime(0);
   var selectedAmount = 0;
   var selectedPortionType = '';
-  var selectedMode = '';
+  var selectedMode = AppMode.NONE;
+  var selectedEndDate = DateTime(0);
+  var selectedReduceSpeed = 0;
 
   void _handleDateChanged(DateTime date) {
     setState(() {
@@ -46,6 +49,23 @@ class _HabitPageState extends State<HabitPage>
   void _handlePortionTypeChanged(String portionType) {
     setState(() {
       selectedPortionType = portionType;
+    });
+  }
+
+  void _handleModeChanged(AppMode mode) {
+    setState(() {
+      selectedMode = mode;
+    });
+  }
+
+  void _handleFinalChanged(dynamic finalValue) {
+    setState(() {
+      if (finalValue is DateTime) {
+        selectedEndDate = finalValue;
+      }
+      if (finalValue is int) {
+        selectedReduceSpeed = finalValue;
+      }
     });
   }
 
@@ -127,7 +147,6 @@ class _HabitPageState extends State<HabitPage>
                                 ),
                             ],
                           ),
-                          //ny ending
                         ),
                       ),
                     ]),
@@ -207,6 +226,19 @@ class _HabitPageState extends State<HabitPage>
                           },
                           child: Icon(Icons.arrow_forward, size: 20),
                         ),
+                      if (habitStep == 3 && selectedMode != AppMode.NONE)
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _handleModeChanged(selectedMode);
+                              if (selectedMode == AppMode.appMode) habitStep++;
+                              if (selectedMode == AppMode.dateMode)
+                                habitStep = 5;
+                              inspect(selectedMode);
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
+                        ),
                     ],
                   ),
                 ),
@@ -226,7 +258,15 @@ class _HabitPageState extends State<HabitPage>
           onAmountChanged: _handleAmountChanged,
         );
       case 3:
-        return StepFourWidget();
+        return StepFourWidget(
+          onModeChanged: _handleModeChanged,
+        );
+      case 4:
+        return StepFiveWidget(
+            onFinalChanged: _handleFinalChanged, stepIndecator: habitStep);
+      case 5:
+        return StepFiveWidget(
+            onFinalChanged: _handleFinalChanged, stepIndecator: habitStep);
       default:
         return Container();
     }
@@ -243,8 +283,10 @@ String getQuestString(int habitStep) {
       return AppStrings.quest2;
     case 3:
       return AppStrings.quest3;
-    // case 4:
-    //   return AppStrings.quest4;
+    case 4:
+      return AppStrings.quest4;
+    case 5:
+      return AppStrings.quest5;
     default:
       return '';
   }
