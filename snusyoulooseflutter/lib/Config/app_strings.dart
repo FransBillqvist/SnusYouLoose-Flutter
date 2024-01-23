@@ -19,7 +19,11 @@ class AppStrings {
   static const String thereis = 'There is';
   static const String habitInfo = 'Now you need to choose wich mode to use.';
   static const String appMode = 'App Mode';
+  static const String explainAppMode =
+      'The app will calculate and end date for you based on your current snuff usage.';
   static const String dateMode = 'Date Mode';
+  static const String explainDateMode =
+      'You select a date, it will hopfully be the last day you snuff.';
   static const String reduceMode = 'Reduce Mode'; //TODO
   static const String quest0 = 'Select what time of the day you usally wake up';
   static const String quest1 =
