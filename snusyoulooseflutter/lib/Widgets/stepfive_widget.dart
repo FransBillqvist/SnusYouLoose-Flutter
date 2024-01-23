@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Config/app_strings.dart';
@@ -14,8 +15,19 @@ class StepFiveWidget extends StatefulWidget {
 }
 
 class _StepFiveWidgetState extends State<StepFiveWidget> {
+  DateTime _date = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day + 7);
   double value = 0.5;
   late int valueAsInt;
+  DateTime _selectedDate = DateTime.now();
+
+  void onChanged(dynamic newValue) {
+    widget.onFinalChanged(newValue);
+    setState(() {
+      _selectedDate = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -55,11 +67,33 @@ class _StepFiveWidgetState extends State<StepFiveWidget> {
                   ),
                 ),
               if (widget.stepIndecator == 5)
-                Container(
-                  child: Text(
-                    AppStrings.infoDateMode,
-                    textAlign: TextAlign.center,
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      AppStrings.infoDateMode,
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 268,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(top: 2, right: 16.0, left: 16.0),
+                        child: Container(
+                          child: CupertinoDatePicker(
+                            onDateTimeChanged: (newDate) {
+                              onChanged(newDate);
+                            },
+                            initialDateTime: _date,
+                            mode: CupertinoDatePickerMode.date,
+                            minimumDate: DateTime.now(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
             ],
           ),
