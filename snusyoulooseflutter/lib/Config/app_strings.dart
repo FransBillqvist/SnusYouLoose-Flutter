@@ -24,6 +24,8 @@ class AppStrings {
   static const String explainAppMode =
       'The app will calculate and end date for you based on your current snuff usage.';
   static const String dateMode = 'Date Mode';
+  static const String infoDateMode =
+      'you select a date, the app will calculate how many snuffs you can use per day to reach your goal.';
   static const String explainDateMode =
       'You select a date, it will hopfully be the last day you snuff.';
   static const String reduceMode = 'Reduce Mode'; //TODO
@@ -34,5 +36,5 @@ class AppStrings {
   static const String quest3 = 'Choose what type of mode you want to use';
   static const String quest4 =
       'Choose how fast you want to reduce your snuffhabit';
-  static const String quest5 = 'Choose what type of habit change you want';
+  static const String quest5 = 'Choose an enddate for your snuffhabit';
 }
