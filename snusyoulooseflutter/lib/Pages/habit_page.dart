@@ -239,6 +239,28 @@ class _HabitPageState extends State<HabitPage>
                           },
                           child: Icon(Icons.arrow_forward, size: 20),
                         ),
+                      if (habitStep == 4 && selectedReduceSpeed != 0)
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _handleFinalChanged(selectedReduceSpeed);
+                              habitStep = 6;
+                              inspect(selectedReduceSpeed);
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
+                        ),
+                      if (habitStep == 5 && selectedEndDate != DateTime(0))
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _handleFinalChanged(selectedEndDate);
+                              habitStep++;
+                              inspect(selectedEndDate);
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
+                        ),
                     ],
                   ),
                 ),
