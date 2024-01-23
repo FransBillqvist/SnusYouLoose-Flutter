@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
 import '../Styles/app_colors.dart';
+import '../Widgets/stepfour_widget.dart';
 import '../Widgets/stepone_widget.dart';
 import '../Widgets/stepthree_widget.dart';
 import '../Widgets/steptwo_widget.dart';
@@ -23,6 +24,7 @@ class _HabitPageState extends State<HabitPage>
   late DateTime _selectedEveningDate = DateTime(0);
   var selectedAmount = 0;
   var selectedPortionType = '';
+  var selectedMode = '';
 
   void _handleDateChanged(DateTime date) {
     setState(() {
@@ -196,8 +198,11 @@ class _HabitPageState extends State<HabitPage>
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
+                              _handleAmountChanged(selectedAmount);
+                              _handlePortionTypeChanged(selectedPortionType);
                               habitStep++;
-                              // inspect();
+                              inspect(selectedAmount);
+                              inspect(selectedPortionType);
                             });
                           },
                           child: Icon(Icons.arrow_forward, size: 20),
@@ -221,7 +226,7 @@ class _HabitPageState extends State<HabitPage>
           onAmountChanged: _handleAmountChanged,
         );
       case 3:
-        return Container();
+        return StepFourWidget();
       default:
         return Container();
     }
