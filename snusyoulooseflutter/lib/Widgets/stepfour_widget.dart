@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
-enum AppMode { appMode, dateMode }
+enum AppMode { appMode, dateMode, NONE }
 
 class StepFourWidget extends StatefulWidget {
+  final ValueChanged<AppMode> onModeChanged;
+
+  StepFourWidget({required this.onModeChanged});
+
   @override
   State<StepFourWidget> createState() => _StepFourWidgetState();
 }
@@ -43,6 +47,7 @@ class _StepFourWidgetState extends State<StepFourWidget> {
                   onChanged: (AppMode? value) {
                     setState(() {
                       _selectedMode = value;
+                      widget.onModeChanged(value!);
                     });
                   },
                 ),
@@ -69,6 +74,7 @@ class _StepFourWidgetState extends State<StepFourWidget> {
                     onChanged: (AppMode? value) {
                       setState(() {
                         _selectedMode = value;
+                        widget.onModeChanged(value!);
                       });
                     },
                   ),
