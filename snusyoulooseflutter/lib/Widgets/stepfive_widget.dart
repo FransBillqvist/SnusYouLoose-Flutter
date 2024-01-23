@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Config/app_strings.dart';
+import '../Styles/app_colors.dart';
 
 class StepFiveWidget extends StatefulWidget {
   final ValueChanged<dynamic> onFinalChanged;
@@ -13,6 +14,8 @@ class StepFiveWidget extends StatefulWidget {
 }
 
 class _StepFiveWidgetState extends State<StepFiveWidget> {
+  double value = 0.5;
+  late int valueAsInt;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -26,7 +29,30 @@ class _StepFiveWidgetState extends State<StepFiveWidget> {
             children: <Widget>[
               if (widget.stepIndecator == 4)
                 Container(
-                  child: Text(AppStrings.infoAppMode),
+                  child: Column(
+                    children: [
+                      Text(AppStrings.infoAppMode),
+                      Padding(padding: EdgeInsets.only(top: 42.0)),
+                      Text(
+                        valueAsInt.toString(),
+                        style: TextStyle(
+                            color: AppColors.loginDeepBackgroundColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500),
+                      ), // Define the value variable with an initial value
+                      Slider(
+                          min: 0.1,
+                          max: 1.0,
+                          value: value,
+                          onChanged: (newValue) {
+                            setState(() {
+                              value = newValue;
+                              valueAsInt = (value * 10).ceil();
+                              widget.onFinalChanged(valueAsInt);
+                            });
+                          })
+                    ],
+                  ),
                 ),
               if (widget.stepIndecator == 5)
                 Container(
