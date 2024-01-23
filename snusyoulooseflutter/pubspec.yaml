@@ -16,6 +16,7 @@ dependencies:
   redux_thunk: ^0.4.0
   json_annotation: ^4.8.1
   awesome_select: ^6.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
