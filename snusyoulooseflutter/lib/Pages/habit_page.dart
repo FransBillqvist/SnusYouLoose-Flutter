@@ -291,7 +291,15 @@ class _HabitPageState extends State<HabitPage>
         return StepFiveWidget(
             onFinalChanged: _handleFinalChanged, stepIndecator: habitStep);
       case 6:
-        return StepSixWidget();
+        return StepSixWidget(
+          wakeUpTime: _selectedMorningDate,
+          sleepTime: _selectedEveningDate,
+          modeType: selectedMode,
+          amountOfSnuff: selectedAmount,
+          doseType: selectedPortionType,
+          speed: selectedReduceSpeed,
+          EndDate: selectedEndDate,
+        );
       default:
         return Container();
     }
