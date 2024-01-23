@@ -1,5 +1,6 @@
 class AppStrings {
   static const String appName = 'SnusYouLoose';
+  static const String selectAmount = 'Select your amount of ';
   static const String username = 'Username';
   static const String password = 'Password';
   static const String login = 'Login';
