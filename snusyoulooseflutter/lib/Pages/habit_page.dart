@@ -19,8 +19,10 @@ class _HabitPageState extends State<HabitPage>
   late AnimationController _controller;
   late CurvedAnimation _curve;
   int habitStep = 0;
-  late DateTime _selectedMorningDate = DateTime.now();
-  late DateTime _selectedEveningDate = DateTime.now();
+  late DateTime _selectedMorningDate = DateTime(0);
+  late DateTime _selectedEveningDate = DateTime(0);
+  var selectedAmount = 0;
+  var selectedPortionType = '';
 
   void _handleDateChanged(DateTime date) {
     setState(() {
@@ -30,6 +32,18 @@ class _HabitPageState extends State<HabitPage>
       if (habitStep == 1) {
         _selectedEveningDate = date;
       }
+    });
+  }
+
+  void _handleAmountChanged(int amount) {
+    setState(() {
+      selectedAmount = amount;
+    });
+  }
+
+  void _handlePortionTypeChanged(String portionType) {
+    setState(() {
+      selectedPortionType = portionType;
     });
   }
 
@@ -178,6 +192,16 @@ class _HabitPageState extends State<HabitPage>
                           },
                           child: Icon(Icons.arrow_forward, size: 20),
                         ),
+                      if (habitStep == 2 && selectedAmount != 0)
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              habitStep++;
+                              // inspect();
+                            });
+                          },
+                          child: Icon(Icons.arrow_forward, size: 20),
+                        ),
                     ],
                   ),
                 ),
@@ -187,6 +211,20 @@ class _HabitPageState extends State<HabitPage>
         ],
       ),
     );
+  }
+
+  Widget getOtherStepWidget(int habitStep) {
+    switch (habitStep) {
+      case 2:
+        return StepThreeWidget(
+          onStringChanged: _handlePortionTypeChanged,
+          onAmountChanged: _handleAmountChanged,
+        );
+      case 3:
+        return Container();
+      default:
+        return Container();
+    }
   }
 }
 
@@ -198,8 +236,8 @@ String getQuestString(int habitStep) {
       return AppStrings.quest1;
     case 2:
       return AppStrings.quest2;
-    // case 3:
-    //   return AppStrings.quest3;
+    case 3:
+      return AppStrings.quest3;
     // case 4:
     //   return AppStrings.quest4;
     default:
@@ -215,28 +253,6 @@ Widget getDateStepWidget(int habitStep, ValueChanged<DateTime> onDateChanged) {
       return StepTwoWidget(onDateChanged: onDateChanged);
     default:
       return Text('');
-  }
-}
-
-Widget getOtherStepWidget(int habitStep) {
-  switch (habitStep) {
-    case 2:
-      return const StepThreeWidget();
-    case 3:
-      return Container();
-    default:
-      return Container();
-  }
-}
-
-Widget getNextButton(int habitStep) {
-  switch (habitStep) {
-    case 0:
-      return Container();
-    case 1:
-      return Container();
-    default:
-      return Container();
   }
 }
 
