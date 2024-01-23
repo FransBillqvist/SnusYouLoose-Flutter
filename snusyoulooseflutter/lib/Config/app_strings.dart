@@ -42,6 +42,6 @@ class AppStrings {
   static const String wakeUpTime = 'Wake Up Time';
   static const String sleepTime = 'Sleep Time';
   static const String doseType = 'Dose Type';
-  static const String amountOf = 'Dose Type';
+  static const String amountOf = 'Usage per day';
   static const String modeSelected = 'Mode Selected';
 }
