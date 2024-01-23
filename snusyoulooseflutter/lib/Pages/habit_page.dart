@@ -8,6 +8,7 @@ import '../Styles/app_colors.dart';
 import '../Widgets/stepfive_widget.dart';
 import '../Widgets/stepfour_widget.dart';
 import '../Widgets/stepone_widget.dart';
+import '../Widgets/stepsix_widget.dart';
 import '../Widgets/stepthree_widget.dart';
 import '../Widgets/steptwo_widget.dart';
 
@@ -289,6 +290,8 @@ class _HabitPageState extends State<HabitPage>
       case 5:
         return StepFiveWidget(
             onFinalChanged: _handleFinalChanged, stepIndecator: habitStep);
+      case 6:
+        return StepSixWidget();
       default:
         return Container();
     }
@@ -309,6 +312,8 @@ String getQuestString(int habitStep) {
       return AppStrings.quest4;
     case 5:
       return AppStrings.quest5;
+    case 6:
+      return AppStrings.quest6;
     default:
       return '';
   }
