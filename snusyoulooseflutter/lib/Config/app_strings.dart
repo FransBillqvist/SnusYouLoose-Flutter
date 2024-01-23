@@ -19,6 +19,8 @@ class AppStrings {
   static const String thereis = 'There is';
   static const String habitInfo = 'Now you need to choose wich mode to use.';
   static const String appMode = 'App Mode';
+  static const String infoAppMode =
+      'Select speed 1 is the slowest and 10 is the fastest';
   static const String explainAppMode =
       'The app will calculate and end date for you based on your current snuff usage.';
   static const String dateMode = 'Date Mode';
@@ -30,4 +32,7 @@ class AppStrings {
       'Select what time of the day you usally go to sleep';
   static const String quest2 = 'How many snuffs do you use per day?';
   static const String quest3 = 'Choose what type of habit change you want';
+  static const String quest4 =
+      'Choose how fast you want to reduce your snuffhabit';
+  static const String quest5 = 'Choose what type of habit change you want';
 }
