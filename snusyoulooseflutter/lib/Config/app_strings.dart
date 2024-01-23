@@ -31,7 +31,7 @@ class AppStrings {
   static const String quest1 =
       'Select what time of the day you usally go to sleep';
   static const String quest2 = 'How many snuffs do you use per day?';
-  static const String quest3 = 'Choose what type of habit change you want';
+  static const String quest3 = 'Choose what type of mode you want to use';
   static const String quest4 =
       'Choose how fast you want to reduce your snuffhabit';
   static const String quest5 = 'Choose what type of habit change you want';
