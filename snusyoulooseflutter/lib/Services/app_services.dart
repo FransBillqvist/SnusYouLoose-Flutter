@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
 
 import '../Config/app_routes.dart';
 import '../Model/CurrentSnuff.dart';
@@ -15,6 +16,7 @@ import '../Model/Snuff.dart';
 import '../Model/User.dart';
 import '../Model/LoginResponse.dart';
 import '../Config/app_urls.dart';
+import '../Redux/actions.dart';
 
 Future<LoginResponse> loginRequest(String email, String password) async {
   final body = {
@@ -103,6 +105,25 @@ Future<HabitDto> fetchUserHabitService(
     print('FAILED TO FETCH USER HABIT $err  ${DateTime.now()}');
   }
   throw Exception('Failed to fetch user habit');
+}
+
+Future<HabitDto> createHabitService(HabitRequest newHabit) async {
+  try {
+    final response = await http.post(Uri.parse(AppUrls.createHabitGateway),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(newHabit));
+    print('This is the createHabit response: ${response.body} ');
+    print('The response status code is: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final habit = HabitDto.fromJson(jsonDecode(response.body));
+      print('This is the habit: $habit');
+      inspect(habit);
+      return habit;
+    }
+  } catch (err) {
+    print('FAILED TO CREATE HABIT $err  ${DateTime.now()}');
+  }
+  throw Exception('Failed to create habit');
 }
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
