@@ -44,4 +44,5 @@ class AppStrings {
   static const String doseType = 'Dose Type';
   static const String amountOf = 'Usage per day';
   static const String modeSelected = 'Mode Selected';
+  static const String crtHabit = 'Create Habit';
 }
