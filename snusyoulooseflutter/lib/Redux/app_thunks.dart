@@ -3,6 +3,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 import '../Config/app_routes.dart';
+import '../Model/HabitRequest.dart';
 import '../Services/app_services.dart';
 import 'app_state.dart';
 import 'actions.dart';
@@ -48,6 +49,17 @@ ThunkAction<AppState> getUserHabit(String userId, BuildContext context) {
     try {
       final userHabit = await fetchUserHabitService(userId, context);
       store.dispatch(FetchHabitsAction(userHabit));
+    } catch (error) {
+      print(error);
+    }
+  };
+}
+
+ThunkAction<AppState> createHabit(HabitRequest habitRequest) {
+  return (Store<AppState> store) async {
+    try {
+      final newHabit = await createHabitService(habitRequest);
+      store.dispatch(CreateHabitAction(newHabit));
     } catch (error) {
       print(error);
     }
