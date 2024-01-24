@@ -6,6 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
 import 'package:snusyoulooseflutter/Redux/app_state.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../Config/app_media.dart';
 import '../Config/app_routes.dart';
@@ -36,6 +37,25 @@ class _HabitPageState extends State<HabitPage>
   var selectedEndDate = DateTime(0);
   var selectedReduceSpeed = 0;
   double _sliderValue = 0;
+  bool isFinished = false;
+
+  void _finalishHabit() {
+    final store = StoreProvider.of<AppState>(context);
+    final userid = store.state.user?.UserId.toString();
+    inspect(userid);
+    var a = HabitDto(
+        selectedPortionType,
+        selectedAmount,
+        selectedMode.toString(),
+        selectedReduceSpeed.toString(),
+        _calculateNumberOfHoursPerDay(
+            _selectedMorningDate, _selectedEveningDate),
+        DateTime.now(),
+        selectedEndDate);
+    var b = HabitRequest(userid!, a);
+    // store.dispatch(createHabit(b));
+    Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+  }
 
   void _handleDateChanged(DateTime date) {
     setState(() {
@@ -273,49 +293,34 @@ class _HabitPageState extends State<HabitPage>
                     child: Icon(Icons.arrow_forward, size: 20),
                   ),
                 if (habitStep == 6)
-                  ListView(children: [
-                    Slidable(
-                      actionPane: const SlidableDrawerActionPane(),
-                      actionExtentRatio: 0.25,
-                      actions: [
-                        IconSlideAction(
-                          caption: 'Acceptera',
-                          color: Colors.green,
-                          foregroundColor: AppColors.example1,
-                          icon: Icons.check,
-                          onTap: () {
-                            final store = StoreProvider.of<AppState>(context);
-                            final userid = store.state.user?.UserId.toString();
-                            inspect(userid);
-                            var a = HabitDto(
-                                selectedPortionType,
-                                selectedAmount,
-                                selectedMode.toString(),
-                                selectedReduceSpeed.toString(),
-                                _calculateNumberOfHoursPerDay(
-                                    _selectedMorningDate, _selectedEveningDate),
-                                DateTime.now(),
-                                selectedEndDate);
-                            var b = HabitRequest(userid!, a);
-                            // store.dispatch(createHabit(b));
-                            Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.home);
-                          },
-                        ),
-                      ], //rad 289
-                      child: Container(
-                        color: Colors.white,
-                        child: const ListTile(
-                          title: Text(AppStrings.crtHabit),
-                        ),
+                  SizedBox(
+                    height: 60,
+                    width: 320,
+                    child: SwipeableButtonView(
+                      buttonText: AppStrings.crtHabit,
+                      buttonWidget: Container(
+                        child: Icon(Icons.arrow_forward,
+                            color: AppColors.example5),
                       ),
+                      activeColor: AppColors.example2,
+                      isFinished: isFinished,
+                      onWaitingProcess: () {
+                        Future.delayed(const Duration(seconds: 2), () {
+                          setState(() {
+                            isFinished = true;
+                          });
+                        });
+                      },
+                      onFinish: () async {
+                        _finalishHabit();
+                      },
                     ),
-                  ]), //279
-              ]), //rad 176
+                  )
+              ]),
             ),
-          ]), //rad 113
+          ]),
         ),
-      ]), //rad 107
+      ]),
     );
   }
 
