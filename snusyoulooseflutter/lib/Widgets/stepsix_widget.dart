@@ -43,8 +43,12 @@ String getMode(AppMode modeType) {
       return 'App';
     case AppMode.dateMode:
       return 'Date';
+    case AppMode.reduceMode:
+      return 'Reduce';
     case AppMode.NONE:
       return 'NONE';
+    default:
+      return 'none';
   }
 }
 
