@@ -61,6 +61,7 @@ ThunkAction<AppState> createHabit(
     try {
       final newHabit = await createHabitService(habitRequest);
       store.dispatch(CreateHabitAction(newHabit));
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
     } catch (error) {
       print(error);
     }

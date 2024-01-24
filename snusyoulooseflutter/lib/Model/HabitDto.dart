@@ -1,3 +1,5 @@
+import 'dart:convert' as JSON;
+
 class HabitDto {
   String doseType;
   int doseAmount;
@@ -16,8 +18,8 @@ class HabitDto {
         json['progressionType'] as String,
         json['speed'] as String,
         json['numberOfHoursPerDay'] as int,
-        DateTime.parse(json['startDate']),
-        DateTime.parse(json['endDate']),
+        DateTime.parse(json['startDate'] as String),
+        DateTime.parse(json['endDate'] as String),
       );
 
   Map<String, dynamic> toJson() {
@@ -27,8 +29,8 @@ class HabitDto {
     data['progressionType'] = this.progressionType;
     data['speed'] = this.speed;
     data['numberOfHoursPerDay'] = this.numberOfHoursPerDay;
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
+    data['startDate'] = this.startDate.toIso8601String();
+    data['endDate'] = this.endDate.toIso8601String();
     return data;
   }
 }

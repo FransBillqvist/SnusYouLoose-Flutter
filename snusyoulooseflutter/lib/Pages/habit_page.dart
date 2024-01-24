@@ -8,6 +8,7 @@ import 'package:snusyoulooseflutter/Redux/app_state.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../Config/app_media.dart';
+import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
@@ -53,7 +54,7 @@ class _HabitPageState extends State<HabitPage>
         selectedEndDate);
     var b = HabitRequest(userid!, a);
     inspect(b);
-    createHabit(b, context);
+    store.dispatch(createHabit(b, context));
   }
 
   String _handleProgressionType(AppMode mode) {

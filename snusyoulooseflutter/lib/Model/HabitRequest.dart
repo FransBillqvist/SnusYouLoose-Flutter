@@ -3,20 +3,20 @@ import 'package:snusyoulooseflutter/Model/Habit.dart';
 import '../Model/HabitDto.dart';
 
 class HabitRequest {
-  String userId;
-  HabitDto habitDto;
+  String UserId;
+  HabitDto Habit;
 
-  HabitRequest(this.userId, this.habitDto);
+  HabitRequest(this.UserId, this.Habit);
 
   factory HabitRequest.fromJson(Map<String, dynamic> json) => HabitRequest(
         json['userId'] as String,
-        HabitDto.fromJson(json['habitDto']),
+        HabitDto.fromJson(json['habit']),
       );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['habitDto'] = this.habitDto.toJson();
+    data['UserId'] = this.UserId;
+    data['Habit'] = this.Habit.toJson();
     return data;
   }
 }

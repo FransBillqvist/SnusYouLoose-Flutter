@@ -109,11 +109,20 @@ Future<HabitDto> fetchUserHabitService(
 
 Future<HabitDto> createHabitService(HabitRequest newHabit) async {
   try {
+    var b = jsonEncode({
+      'newHabit': newHabit,
+      'userId': newHabit.UserId,
+      'habit': newHabit.Habit
+    });
     final response = await http.post(Uri.parse(AppUrls.createHabitGateway),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(newHabit));
+        body: jsonEncode({
+          // 'newHabit': newHabit,
+          'userId': newHabit.UserId,
+          'habit': newHabit.Habit
+        }));
     print('This is the createHabit response: ${response.body} ');
-    print('The response status code is: ${response.statusCode}');
+    print('The createHabit response status code is: ${response.statusCode}');
     if (response.statusCode == 200) {
       final habit = HabitDto.fromJson(jsonDecode(response.body));
       print('This is the habit: $habit');
