@@ -57,17 +57,20 @@ class _StepSixWidgetState extends State<StepSixWidget> {
       height: 300,
       child: Column(
         children: [
-          Text(
-            AppStrings.recapHabit,
-            style: TextStyle(fontSize: 20),
+          const Padding(
+            padding: const EdgeInsets.only(top: 36.0, bottom: 6.0),
+            child: Text(
+              AppStrings.recapHabit,
+              style: TextStyle(fontSize: 20),
+            ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 40),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
+              const Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(6.0),
@@ -96,7 +99,7 @@ class _StepSixWidgetState extends State<StepSixWidget> {
                   ),
                 ],
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
               Column(
