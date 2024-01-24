@@ -2,15 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
 import 'package:snusyoulooseflutter/Redux/app_state.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../Config/app_media.dart';
-import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
+import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
 import '../Widgets/stepfive_widget.dart';
 import '../Widgets/stepfour_widget.dart';
@@ -46,15 +45,28 @@ class _HabitPageState extends State<HabitPage>
     var a = HabitDto(
         selectedPortionType,
         selectedAmount,
-        selectedMode.toString(),
+        _handleProgressionType(selectedMode),
         selectedReduceSpeed.toString(),
         _calculateNumberOfHoursPerDay(
             _selectedMorningDate, _selectedEveningDate),
         DateTime.now(),
         selectedEndDate);
     var b = HabitRequest(userid!, a);
-    // store.dispatch(createHabit(b));
-    Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    inspect(b);
+    createHabit(b);
+  }
+
+  String _handleProgressionType(AppMode mode) {
+    switch (mode) {
+      case AppMode.appMode:
+        return 'app';
+      case AppMode.dateMode:
+        return 'date';
+      case AppMode.reduceMode:
+        return 'reduce';
+      default:
+        return 'none';
+    }
   }
 
   void _handleDateChanged(DateTime date) {
@@ -305,7 +317,7 @@ class _HabitPageState extends State<HabitPage>
                       activeColor: AppColors.example2,
                       isFinished: isFinished,
                       onWaitingProcess: () {
-                        Future.delayed(const Duration(seconds: 2), () {
+                        Future.delayed(const Duration(milliseconds: 750), () {
                           setState(() {
                             isFinished = true;
                           });
