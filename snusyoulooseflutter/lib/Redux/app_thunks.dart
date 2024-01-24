@@ -55,7 +55,8 @@ ThunkAction<AppState> getUserHabit(String userId, BuildContext context) {
   };
 }
 
-ThunkAction<AppState> createHabit(HabitRequest habitRequest) {
+ThunkAction<AppState> createHabit(
+    HabitRequest habitRequest, BuildContext context) {
   return (Store<AppState> store) async {
     try {
       final newHabit = await createHabitService(habitRequest);
