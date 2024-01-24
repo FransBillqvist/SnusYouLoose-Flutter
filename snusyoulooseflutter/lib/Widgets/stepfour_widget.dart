@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
-enum AppMode { appMode, dateMode, NONE }
+enum AppMode { appMode, dateMode, reduceMode, NONE }
 
 class StepFourWidget extends StatefulWidget {
   final ValueChanged<AppMode> onModeChanged;
