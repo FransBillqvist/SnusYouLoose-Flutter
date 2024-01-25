@@ -161,6 +161,9 @@ class _HabitPageState extends State<HabitPage>
                             child: ElevatedButton(
                               onPressed: () {
                                 setState(() {
+                                  if (habitStep == 5) {
+                                    habitStep = 3;
+                                  }
                                   habitStep--;
                                 });
                               },
