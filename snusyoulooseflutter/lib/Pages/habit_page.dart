@@ -51,10 +51,10 @@ class _HabitPageState extends State<HabitPage>
         _calculateNumberOfHoursPerDay(
             _selectedMorningDate, _selectedEveningDate),
         DateTime.now(),
-        selectedEndDate);
+        DateTime.now());
     var b = HabitRequest(userid!, a);
     inspect(b);
-    store.dispatch(createHabit(b, context));
+    store.dispatch(createHabit(a, userid, context));
   }
 
   String _handleProgressionType(AppMode mode) {
