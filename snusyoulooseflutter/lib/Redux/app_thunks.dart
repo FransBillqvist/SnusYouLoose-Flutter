@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 
 import '../Config/app_routes.dart';
 import '../Model/HabitRequest.dart';
@@ -56,10 +57,10 @@ ThunkAction<AppState> getUserHabit(String userId, BuildContext context) {
 }
 
 ThunkAction<AppState> createHabit(
-    HabitRequest habitRequest, BuildContext context) {
+    HabitDto habitRequest, String userId, BuildContext context) {
   return (Store<AppState> store) async {
     try {
-      final newHabit = await createHabitService(habitRequest);
+      final newHabit = await createHabitService(habitRequest, userId);
       store.dispatch(CreateHabitAction(newHabit));
       Navigator.of(context).pushReplacementNamed(AppRoutes.home);
     } catch (error) {
