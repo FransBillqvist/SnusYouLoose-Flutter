@@ -107,20 +107,12 @@ Future<HabitDto> fetchUserHabitService(
   throw Exception('Failed to fetch user habit');
 }
 
-Future<HabitDto> createHabitService(HabitRequest newHabit) async {
+Future<HabitDto> createHabitService(HabitDto newHabit, String userId) async {
   try {
-    var b = jsonEncode({
-      'newHabit': newHabit,
-      'userId': newHabit.UserId,
-      'habit': newHabit.Habit
-    });
-    final response = await http.post(Uri.parse(AppUrls.createHabitGateway),
+    final response = await http.post(
+        Uri.parse(AppUrls.createHabitGateway + userId),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          // 'newHabit': newHabit,
-          'userId': newHabit.UserId,
-          'habit': newHabit.Habit
-        }));
+        body: jsonEncode(newHabit.toJson()));
     print('This is the createHabit response: ${response.body} ');
     print('The createHabit response status code is: ${response.statusCode}');
     if (response.statusCode == 200) {
