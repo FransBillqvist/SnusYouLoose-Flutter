@@ -23,14 +23,14 @@ class HabitDto {
       );
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['doseType'] = this.doseType;
-    data['doseAmount'] = this.doseAmount;
-    data['progressionType'] = this.progressionType;
-    data['speed'] = this.speed;
-    data['numberOfHoursPerDay'] = this.numberOfHoursPerDay;
-    data['startDate'] = this.startDate.toIso8601String();
-    data['endDate'] = this.endDate.toIso8601String();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['DoseType'] = doseType;
+    data['DoseAmount'] = doseAmount;
+    data['ProgressionType'] = progressionType;
+    data['Speed'] = speed;
+    data['NumberOfHoursPerDay'] = numberOfHoursPerDay;
+    data['StartDate'] = startDate.toIso8601String();
+    data['EndDate'] = endDate.toIso8601String();
     return data;
   }
 }
