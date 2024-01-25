@@ -18,7 +18,7 @@ class _StepFiveWidgetState extends State<StepFiveWidget> {
   DateTime _date = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day + 7);
   double value = 0.5;
-  late int valueAsInt = 1;
+  late int valueAsInt = 5;
   DateTime _selectedDate = DateTime.now();
 
   void onChanged(dynamic newValue) {
