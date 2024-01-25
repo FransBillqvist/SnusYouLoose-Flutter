@@ -101,6 +101,10 @@ class _StepSixWidgetState extends State<StepSixWidget> {
                     child: Text(AppStrings.modeSelected,
                         style: TextStyle(fontSize: 16)),
                   ),
+                  // Padding(
+                  //   padding: EdgeInsets.only(top: 20),
+                  //   child: (getMode(widget.modeType) == 'Date' ? Text(AppStrings.dateMode) : null),
+                  // ),
                 ],
               ),
               const Padding(
