@@ -159,6 +159,13 @@ class _HabitPageState extends State<HabitPage>
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0),
                             child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                  Colors.transparent,
+                                ),
+                                elevation: MaterialStateProperty.all(0),
+                              ),
                               onPressed: () {
                                 setState(() {
                                   if (habitStep == 5) {
@@ -167,14 +174,20 @@ class _HabitPageState extends State<HabitPage>
                                   habitStep--;
                                 });
                               },
-                              child: Icon(Icons.arrow_back, size: 20),
+                              child: Icon(
+                                (habitStep == 0
+                                    ? Icons.block
+                                    : Icons.arrow_back),
+                                size: 28,
+                                color: Colors.indigoAccent[200],
+                              ),
                             ),
                           ),
                         if (habitStep <= 0)
                           Padding(
                               padding: EdgeInsets.only(
                                   left: MediaQuery.of(context).size.width *
-                                      0.27)),
+                                      0.29)),
                         if (habitStep >= 1)
                           Padding(
                             padding: EdgeInsets.only(
@@ -185,15 +198,6 @@ class _HabitPageState extends State<HabitPage>
                           fit: BoxFit.contain,
                           height: 120,
                         ),
-                        if (habitStep < 53)
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                habitStep++;
-                              });
-                            },
-                            child: Icon(Icons.arrow_forward, size: 20),
-                          ),
                       ], //rad 124
                     ),
                   ),
