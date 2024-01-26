@@ -68,3 +68,14 @@ ThunkAction<AppState> createHabit(
     }
   };
 }
+
+ThunkAction<AppState> getPregression(String userId) {
+  return (Store<AppState> store) async {
+    try {
+      final progression = await fetchUserProgressionService(userId);
+      store.dispatch(FetchProgressionAction(progression));
+    } catch (error) {
+      print(error);
+    }
+  };
+}
