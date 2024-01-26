@@ -1,4 +1,5 @@
 import 'package:snusyoulooseflutter/Model/HabitDto.dart';
+import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
 
 import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
@@ -10,19 +11,19 @@ import 'app_state.dart';
 
 AppState appReducer(AppState state, action) {
   return AppState(
-    inventorySnuffs: fetchInventoryReducer(state.inventorySnuffs, action),
-    selectedSnuff: snuffSelectedReducer(
-        state.selectedSnuff ??
-            Snuff("1", "Skruf", "Original Portion2", 50, 20,
-                "assets/images/skruf.png", 1),
-        action),
-    habit: habitReducer(
-        state.habit ??
-            HabitDto("ERROR", 1, "", "", 1, DateTime(1970, 01, 01),
-                DateTime(1970, 01, 01)),
-        action),
-    user: userReducer(state.user, action),
-  );
+      inventorySnuffs: fetchInventoryReducer(state.inventorySnuffs, action),
+      selectedSnuff: snuffSelectedReducer(
+          state.selectedSnuff ??
+              Snuff("1", "Skruf", "Original Portion2", 50, 20,
+                  "assets/images/skruf.png", 1),
+          action),
+      habit: habitReducer(
+          state.habit ??
+              HabitDto("ERROR", 1, "", "", 1, DateTime(1970, 01, 01),
+                  DateTime(1970, 01, 01)),
+          action),
+      user: userReducer(state.user, action),
+      progressionState: progressionReducer(state.progressionState, action));
 }
 
 List<CurrentSnuff> snuffReducer(List<CurrentSnuff> snuffs, action) {
@@ -79,6 +80,13 @@ List<CurrentSnuffDto> fetchInventoryReducer(
     return action.inventory;
   }
   return inventory;
+}
+
+ProgressionDto? progressionReducer(ProgressionDto? progression, action) {
+  if (action is FetchProgressionAction) {
+    return action.progression;
+  }
+  return progression;
 }
 
 
