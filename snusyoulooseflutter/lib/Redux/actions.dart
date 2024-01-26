@@ -3,6 +3,7 @@ import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/Habit.dart';
+import '../Model/ProgressionDto.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
 
@@ -52,4 +53,10 @@ class FetchSnuffDetailsAction {
   final List<Snuff> snuffs;
 
   FetchSnuffDetailsAction(this.snuffs);
+}
+
+class FetchProgressionAction {
+  final ProgressionDto progression;
+
+  FetchProgressionAction(this.progression);
 }
