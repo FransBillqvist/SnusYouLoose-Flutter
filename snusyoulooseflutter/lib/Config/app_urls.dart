@@ -8,4 +8,6 @@ class AppUrls {
       '$_url/api/v2/CurrentSnuff/GetSnuffInventory/';
   static const fetchSnuff = '$_url/api/v2/Snuff/Get/';
   static const createHabitGateway = '$_url/api/v2/Habit/CreateV2/';
+  static const fetchUserProgression =
+      '$_url/api/v2/Progression/GetProgressionDto/';
 }
