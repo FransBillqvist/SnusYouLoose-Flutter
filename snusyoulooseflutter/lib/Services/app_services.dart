@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
+import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
 
 import '../Config/app_routes.dart';
 import '../Model/CurrentSnuff.dart';
@@ -126,6 +127,26 @@ Future<HabitDto> createHabitService(HabitDto newHabit, String userId) async {
   }
   throw Exception('Failed to create habit');
 }
+
+Future<ProgressionDto> fetchUserProgressionService(String userId) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchUserProgression + userId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchUserProgression response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final progression = ProgressionDto.fromJson(jsonDecode(response.body));
+      print('This is the progression: $progression');
+      inspect(progression);
+      return progression;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH USER PROGRESSION $err');
+  }
+  throw Exception('Failed to fetch user progression');
+}
+
+
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
 //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
