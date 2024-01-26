@@ -14,6 +14,7 @@ import '../Model/snuff.dart';
 import '../Redux/actions.dart';
 import '../Redux/app_state.dart';
 import '../widgets/image_widget.dart';
+import 'usesnuff_widget.dart';
 
 class InventoryWidget extends StatelessWidget {
   final List<CurrentSnuffDto> currentSnuffs;
@@ -38,30 +39,42 @@ class InventoryWidget extends StatelessWidget {
               return Text('Error: ${snapshot.error}');
             } else {
               var snuff = snapshot.data;
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 36,
-                    width: 248,
-                    child: Text(
-                      AppStrings.thereis +
-                          " " +
-                          amountLeft.toString() +
-                          " " +
-                          AppStrings.snuffsLeft,
-                      style: TextStyle(fontSize: 24, color: AppColors.primary),
+              return GestureDetector(
+                onLongPress: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return UseSnuffWidget(
+                          currentsnuffID: snuff![index].currentSnuffId);
+                    },
+                  );
+                },
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 36,
+                      width: 248,
+                      child: Text(
+                        AppStrings.thereis +
+                            " " +
+                            amountLeft.toString() +
+                            " " +
+                            AppStrings.snuffsLeft,
+                        style:
+                            TextStyle(fontSize: 24, color: AppColors.primary),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: ImageWidget(
-                      imageUrl: snuff![index].imageUrl,
-                      width: 250,
-                      height: 250,
-                      fit: BoxFit.scaleDown,
-                    ),
-                  )
-                ],
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: ImageWidget(
+                        imageUrl: snuff![index].imageUrl,
+                        width: 250,
+                        height: 250,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    )
+                  ],
+                ),
               );
             }
           },
