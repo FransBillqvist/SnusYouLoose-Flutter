@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Pages/home_page.dart';
+import 'package:snusyoulooseflutter/Services/app_services.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
 import '../Config/app_strings.dart';
@@ -27,6 +28,7 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
 
   void _showDialog(BuildContext context) {
     isDialogShowing = true;
+    int selectedValue = 1;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -34,7 +36,12 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
           title: const Text(AppStrings.takenSnuffAmount),
           backgroundColor: AppColors.example2,
           contentPadding: const EdgeInsets.all(18.0),
-          content: NumberDropdown(),
+          content: NumberDropdown(
+            currentsnuffID: widget.currentsnuffID,
+            onValueChanged: (value) {
+              selectedValue = value;
+            },
+          ),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 118.0),
@@ -54,6 +61,7 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
                 style: TextStyle(fontSize: 18, color: AppColors.primary),
               ),
               onPressed: () {
+                postSnuffTakenService(widget.currentsnuffID, selectedValue);
                 Navigator.of(context).pop();
               },
             ),
@@ -65,6 +73,11 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
 }
 
 class NumberDropdown extends StatefulWidget {
+  final String currentsnuffID;
+  final ValueChanged<int> onValueChanged;
+
+  NumberDropdown({required this.currentsnuffID, required this.onValueChanged});
+
   @override
   _NumberDropdownState createState() => _NumberDropdownState();
 }
