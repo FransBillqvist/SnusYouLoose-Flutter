@@ -46,4 +46,6 @@ class AppStrings {
   static const String modeSelected = 'Mode Selected';
   static const String crtHabit = 'Create Habit';
   static const String takenSnuffAmount = 'Select the amount of snuff taken?';
+  static const String close = 'Close';
+  static const String ok = 'Ok';
 }
