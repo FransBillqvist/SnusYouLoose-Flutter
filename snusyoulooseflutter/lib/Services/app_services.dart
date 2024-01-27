@@ -146,6 +146,22 @@ Future<ProgressionDto> fetchUserProgressionService(String userId) async {
   throw Exception('Failed to fetch user progression');
 }
 
+Future postSnuffTakenService(String currentSnuffId, int amount) async {
+  try {
+    final response = await http.post(
+        Uri.parse(AppUrls.postSnuffTaken +
+            'CurrentSnuffId=$currentSnuffId&Amount=$amount'),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the postSnuffTaken response: ${response.body} ');
+    if (response.statusCode == 200) {
+      print('This is the postSnuffTaken response: ${response.body} ');
+    }
+  } catch (err) {
+    print('FAILED TO POST SNUFF TAKEN $err');
+  }
+  throw Exception('Failed to post snuff taken');
+}
+
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
