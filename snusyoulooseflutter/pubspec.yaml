@@ -29,4 +29,5 @@ flutter:
   uses-material-design: true
   assets:
     - Assets/Images/
+    - Assets/Images/snuff/
     - Assets/Icons/
