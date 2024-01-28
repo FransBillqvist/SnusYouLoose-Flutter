@@ -31,6 +31,8 @@ class AppSnuffs {
   static const apresiceteapeach = '${_snf}apres-ice-tea-peach.webp';
   static const fixpineapplerumcoconut4 =
       '${_snf}fix-pineapple-rum-coconut-4.webp';
+  static const goteborgsrapewhiteportionssnus =
+      '${_snf}goteborgs-rape-white-portionssnus.webp';
   static const helwitcherryslim = '${_snf}helwit-cherry-slim.webp';
   static const helwitmintslim = '${_snf}helwit-mint-slim.webp';
   static const helwitmochaslim = '${_snf}helwit-mocha-slim.webp';
