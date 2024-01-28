@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Pages/home_page.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
@@ -7,15 +9,16 @@ import '../Config/app_strings.dart';
 
 class UseSnuffWidget extends StatefulWidget {
   final String currentsnuffID;
+  final int selectedValue;
 
-  UseSnuffWidget({required this.currentsnuffID});
+  UseSnuffWidget({required this.currentsnuffID, this.selectedValue = 1});
 
   @override
   _UseSnuffWidgetState createState() => _UseSnuffWidgetState();
 }
 
 class _UseSnuffWidgetState extends State<UseSnuffWidget> {
-  int selectedNumber = 1;
+  late int selectedNumber;
   bool isDialogShowing = false;
 
   @override
@@ -28,7 +31,7 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
 
   void _showDialog(BuildContext context) {
     isDialogShowing = true;
-    int selectedValue = 1;
+    int selectedValue;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -39,6 +42,7 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
           content: NumberDropdown(
             currentsnuffID: widget.currentsnuffID,
             onValueChanged: (value) {
+              inspect(value);
               selectedValue = value;
             },
           ),
@@ -61,7 +65,9 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
                 style: TextStyle(fontSize: 18, color: AppColors.primary),
               ),
               onPressed: () {
-                postSnuffTakenService(widget.currentsnuffID, selectedValue);
+                inspect(widget.selectedValue);
+                postSnuffTakenService(
+                    widget.currentsnuffID, widget.selectedValue);
                 Navigator.of(context).pop();
               },
             ),
@@ -83,15 +89,17 @@ class NumberDropdown extends StatefulWidget {
 }
 
 class _NumberDropdownState extends State<NumberDropdown> {
-  int selectedNumber = 1;
+  late int selectedNumber = 1;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<int>(
       value: selectedNumber,
-      onChanged: (int? newValue) {
+      onChanged: (newValue) {
         setState(() {
+          // inspect(newValue);
           selectedNumber = newValue!;
+          // inspect(selectedNumber);
         });
       },
       items: <int>[1, 2, 3, 4, 5].map<DropdownMenuItem<int>>((int value) {
