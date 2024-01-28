@@ -148,13 +148,11 @@ Future<ProgressionDto> fetchUserProgressionService(String userId) async {
 
 Future postSnuffTakenService(String currentSnuffId, int amount) async {
   try {
-    final response = await http.post(
-        Uri.parse(AppUrls.postSnuffTaken +
-            'CurrentSnuffId=$currentSnuffId&Amount=$amount'),
-        headers: {'Content-Type': 'application/json'});
+    final response = await http.post(Uri.parse(AppUrls.postSnuffTaken +
+        'CurrentsnuffId=$currentSnuffId&amount=$amount'));
     print('This is the postSnuffTaken response: ${response.body} ');
     if (response.statusCode == 200) {
-      print('This is the postSnuffTaken response: ${response.body} ');
+      print('This is the 200 => postSnuffTaken response: ${response.body} ');
     }
   } catch (err) {
     print('FAILED TO POST SNUFF TAKEN $err');
