@@ -10,5 +10,5 @@ class AppUrls {
   static const createHabitGateway = '$_url/api/v2/Habit/CreateV2/';
   static const fetchUserProgression =
       '$_url/api/v2/Progression/GetProgressionDto/';
-  static const postSnuffTaken = '$_url/api/v2/CurrentSnuffNewSnuffLogV2?';
+  static const postSnuffTaken = '$_url/api/v2/CurrentSnuff/NewSnuffLogV2?';
 }
