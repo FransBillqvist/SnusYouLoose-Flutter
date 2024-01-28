@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
+import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
 import '../Model/CurrentSnuff.dart';
@@ -66,8 +67,8 @@ class InventoryWidget extends StatelessWidget {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      child: ImageWidget(
-                        imageUrl: snuff![index].imageUrl,
+                      child: Image.asset(
+                        AppSnuffs.images[snuff![index].imageUrl] ?? '',
                         width: 250,
                         height: 250,
                         fit: BoxFit.scaleDown,
