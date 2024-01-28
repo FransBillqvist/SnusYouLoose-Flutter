@@ -26,74 +26,64 @@ class AppIcons {
 class AppSnuffs {
   static const _snf = 'Assets/Images/snuff/';
 
-  static const acexraspberrychilistrong =
-      '${_snf}ace-x-raspberry-chili-strong.webp';
-  static const apresiceteapeach = '${_snf}apres-ice-tea-peach.webp';
-  static const fixpineapplerumcoconut4 =
-      '${_snf}fix-pineapple-rum-coconut-4.webp';
-  static const goteborgsrapewhiteportionssnus =
-      '${_snf}goteborgs-rape-white-portionssnus.webp';
-  static const helwitcherryslim = '${_snf}helwit-cherry-slim.webp';
-  static const helwitmintslim = '${_snf}helwit-mint-slim.webp';
-  static const helwitmochaslim = '${_snf}helwit-mocha-slim.webp';
-  static const helwitorangeslim = '${_snf}helwit-orange-slim.webp';
-  static const helwitslimblueberry = '${_snf}helwit-slim-blueberry.webp';
-  static const helwitslimviolet = '${_snf}helwit-slim-violet.webp';
-  static const kellywhiteraspberrylemonmini =
-      '${_snf}kelly-white-raspberry-lemon-mini.webp';
-  static const kellywhitesparklingstrawberryslim =
-      '${_snf}kelly-white-sparkling-strawberry-slim.webp';
-  static const lundgrensvagsvallallwhite =
-      '${_snf}lundgrens-vagsvall-all-white.webp';
-  static const stromicedcoffeeslim = '${_snf}strom-iced-coffee-slim.webp';
-  static const velo14mgbreezymango = '${_snf}velo-14mg-breezy-mango.webp';
-  static const veloorangespark = '${_snf}velo-orange-spark.webp';
-  static const velotangledberry = '${_snf}velo-tangled-berry.webp';
-  static const velotropicbreezezeronfsnuff =
-      '${_snf}velo-tropic-breeze-zero-nf-snuff.webp';
-  static const velozestflame = '${_snf}velo-zest-flame.webp';
-  static const xqsblackcherryslimstrong =
-      '${_snf}xqs-black-cherry-slim-strong.webp';
-  static const xqsblueberrymintlightallwhiteportion =
-      '${_snf}xqs-blueberry-mint-light-all-white-portion.webp';
-  static const xqscactussourlightallwhiteportion =
-      '${_snf}xqs-cactus-sour-light-all-white-portion.webp';
-  static const xqscactussourslimstrong =
-      '${_snf}xqs-cactus-sour-slim-strong.webp';
-  static const xqscitruscoolingslim = '${_snf}xqs-citrus-cooling-slim.webp';
-  static const xqselderflowerslimstrong =
-      '${_snf}xqs-elderflower-slim-strong.webp';
-  static const xqsfizzycolaallwhiteportion =
-      '${_snf}xqs-fizzy-cola-all-white-portion.webp';
-  static const xqsfizzycolastrong = '${_snf}xqs-fizzy-cola-strong.webp';
-  static const xqsorangeappleslimstrong =
-      '${_snf}xqs-orange-apple-slim-strong.webp';
-  static const xqsslimstrongblueberrymint =
-      '${_snf}xqs-slim-strong-blueberry-mint.webp';
-  static const xqsslimstrongwintergreen =
-      '${_snf}xqs-slim-strong-wintergreen.webp';
-  static const xqssofttoffeeslimstrong =
-      '${_snf}xqs-soft-toffee-slim-strong.webp';
-  static const xqstropicalslimextrastrongallwhiteportion =
-      '${_snf}xqs-tropical-slim-extra-strong-all-white-portion.webp';
-  static const xqstropicalslimnormalallwhiteportion =
-      '${_snf}xqs-tropical-slim-normal-all-white-portion.webp';
-  static const xqstwinappleslimstrong =
-      '${_snf}xqs-twin-apple-slim-strong.webp';
-  static const xqswintergreenslim = '${_snf}xqs-wintergreen-slim.webp';
-  static const xrgeneralslimwhiteportionssnus =
-      '${_snf}xr-general-slim-white-portionssnus.webp';
-  static const zonexcoldblastslimextrastrongallwhiteport =
-      '${_snf}zone-x-cold-blast-slim-extra-strong-all-white-port.webp';
-  static const zonexcosmicblastslimextrastrongallwhitepor =
-      '${_snf}zonex-cosmic-blast-slim-extra-strong-all-white-por.webp';
-  static const zynminiblackcherry3mg = '${_snf}zyn-mini-black-cherry-3-mg.webp';
-  static const zynminicitrus3mg = '${_snf}zyn-mini-citrus-3-mg.webp';
-  static const zynminicoolmint3mg = '${_snf}zyn-mini-cool-mint-3-mg.webp';
-  static const zynminiespressino = '${_snf}zyn-mini-espressino.webp';
-  static const zynslimspearmintstrong = '${_snf}zyn-slim-spearmint-strong.webp';
-  static const zynslimstrongapplemint =
-      '${_snf}zyn-slim-strong-apple-mint.webp';
-  static const zynspearmintminidry = '${_snf}zyn-spearmint-mini-dry.webp';
-  static const zynvioletlicoriceslim = '${_snf}zyn-violet-licorice-slim.webp';
+  static const Map<String, String> images = {
+    'acexraspberrychilistrong': '${_snf}ace-x-raspberry-chili-strong.webp',
+    'apresiceteapeach': '${_snf}apres-ice-tea-peach.webp',
+    'fixpineapplerumcoconut4': '${_snf}fix-pineapple-rum-coconut-4.webp',
+    'goteborgsrapewhiteportionssnus':
+        '${_snf}goteborgs-rape-white-portionssnus.webp',
+    'helwitcherryslim': '${_snf}helwit-cherry-slim.webp',
+    'helwitmintslim': '${_snf}helwit-mint-slim.webp',
+    'helwitmochaslim': '${_snf}helwit-mocha-slim.webp',
+    'helwitorangeslim': '${_snf}helwit-orange-slim.webp',
+    'helwitslimblueberry': '${_snf}helwit-slim-blueberry.webp',
+    'helwitslimviolet': '${_snf}helwit-slim-violet.webp',
+    'kellywhiteraspberrylemonmini':
+        '${_snf}kelly-white-raspberry-lemon-mini.webp',
+    'kellywhitesparklingstrawberryslim':
+        '${_snf}kelly-white-sparkling-strawberry-slim.webp',
+    'lundgrensvagsvallallwhite': '${_snf}lundgrens-vagsvall-all-white.webp',
+    'stromicedcoffeeslim': '${_snf}strom-iced-coffee-slim.webp',
+    'velo14mgbreezymango': '${_snf}velo-14mg-breezy-mango.webp',
+    'veloorangespark': '${_snf}velo-orange-spark.webp',
+    'velotangledberry': '${_snf}velo-tangled-berry.webp',
+    'velotropicbreezezeronfsnuff':
+        '${_snf}velo-tropic-breeze-zero-nf-snuff.webp',
+    'velozestflame': '${_snf}velo-zest-flame.webp',
+    'xqsblackcherryslimstrong': '${_snf}xqs-black-cherry-slim-strong.webp',
+    'xqsblueberrymintlightallwhiteportion':
+        '${_snf}xqs-blueberry-mint-light-all-white-portion.webp',
+    'xqscactussourlightallwhiteportion':
+        '${_snf}xqs-cactus-sour-light-all-white-portion.webp',
+    'xqscactussourslimstrong': '${_snf}xqs-cactus-sour-slim-strong.webp',
+    'xqscitruscoolingslim': '${_snf}xqs-citrus-cooling-slim.webp',
+    'xqselderflowerslimstrong': '${_snf}xqs-elderflower-slim-strong.webp',
+    'xqsfizzycolaallwhiteportion':
+        '${_snf}xqs-fizzy-cola-all-white-portion.webp',
+    'xqsfizzycolastrong': '${_snf}xqs-fizzy-cola-strong.webp',
+    'xqsorangeappleslimstrong': '${_snf}xqs-orange-apple-slim-strong.webp',
+    'xqsslimstrongblueberrymint': '${_snf}xqs-slim-strong-blueberry-mint.webp',
+    'xqsslimstrongwintergreen': '${_snf}xqs-slim-strong-wintergreen.webp',
+    'xqssofttoffeeslimstrong': '${_snf}xqs-soft-toffee-slim-strong.webp',
+    'xqstropicalslimextrastrongallwhiteportion':
+        '${_snf}xqs-tropical-slim-extra-strong-all-white-portion.webp',
+    'xqstropicalslimnormalallwhiteportion':
+        '${_snf}xqs-tropical-slim-normal-all-white-portion.webp',
+    'xqstwinappleslimstrong': '${_snf}xqs-twin-apple-slim-strong.webp',
+    'xqswintergreenslim': '${_snf}xqs-wintergreen-slim.webp',
+    'xrgeneralslimwhiteportionssnus':
+        '${_snf}xr-general-slim-white-portionssnus.webp',
+    'zonexcoldblastslimextrastrongallwhiteport':
+        '${_snf}zone-x-cold-blast-slim-extra-strong-all-white-port.webp',
+    'zonexcosmicblastslimextrastrongallwhitepor':
+        '${_snf}zonex-cosmic-blast-slim-extra-strong-all-white-por.webp',
+    'zynminiblackcherry3mg': '${_snf}zyn-mini-black-cherry-3-mg.webp',
+    'zynminicitrus3mg': '${_snf}zyn-mini-citrus-3-mg.webp',
+    'zynminicoolmint3mg': '${_snf}zyn-mini-cool-mint-3-mg.webp',
+    'zynminiespressino': '${_snf}zyn-mini-espressino.webp',
+    'zynslimspearmintstrong': '${_snf}zyn-slim-spearmint-strong.webp',
+    'zynslimstrongapplemint': '${_snf}zyn-slim-strong-apple-mint.webp',
+    'zynspearmintminidry': '${_snf}zyn-spearmint-mini-dry.webp',
+    'zynvioletlicoriceslim': '${_snf}zyn-violet-licorice-slim.webp',
+  };
 }
