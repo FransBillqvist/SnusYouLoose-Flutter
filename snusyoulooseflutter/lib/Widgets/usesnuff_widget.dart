@@ -9,9 +9,8 @@ import '../Config/app_strings.dart';
 
 class UseSnuffWidget extends StatefulWidget {
   final String currentsnuffID;
-  final int selectedValue;
 
-  UseSnuffWidget({required this.currentsnuffID, this.selectedValue = 1});
+  UseSnuffWidget({required this.currentsnuffID});
 
   @override
   _UseSnuffWidgetState createState() => _UseSnuffWidgetState();
@@ -29,9 +28,8 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
     return HomePage();
   }
 
-  void _showDialog(BuildContext context) {
-    isDialogShowing = true;
-    int selectedValue;
+  void _showDialog(BuildContext contextd) {
+    int selectedValue = 1;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -41,9 +39,10 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
           contentPadding: const EdgeInsets.all(18.0),
           content: NumberDropdown(
             currentsnuffID: widget.currentsnuffID,
-            onValueChanged: (value) {
-              inspect(value);
-              selectedValue = value;
+            onValueChanged: (newValue) {
+              selectedValue = newValue;
+
+              // inspect(onAmountChanged);
             },
           ),
           actions: <Widget>[
@@ -65,9 +64,7 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
                 style: TextStyle(fontSize: 18, color: AppColors.primary),
               ),
               onPressed: () {
-                inspect(widget.selectedValue);
-                postSnuffTakenService(
-                    widget.currentsnuffID, widget.selectedValue);
+                postSnuffTakenService(widget.currentsnuffID, selectedValue);
                 Navigator.of(context).pop();
               },
             ),
@@ -89,7 +86,7 @@ class NumberDropdown extends StatefulWidget {
 }
 
 class _NumberDropdownState extends State<NumberDropdown> {
-  late int selectedNumber = 1;
+  int selectedNumber = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +94,9 @@ class _NumberDropdownState extends State<NumberDropdown> {
       value: selectedNumber,
       onChanged: (newValue) {
         setState(() {
-          // inspect(newValue);
           selectedNumber = newValue!;
-          // inspect(selectedNumber);
+          widget.onValueChanged(
+              newValue); // Call callback function to pass the selected value
         });
       },
       items: <int>[1, 2, 3, 4, 5].map<DropdownMenuItem<int>>((int value) {
