@@ -4,10 +4,11 @@ import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
 
 import '../Styles/app_colors.dart';
+import '../Widgets/shop_widget.dart';
 
 class ShopPage extends StatelessWidget {
-  const ShopPage({super.key});
-
+  ShopPage({super.key});
+  final shop = fetchSnuffShopService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +42,12 @@ class ShopPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: ShopWidget(itemsInShopFuture: shop),
+              ),
             ],
           );
         },
