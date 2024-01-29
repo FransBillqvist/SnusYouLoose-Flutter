@@ -26,10 +26,11 @@ class ShopPage extends StatelessWidget {
                       child: SizedBox(
                         height: 104,
                         width: MediaQuery.of(context).size.width * 0.91,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.blue),
+                        child: Material(
+                          elevation:
+                              14.0, // Change this value to adjust the elevation
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blue,
                           child: Center(
                             child: Text(
                               "Add a Search-Function HERE",
@@ -55,3 +56,9 @@ class ShopPage extends StatelessWidget {
     ));
   }
 }
+
+
+//  DecoratedBox(
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       color: Colors.blue),
