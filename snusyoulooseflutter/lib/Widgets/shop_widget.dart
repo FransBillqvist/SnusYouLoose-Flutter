@@ -40,12 +40,11 @@ class ShopWidget extends StatelessWidget {
                         color: AppColors.example3,
                       ),
                       child: SizedBox(
-                        height: 90,
+                        height: 91,
                         width: 348,
                         child: Column(children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.only(right: 188.0, top: 6),
+                            padding: const EdgeInsets.only(right: 81, top: 6),
                             child: Row(
                               children: [
                                 Image.asset(
