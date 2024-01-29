@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
 import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
+import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 
 import '../Config/app_routes.dart';
 import '../Model/CurrentSnuff.dart';
@@ -158,6 +159,26 @@ Future postSnuffTakenService(String currentSnuffId, int amount) async {
     print('FAILED TO POST SNUFF TAKEN $err');
   }
   throw Exception('Failed to post snuff taken');
+}
+
+Future<List<SnuffShopDto>> fetchSnuffShopService() async {
+  try {
+    final response = await http.get(Uri.parse(AppUrls.fetchSnuffShop),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchSnuffShop response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final snuff = jsonDecode(response.body);
+      print('This is the snuff: $snuff');
+      inspect(snuff);
+      var result =
+          List<SnuffShopDto>.from(snuff.map((x) => SnuffShopDto.fromJson(x)))
+              .toList();
+      return result;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH SNUFF SHOP $err');
+  }
+  throw Exception('Failed to fetch snuff shop');
 }
 
 
