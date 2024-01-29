@@ -65,7 +65,19 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(36),
                   ),
                 ),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.shop);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                      padding: EdgeInsets.fromLTRB(17, 4, 17, 4),
+                      backgroundColor: AppColors.example2,
+                      foregroundColor: AppColors.textOnFocus),
+                  child: Icon(Icons.shopping_cart_rounded)),
             ],
           ),
         ),
