@@ -30,6 +30,7 @@ class ShopWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               var snuff = itemsInShop![index];
               return SizedBox(
+                //kanske göra detta till en stack?
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Column(
