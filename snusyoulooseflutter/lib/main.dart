@@ -29,6 +29,7 @@ class MainApp extends StatelessWidget {
     return StoreProvider(
       store: _store,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Urbanist',
           scaffoldBackgroundColor: AppColors.example4,
