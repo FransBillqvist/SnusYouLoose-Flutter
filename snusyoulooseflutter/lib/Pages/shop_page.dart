@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Config/app_routes.dart';
 import 'package:snusyoulooseflutter/Model/Snuff.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
@@ -36,7 +37,8 @@ class _ShopPageState extends State<ShopPage> {
                       elevation: MaterialStateProperty.all(0),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(context)
+                          .pushReplacementNamed(AppRoutes.home);
                     },
                     child: Icon(
                       Icons.arrow_back,
