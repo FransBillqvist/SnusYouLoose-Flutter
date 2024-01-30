@@ -183,6 +183,23 @@ Future<List<SnuffShopDto>> fetchSnuffShopService() async {
   throw Exception('Failed to fetch snuff shop');
 }
 
+Future<SnuffShopDto> fetchSnuffDetailsWithIdService(String snuffId) async {
+  try {
+    final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchSnuffDetails response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final snuff = SnuffShopDto.fromJson(jsonDecode(response.body));
+      print('This is the snuff: $snuff');
+
+      return snuff;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH SNUFF WITH ID: {$snuffId} DETAILS $err');
+  }
+  throw Exception('Failed to fetch snuff details');
+}
+
 String getUserIdService(BuildContext context) {
   final store = StoreProvider.of<AppState>(context);
   final userId = store.state.user?.UserId;
