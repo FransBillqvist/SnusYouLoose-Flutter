@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Config/app_routes.dart';
 import 'package:snusyoulooseflutter/Model/Snuff.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
 
+import '../Model/CreateCSDto.dart';
 import '../Styles/app_colors.dart';
 import '../Widgets/shop_widget.dart';
 
@@ -12,11 +15,24 @@ class ShopPage extends StatefulWidget {
 
   @override
   State<ShopPage> createState() => _ShopPageState();
+  List<CreateCSDto> itemsInMyCart = [];
   int numberOfItemsInCart = 0;
 }
 
 class _ShopPageState extends State<ShopPage> {
   final shop = fetchSnuffShopService();
+
+  void updateCart(List<CreateCSDto> updatedCart) {
+    setState(() {
+      updatedCart.forEach((element) {
+        widget.itemsInMyCart.add(element);
+      });
+
+      widget.numberOfItemsInCart = widget.itemsInMyCart.length;
+      inspect(widget.numberOfItemsInCart);
+      inspect(widget.itemsInMyCart);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +131,12 @@ class _ShopPageState extends State<ShopPage> {
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: ShopWidget(itemsInShopFuture: shop),
+                child: ShopWidget(
+                  itemsInShopFuture: shop,
+                  onCartUpdated: (updatedCart) {
+                    updateCart(updatedCart);
+                  },
+                ),
               ),
             ],
           );
