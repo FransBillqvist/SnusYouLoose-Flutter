@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
+import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+import 'package:collection/collection.dart';
 
 import '../Model/CreateCSDto.dart';
+import '../Services/app_services.dart';
 
 class CartWidget extends StatefulWidget {
   final List<CreateCSDto> cartState;
@@ -23,11 +27,18 @@ class _CartWidgetState extends State<CartWidget> {
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
+              color: AppColors.cartBgLight2,
             ),
           ),
         ),
       ),
+      Positioned(
+          top: 42,
+          left: 36,
+          child: Text(
+            "Cart",
+            style: TextStyle(fontSize: 18),
+          )),
       Positioned(
         top: 15,
         left: -7,
@@ -41,5 +52,30 @@ class _CartWidgetState extends State<CartWidget> {
         ),
       ),
     ]);
+  }
+
+  Future<List<SnuffShopDto>> getSnuffFromCartAsGroup(
+      List<CreateCSDto> cart) async {
+    var grouped = groupBy(cart, (CreateCSDto c) => c.snusId);
+    List<SnuffShopDto> result = [];
+
+    for (var entry in grouped.entries) {
+      var snusId = entry.key;
+      var cartItems = entry.value;
+
+      var snuffData = await fetchSnuffDetailsWithIdService(snusId);
+      var snuffShopDto = SnuffShopDto(
+        snuffData.id,
+        snuffData.brand,
+        snuffData.type,
+        snuffData.price,
+        snuffData.defaultAmount,
+        snuffData.imageUrl,
+      );
+      snuffShopDto.amount = cartItems.length;
+      result.add(snuffShopDto);
+    }
+
+    return result;
   }
 }
