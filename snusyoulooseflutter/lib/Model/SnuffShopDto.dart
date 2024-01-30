@@ -5,6 +5,7 @@ class SnuffShopDto {
   final int price;
   final int defaultAmount;
   final String imageUrl;
+  late int? amount;
 
   SnuffShopDto(this.id, this.brand, this.type, this.price, this.defaultAmount,
       this.imageUrl);
