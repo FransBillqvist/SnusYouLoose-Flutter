@@ -5,6 +5,9 @@ import 'package:snusyoulooseflutter/Config/app_routes.dart';
 import 'package:snusyoulooseflutter/Model/Snuff.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
+import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
+import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
+import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
 
 import '../Model/CreateCSDto.dart';
 import '../Styles/app_colors.dart';
@@ -94,7 +97,9 @@ class _ShopPageState extends State<ShopPage> {
                                 ? Colors.white
                                 : Colors.indigoAccent[200]),
                             onPressed: () {
-                              // Handle the press event
+                              CartWidget(
+                                cartState: widget.itemsInMyCart,
+                              );
                             },
                           ),
                           if (widget.numberOfItemsInCart > 0)
