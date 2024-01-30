@@ -4,10 +4,12 @@ import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
 import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
 import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
+import 'package:snusyoulooseflutter/Redux/app_state.dart';
 
 import '../Config/app_routes.dart';
 import '../Model/CurrentSnuff.dart';
@@ -181,6 +183,16 @@ Future<List<SnuffShopDto>> fetchSnuffShopService() async {
   throw Exception('Failed to fetch snuff shop');
 }
 
+String getUserIdService(BuildContext context) {
+  final store = StoreProvider.of<AppState>(context);
+  final userId = store.state.user?.UserId;
+
+  if (userId == null || userId.isEmpty) {
+    throw Exception('UserId is null or empty');
+  }
+
+  return userId;
+}
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
