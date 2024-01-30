@@ -18,5 +18,7 @@ class AppColors {
   static const textPrimary = Color(0xF0000000);
   static const textPrimary2 = Color(0xD0000000);
 
+  static const cartBgLight = Color.fromRGBO(0, 169, 255, 1.0);
+  static const cartBgLight2 = Color.fromRGBO(137, 207, 243, 1.0);
   //Black mode alt 0x272727
 }
