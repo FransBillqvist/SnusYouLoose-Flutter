@@ -12,4 +12,5 @@ class AppUrls {
       '$_url/api/v2/Progression/GetProgressionDto/';
   static const postSnuffTaken = '$_url/api/v2/CurrentSnuff/NewSnuffLogV2?';
   static const fetchSnuffShop = '$_url/api/v2/Snuff/GetShopSnuffs';
+  static const fetchSnuffViaId = '$_url/api/v2/Snuff/Get/';
 }
