@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Model/CreateCSDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 import '../Config/app_media.dart';
 import '../Redux/reducer.dart';
@@ -8,10 +11,12 @@ import '../Model/SnuffShopDto.dart';
 
 class ShopWidget extends StatefulWidget {
   final Future<List<SnuffShopDto>> itemsInShopFuture;
-  ShopWidget({required this.itemsInShopFuture});
+  final Function(List<CreateCSDto>) onCartUpdated;
+  ShopWidget({required this.itemsInShopFuture, required this.onCartUpdated});
 
   @override
   State<ShopWidget> createState() => _ShopWidgetState();
+  List<CreateCSDto> itemsInMyCart = [];
 }
 
 class _ShopWidgetState extends State<ShopWidget> {
@@ -98,13 +103,17 @@ class _ShopWidgetState extends State<ShopWidget> {
                     top: 14.5,
                     right: 28,
                     child: IconButton(
-                      onPressed: () {
-                        // Handle the press event, e.g. add the item to the cart
-                      },
                       icon: Icon(Icons.add_circle_outline),
                       iconSize: 36,
+                      onPressed: () {
+                        setState(() {
+                          // Replace `userId` with the actual user ID
+                          AddSnuffToCart(context, snuff);
+                          // Handle the press event, e.g. add the item to the cart
+                        });
+                      },
                     ),
-                  ),
+                  )
                 ],
               );
             },
@@ -112,6 +121,16 @@ class _ShopWidgetState extends State<ShopWidget> {
         }
       },
     );
+  }
+
+  void AddSnuffToCart(BuildContext context, SnuffShopDto snuff) {
+    var userId = getUserIdService(context);
+    var addSnuffToCart = CreateCSDto(snuff.id, userId);
+    setState(() {
+      widget.itemsInMyCart.add(addSnuffToCart);
+    });
+
+    widget.onCartUpdated(widget.itemsInMyCart);
   }
 }
 
