@@ -6,14 +6,19 @@ import '../Services/app_services.dart';
 
 import '../Model/SnuffShopDto.dart';
 
-class ShopWidget extends StatelessWidget {
+class ShopWidget extends StatefulWidget {
   final Future<List<SnuffShopDto>> itemsInShopFuture;
   ShopWidget({required this.itemsInShopFuture});
 
   @override
+  State<ShopWidget> createState() => _ShopWidgetState();
+}
+
+class _ShopWidgetState extends State<ShopWidget> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<SnuffShopDto>>(
-      future: itemsInShopFuture,
+      future: widget.itemsInShopFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
@@ -24,67 +29,83 @@ class ShopWidget extends StatelessWidget {
           return ListView.separated(
             itemCount: itemsInShop!.length,
             separatorBuilder: (context, index) => SizedBox(
-              height: 62,
+              height: 22,
               width: 120,
             ), // Change the height to adjust the space
             itemBuilder: (context, index) {
               var snuff = itemsInShop![index];
-              return SizedBox(
-                //kanske göra detta till en stack?
-                height: MediaQuery.of(context).size.height * 0.04,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Column(
-                  children: [
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.example3,
-                      ),
-                      child: SizedBox(
-                        height: 91,
-                        width: 348,
-                        child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 81, top: 6),
-                            child: Row(
+              return Stack(
+                fit: StackFit.passthrough,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Column(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.example3,
+                          ),
+                          child: SizedBox(
+                            height: 82,
+                            width: 348,
+                            child: Stack(
                               children: [
-                                Image.asset(
-                                  AppSnuffs.images[snuff.imageUrl] ?? '',
-                                  width: 75,
-                                  height: 75,
-                                  fit: BoxFit.scaleDown,
+                                Positioned(
+                                  top: 1,
+                                  left: 2,
+                                  child: Image.asset(
+                                    AppSnuffs.images[snuff.imageUrl] ?? '',
+                                    width: 75,
+                                    height: 75,
+                                    fit: BoxFit.scaleDown,
+                                  ),
                                 ),
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 25.0),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          '${snuff.brand}',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: AppColors.example2),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '${snuff.type}',
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              color: AppColors.example2),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
+                                Positioned(
+                                  top: 12.5,
+                                  left: 104,
+                                  child: Text(
+                                    '${snuff.brand}',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColors.textPrimary2),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 32.5,
+                                  left: 104,
+                                  child: Container(
+                                    width: 200,
+                                    child: Text(
+                                      '${snuff.type}',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppColors.textPrimary2),
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.fade,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ]),
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    top: 14.5,
+                    right: 28,
+                    child: IconButton(
+                      onPressed: () {
+                        // Handle the press event, e.g. add the item to the cart
+                      },
+                      icon: Icon(Icons.add_circle_outline),
+                      iconSize: 36,
+                    ),
+                  ),
+                ],
               );
             },
           );
