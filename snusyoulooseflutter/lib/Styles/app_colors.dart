@@ -16,6 +16,7 @@ class AppColors {
   static const loginDeepTextColor = Color(0xFFC2E2D6);
   static const loginLightTextColor = Color(0xFFFCFAFA);
   static const textPrimary = Color(0xF0000000);
+  static const textPrimary2 = Color(0xD0000000);
 
   //Black mode alt 0x272727
 }
