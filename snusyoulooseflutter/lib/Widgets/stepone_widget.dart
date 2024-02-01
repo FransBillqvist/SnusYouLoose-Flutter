@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Config/app_strings.dart';
-import '../Styles/app_colors.dart';
-
 class StepOneWidget extends StatefulWidget {
   final ValueChanged<DateTime> onMorningDateChanged;
 

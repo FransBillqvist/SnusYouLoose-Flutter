@@ -1,13 +1,10 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:snusyoulooseflutter/Model/CreateCSDto.dart';
-import 'package:snusyoulooseflutter/Styles/app_colors.dart';
-import '../Config/app_media.dart';
-import '../Redux/reducer.dart';
-import '../Services/app_services.dart';
 
+import '../Config/app_media.dart';
+import '../Model/CreateCSDto.dart';
 import '../Model/SnuffShopDto.dart';
+import '../Services/app_services.dart';
+import '../Styles/app_colors.dart';
 
 class ShopWidget extends StatefulWidget {
   final Future<List<SnuffShopDto>> itemsInShopFuture;
