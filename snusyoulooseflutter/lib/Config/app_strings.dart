@@ -48,4 +48,5 @@ class AppStrings {
   static const String takenSnuffAmount = 'Select the amount of snuff taken?';
   static const String close = 'Close';
   static const String ok = 'Ok';
+  static const String swipeToBuySnuff = 'Swipe to add in inventory';
 }
