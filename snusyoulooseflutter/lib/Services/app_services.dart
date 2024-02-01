@@ -1,26 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
-import 'package:snusyoulooseflutter/Model/HabitRequest.dart';
-import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
-import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
-import 'package:snusyoulooseflutter/Redux/app_state.dart';
 
 import '../Config/app_routes.dart';
-import '../Model/CurrentSnuff.dart';
+import '../Config/app_urls.dart';
+import '../Model/SnuffShopDto.dart';
+import '../Model/ProgressionDto.dart';
+import '../Model/CreateCSDto.dart';
 import '../Model/CurrentSnuffDto.dart';
-import '../Model/Habit.dart';
 import '../Model/HabitDto.dart';
-import '../Model/Snuff.dart';
 import '../Model/User.dart';
 import '../Model/LoginResponse.dart';
-import '../Config/app_urls.dart';
-import '../Redux/actions.dart';
+import '../Redux/app_state.dart';
 
 Future<LoginResponse> loginRequest(String email, String password) async {
   final body = {
@@ -209,6 +204,22 @@ String getUserIdService(BuildContext context) {
   }
 
   return userId;
+}
+
+Future buyMoreSnuffService(List<CreateCSDto> shopList) async {
+  try {
+    inspect(shopList);
+    final response = await http.post(Uri.parse(AppUrls.postForMoreSnuff),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(shopList.map((item) => item.toJson()).toList()));
+    print('This is the buyMoreSnuff response: ${response.body} ');
+    if (response.statusCode == 200) {
+      print('This is the 200 => buyMoreSnuff response: ${response.body} ');
+    }
+  } catch (err) {
+    print('FAILED TO BUY MORE SNUFF $err');
+  }
+  throw Exception('Failed to buy more snuff');
 }
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
