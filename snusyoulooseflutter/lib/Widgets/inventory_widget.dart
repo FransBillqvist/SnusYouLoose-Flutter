@@ -4,17 +4,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
-import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
 import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
 import '../Config/app_urls.dart';
-import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
-import '../Model/snuff.dart';
-import '../Redux/actions.dart';
 import '../Redux/app_state.dart';
-import '../widgets/image_widget.dart';
+import '../Styles/app_colors.dart';
+
 import 'usesnuff_widget.dart';
 
 class InventoryWidget extends StatelessWidget {
