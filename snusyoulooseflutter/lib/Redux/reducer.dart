@@ -3,7 +3,6 @@ import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
 
 import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
-import '../Model/Habit.dart';
 import '../Model/Snuff.dart';
 import '../Model/User.dart';
 import 'actions.dart';
