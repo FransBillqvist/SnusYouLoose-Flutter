@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Config/app_routes.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 import 'package:collection/collection.dart';
@@ -24,7 +25,7 @@ class CartWidget extends StatefulWidget {
 class _CartWidgetState extends State<CartWidget> {
   late List<SnuffShopDto> itemsInMyCart;
   bool showButtons = false;
-  bool isFinished = false;
+  final isFinished = ValueNotifier<bool>(false);
   SnuffShopDto? selectedItem;
   late List<CreateCSDto>? itemToBuy;
 
@@ -87,8 +88,10 @@ class _CartWidgetState extends State<CartWidget> {
   Future<List<CreateCSDto>> listOfItemsToBuy(List<SnuffShopDto> cart) async {
     List<CreateCSDto> result = [];
     cart.forEach((element) {
-      var newItem = CreateCSDto(element.id, getUserIdService(context));
-      result.add(newItem);
+      for (var i = 0; i < element.amount!; i++) {
+        var newItem = CreateCSDto(element.id, getUserIdService(context));
+        result.add(newItem);
+      }
     });
     setState(() {
       itemToBuy = result;
@@ -274,17 +277,18 @@ class _CartWidgetState extends State<CartWidget> {
                     child: Icon(Icons.arrow_forward, color: AppColors.example5),
                   ),
                   activeColor: AppColors.example2,
-                  isFinished: isFinished,
+                  isFinished: isFinished.value,
                   onWaitingProcess: () {
                     Future.delayed(const Duration(milliseconds: 750), () {
                       setState(() {
-                        isFinished = true;
+                        isFinished.value = true;
                       });
                     });
                   },
                   onFinish: () async {
                     var finalCart = await listOfItemsToBuy(itemsInMyCart);
                     await buyMoreSnuffService(finalCart);
+                    completePurches();
                   },
                 ),
               ),
@@ -305,5 +309,13 @@ class _CartWidgetState extends State<CartWidget> {
         ),
       ),
     ]);
+  }
+
+  void completePurches() async {
+    setState(() {
+      isFinished.value = false;
+    });
+    widget.onExit();
+    Navigator.pushNamed(context, AppRoutes.home);
   }
 }
