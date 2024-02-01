@@ -1,14 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 import 'package:collection/collection.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 import '../Config/app_media.dart';
+import '../Config/app_strings.dart';
 import '../Model/CreateCSDto.dart';
 import '../Services/app_services.dart';
-
-import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 
 class CartWidget extends StatefulWidget {
   late List<CreateCSDto> cartState;
@@ -23,7 +24,9 @@ class CartWidget extends StatefulWidget {
 class _CartWidgetState extends State<CartWidget> {
   late List<SnuffShopDto> itemsInMyCart;
   bool showButtons = false;
+  bool isFinished = false;
   SnuffShopDto? selectedItem;
+  late List<CreateCSDto>? itemToBuy;
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _CartWidgetState extends State<CartWidget> {
     getSnuffFromCartAsGroup(widget.cartState).then((value) {
       setState(() {
         itemsInMyCart = value;
+        inspect(itemsInMyCart);
       });
     });
   }
@@ -77,7 +81,18 @@ class _CartWidgetState extends State<CartWidget> {
       snuffShopDto.amount = cartItems.length;
       result.add(snuffShopDto);
     }
+    return result;
+  }
 
+  Future<List<CreateCSDto>> listOfItemsToBuy(List<SnuffShopDto> cart) async {
+    List<CreateCSDto> result = [];
+    cart.forEach((element) {
+      var newItem = CreateCSDto(element.id, getUserIdService(context));
+      result.add(newItem);
+    });
+    setState(() {
+      itemToBuy = result;
+    });
     return result;
   }
 
@@ -86,143 +101,195 @@ class _CartWidgetState extends State<CartWidget> {
     return Stack(children: <Widget>[
       Padding(
         padding: const EdgeInsets.fromLTRB(29.5, 40, 8, 0),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.95,
-          width: MediaQuery.of(context).size.width * 0.86,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.cartBgLight2,
-            ),
-            child: ListView.builder(
-              itemCount: itemsInMyCart.length,
-              itemBuilder: (context, index) {
-                var item = itemsInMyCart[index];
-                return Stack(
-                  children: [
-                    Row(
+        child: Column(
+          children: [
+            Container(
+              height: (90.0 * itemsInMyCart.length) +
+                  (selectedItem != null ? 75 : 50),
+              width: MediaQuery.of(context).size.width * 0.86,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.cartBgLight2,
+                ),
+                child: ListView.builder(
+                  itemCount: itemsInMyCart.length,
+                  itemBuilder: (context, index) {
+                    var item = itemsInMyCart[index];
+                    return Stack(
                       children: [
-                        Positioned(
-                          top: 35,
-                          left: 10,
-                          child: Image.asset(
-                            AppSnuffs.images[item.imageUrl] ?? '',
-                            width: 75,
-                            height: 75,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                        Column(
+                        Row(
                           children: [
                             Positioned(
+                              top: 35,
+                              left: 10,
+                              child: Image.asset(
+                                AppSnuffs.images[item.imageUrl] ?? '',
+                                width: 75,
+                                height: 75,
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Positioned(
+                                  child: Container(
+                                    width: 80, // Max width
+                                    child: Text(
+                                      'x ${item.amount}',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 20,
+                                  top: -20,
+                                  child: Container(
+                                    width: 75, // Max width
+                                    child: Text(
+                                      item.brand,
+                                      softWrap: true,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              left: 48,
+                              top: -12,
                               child: Container(
-                                width: 80, // Max width
+                                width: 100, // Max width
                                 child: Text(
-                                  'x ${item.amount}',
+                                  item.type,
                                   style: TextStyle(fontSize: 16),
+                                  maxLines: 2,
                                 ),
                               ),
                             ),
                             Positioned(
-                              left: 20,
-                              top: -20,
+                              left: 33,
+                              top: -12,
                               child: Container(
-                                width: 75, // Max width
-                                child: Text(
-                                  item.brand,
-                                  softWrap: true,
-                                  maxLines: 2,
+                                width: 95,
+                                child: IconButton(
+                                  icon: Icon(Icons.edit_sharp),
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    setState(() {
+                                      if (selectedItem == null)
+                                        selectedItem = item;
+                                      else
+                                        selectedItem = null;
+                                    });
+                                  },
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Positioned(
-                          left: 48,
-                          top: -12,
-                          child: Container(
-                            width: 100, // Max width
-                            child: Text(
-                              item.type,
-                              style: TextStyle(fontSize: 16),
-                              maxLines: 2,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 33,
-                          top: -12,
-                          child: Container(
-                            width: 95,
-                            child: IconButton(
-                              icon: Icon(Icons.edit_sharp),
-                              color: Colors.black,
-                              onPressed: () {
-                                setState(() {
-                                  if (selectedItem == null)
-                                    selectedItem = item;
-                                  else
-                                    selectedItem = null;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (selectedItem == item)
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 175,
-                            width: MediaQuery.of(context).size.width,
-                            child: Positioned(
-                              top: 185,
-                              left: 100,
-                              child: Row(
-                                children: <Widget>[
+                        if (selectedItem == item)
+                          Stack(
+                            children: [
+                              Column(
+                                children: [
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.261,
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.remove),
-                                    iconSize: 30,
-                                    onPressed: () {
-                                      setState(() {
-                                        if (item.amount! > 0) {
-                                          updateEditOfCart(item.id, 'remove');
-                                          selectedItem = null;
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 18.0, right: 18.0),
-                                    child: Text('${item.amount}'),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.add),
-                                    iconSize: 30,
-                                    onPressed: () {
-                                      setState(() {
-                                        updateEditOfCart(item.id, 'add');
-                                        selectedItem = null;
-                                      });
-                                    },
+                                    height: 100,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Positioned(
+                                      top: 100,
+                                      left: 100,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 58.0),
+                                        child: Row(
+                                          children: [
+                                            Positioned(
+                                              bottom: 20,
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.261,
+                                                height: 20,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              icon: Icon(Icons.remove),
+                                              iconSize: 30,
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (item.amount! > 0) {
+                                                    updateEditOfCart(
+                                                        item.id, 'remove');
+                                                    selectedItem = null;
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 18.0,
+                                                right: 18.0,
+                                              ),
+                                              child: Text('${item.amount}'),
+                                            ),
+                                            IconButton(
+                                              icon: Icon(Icons.add),
+                                              iconSize: 30,
+                                              onPressed: () {
+                                                setState(() {
+                                                  updateEditOfCart(
+                                                      item.id, 'add');
+                                                  selectedItem = null;
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                  ],
-                );
-              },
+                      ],
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+            SizedBox(
+              height: 20,
+            ),
+            Positioned(
+              top: 100,
+              child: SizedBox(
+                height: 60,
+                width: 320,
+                child: SwipeableButtonView(
+                  buttonText: AppStrings.swipeToBuySnuff,
+                  buttonWidget: Container(
+                    child: Icon(Icons.arrow_forward, color: AppColors.example5),
+                  ),
+                  activeColor: AppColors.example2,
+                  isFinished: isFinished,
+                  onWaitingProcess: () {
+                    Future.delayed(const Duration(milliseconds: 750), () {
+                      setState(() {
+                        isFinished = true;
+                      });
+                    });
+                  },
+                  onFinish: () async {
+                    var finalCart = await listOfItemsToBuy(itemsInMyCart);
+                    await buyMoreSnuffService(finalCart);
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       Positioned(
