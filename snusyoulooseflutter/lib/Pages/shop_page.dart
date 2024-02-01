@@ -1,16 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:snusyoulooseflutter/Config/app_routes.dart';
-import 'package:snusyoulooseflutter/Model/Snuff.dart';
-import 'package:snusyoulooseflutter/Model/SnuffShopDto.dart';
-import 'package:snusyoulooseflutter/Services/app_services.dart';
-import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
-import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
-import 'package:snusyoulooseflutter/Widgets/cart_widget.dart';
 
+import '../Config/app_routes.dart';
+import '../Model/SnuffShopDto.dart';
 import '../Model/CreateCSDto.dart';
+import '../Services/app_services.dart';
 import '../Styles/app_colors.dart';
+import '../Widgets/cart_widget.dart';
 import '../Widgets/shop_widget.dart';
 
 class ShopPage extends StatefulWidget {
@@ -25,6 +22,7 @@ class ShopPage extends StatefulWidget {
 class _ShopPageState extends State<ShopPage> {
   final shop = fetchSnuffShopService();
   bool showCart = false;
+  List<SnuffShopDto> itemsInMyCart = [];
 
   void updateCart(List<CreateCSDto> updatedCart) {
     setState(() {
@@ -151,8 +149,9 @@ class _ShopPageState extends State<ShopPage> {
                 ),
                 if (showCart && widget.itemsInMyCart.isNotEmpty)
                   CartWidget(
-                      cartState: widget.itemsInMyCart,
-                      onExit: () => toggleCart(widget.numberOfItemsInCart)),
+                    cartState: widget.itemsInMyCart,
+                    onExit: () => toggleCart(widget.numberOfItemsInCart),
+                  ),
               ],
             );
           },
