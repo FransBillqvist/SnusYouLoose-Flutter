@@ -26,8 +26,7 @@ class InventoryWidget extends StatelessWidget {
       itemCount: currentSnuffs.length,
       itemBuilder: (context, index) {
         final currentSnuff = currentSnuffs[index];
-        final store = StoreProvider.of<AppState>(context);
-        final userId = store.state.user!.UserId.toString();
+        final userId = getUserIdService(context);
         final amountLeft = currentSnuff.amountRemaing;
         return FutureBuilder<List<CurrentSnuffDto>>(
           future: fetchUsersInventoryService(userId),
@@ -44,7 +43,7 @@ class InventoryWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return UseSnuffWidget(
-                          currentsnuffID: snuff![index].currentSnuffId);
+                          currentsnuffID: snuff[index].currentSnuffId);
                     },
                   );
                 },
