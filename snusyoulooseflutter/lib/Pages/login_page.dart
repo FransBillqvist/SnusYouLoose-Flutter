@@ -1,18 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
-import 'package:snusyoulooseflutter/Widgets/image_widget.dart';
 
-import '../Components/app_iconbutton.dart';
 import '../Components/app_textfield.dart';
 import '../Config/app_media.dart';
 import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
-import '../Config/app_urls.dart';
-import '../Model/LoginResponse.dart';
-import '../Model/User.dart';
 import '../Redux/app_state.dart';
 import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
@@ -211,21 +203,3 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 }
-
-// Future<LoginResponse> doLogin(
-//     BuildContext ctex, String email, String password) async {
-//   final body = {
-//     'Email': email,
-//     'Password': password,
-//   };
-//   final response = await http.post(Uri.parse(AppUrls.loginGateway),
-//       headers: {'Content-Type': 'application/json'}, body: jsonEncode(body));
-//   if (response.statusCode == 200) {
-//     final json = jsonDecode(response.body);
-//     print(json);
-//     final responseValue = LoginResponse.fromJson(json);
-//     return responseValue;
-//   } else {
-//     throw Exception('Failed to login');
-//   }
-// }
