@@ -46,7 +46,7 @@ class _HabitPageState extends State<HabitPage>
         selectedPortionType,
         selectedAmount,
         _handleProgressionType(selectedMode),
-        selectedReduceSpeed.toString(),
+        selectedReduceSpeed,
         _calculateNumberOfHoursPerDay(
             _selectedMorningDate, _selectedEveningDate),
         DateTime.now(),
