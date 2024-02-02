@@ -3,6 +3,7 @@ class ProgressionDto {
   final DateTime goalEndDate;
   final int snuffLimitAmount;
   final Duration recommendedUsageInterval;
+  final Duration actualUsageInterval;
   final bool inUse;
 
   ProgressionDto(
@@ -10,6 +11,7 @@ class ProgressionDto {
       required this.goalEndDate,
       required this.snuffLimitAmount,
       required this.recommendedUsageInterval,
+      required this.actualUsageInterval,
       required this.inUse});
 
   factory ProgressionDto.fromJson(Map<String, dynamic> json) => ProgressionDto(
@@ -18,6 +20,7 @@ class ProgressionDto {
         snuffLimitAmount: json['snuffLimitAmount'],
         recommendedUsageInterval:
             Duration(seconds: json['recommendedUsageInterval']),
+        actualUsageInterval: Duration(seconds: json['actualUsageInterval']),
         inUse: json['inUse'],
       );
 
