@@ -31,55 +31,91 @@ class _HomePageState extends State<HomePage> {
           builder: (context, List<CurrentSnuffDto> stateSnuff) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 164,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Text(
-                "SNUS",
-                style: TextStyle(color: AppColors.primary, fontSize: 48),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 55),
-                child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.74,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    child: InventoryWidget(currentSnuffs: stateSnuff)),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  var store = StoreProvider.of<AppState>(context);
-                  var current = store.state;
-                  if (current.user != null) {
-                    store.dispatch(SignOutUserAction(current.user!));
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
-                  } else {
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
-                  }
-                },
-                child: Text(AppStrings.logout),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.example2,
-                  foregroundColor: AppColors.textPrimary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(36),
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.shop);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36),
+              Stack(
+                children: [
+                  Positioned(
+                    top: 20,
+                    right: -24,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 48.0),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
                       ),
-                      padding: EdgeInsets.fromLTRB(17, 4, 17, 4),
-                      backgroundColor: AppColors.example2,
-                      foregroundColor: AppColors.textOnFocus),
-                  child: Icon(Icons.shopping_cart_rounded)),
+                    ),
+                  ),
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 530.0, left: 53),
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.74,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          child: InventoryWidget(currentSnuffs: stateSnuff)),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
+        ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                '${store.state.user?.FirstName}',
+                style: TextStyle(fontSize: 18),
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.example2,
+              ),
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Text(AppStrings.shop, style: TextStyle(fontSize: 22)),
+                  Padding(
+                    padding: EdgeInsets.only(left: 38),
+                    child: Icon(Icons.shopping_cart_rounded,
+                        size: 30, color: AppColors.cartBgLight),
+                  )
+                ],
+              ),
+              onTap: () {
+                // Update the state of the app
+                // Then close the drawer
+                Navigator.of(context).pushReplacementNamed(AppRoutes.shop);
+              },
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Text(
+                    AppStrings.logout,
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Icon(Icons.logout,
+                        size: 30, color: AppColors.cartBgLight),
+                  ),
+                ],
+              ),
+              onTap: () {
+                var current = store.state;
+                Navigator.pop(context);
+                store.dispatch(SignOutUserAction(current.user!));
+                Navigator.of(context).pushReplacementNamed(AppRoutes.login);
+              },
+            ),
+          ],
         ),
       ),
     );
