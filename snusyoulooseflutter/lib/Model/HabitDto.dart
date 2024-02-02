@@ -4,7 +4,7 @@ class HabitDto {
   String doseType;
   int doseAmount;
   String progressionType;
-  String speed;
+  int speed;
   int numberOfHoursPerDay;
   DateTime startDate;
   DateTime endDate;
@@ -16,7 +16,7 @@ class HabitDto {
         json['doseType'] as String,
         json['doseAmount'] as int,
         json['progressionType'] as String,
-        json['speed'] as String,
+        json['speed'] as int,
         json['numberOfHoursPerDay'] as int,
         DateTime.parse(json['startDate'] as String),
         DateTime.parse(json['endDate'] as String),
