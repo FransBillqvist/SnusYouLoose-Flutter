@@ -49,4 +49,5 @@ class AppStrings {
   static const String close = 'Close';
   static const String ok = 'Ok';
   static const String swipeToBuySnuff = 'Swipe to add in inventory';
+  static const String shop = 'Shop';
 }
