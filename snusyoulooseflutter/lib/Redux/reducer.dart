@@ -85,6 +85,11 @@ ProgressionDto? progressionReducer(ProgressionDto? progression, action) {
   if (action is FetchProgressionAction) {
     return action.progression;
   }
+
+  if (action is CreateProgressionAction) {
+    return action.progression;
+  }
+
   return progression;
 }
 
