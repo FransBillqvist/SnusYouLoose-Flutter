@@ -22,7 +22,9 @@ AppState appReducer(AppState state, action) {
                   DateTime(1970, 01, 01)),
           action),
       user: userReducer(state.user, action),
-      progressionState: progressionReducer(state.progressionState, action));
+      progressionState: progressionReducer(state.progressionState, action),
+      getPregressionFailed:
+          getProgressionFailedReducer(state.getPregressionFailed, action));
 }
 
 List<CurrentSnuff> snuffReducer(List<CurrentSnuff> snuffs, action) {
@@ -93,7 +95,15 @@ ProgressionDto? progressionReducer(ProgressionDto? progression, action) {
   return progression;
 }
 
-
+bool getProgressionFailedReducer(bool getPregressionFailed, action) {
+  if (action is GetProgressionFailedAction) {
+    return true;
+  } else if (action is FetchProgressionAction ||
+      action is CreateProgressionAction) {
+    return false;
+  }
+  return getPregressionFailed;
+}
 
 // import 'package:provider/provider.dart';
 
