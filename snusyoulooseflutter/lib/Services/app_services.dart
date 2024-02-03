@@ -141,7 +141,7 @@ Future<ProgressionDto> fetchUserProgressionService(String userId) async {
   } catch (err) {
     print('FAILED TO FETCH USER PROGRESSION $err');
   }
-  throw Exception('Failed to fetch user progression');
+  throw Exception('Failed to fetch user progression ${DateTime.now()}');
 }
 
 Future<ProgressionDto> postNewProgressionService(String userId) async {
@@ -149,7 +149,8 @@ Future<ProgressionDto> postNewProgressionService(String userId) async {
     final response = await http.post(
         Uri.parse(AppUrls.postNewProgression + userId),
         headers: {'Content-Type': 'application/json'});
-    print('This is the postNewProgression response: ${response.body} ');
+    print(
+        'This is the postNewProgression response: ${response.body} ${DateTime.now()} ');
     if (response.statusCode == 200) {
       final progression = ProgressionDto.fromJson(jsonDecode(response.body));
       print('This is the progression: $progression');
@@ -159,7 +160,7 @@ Future<ProgressionDto> postNewProgressionService(String userId) async {
   } catch (err) {
     print('FAILED TO POST NEW PROGRESSION $err');
   }
-  throw Exception('Failed to post new progression');
+  throw Exception('Failed to post new progression ${DateTime.now()}');
 }
 
 Future postSnuffTakenService(String currentSnuffId, int amount) async {
