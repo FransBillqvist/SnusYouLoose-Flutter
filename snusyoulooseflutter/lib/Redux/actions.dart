@@ -65,3 +65,9 @@ class CreateProgressionAction {
 
   CreateProgressionAction(this.progression);
 }
+
+class GetProgressionFailedAction {
+  final bool getPregressionFailed;
+
+  GetProgressionFailedAction(this.getPregressionFailed);
+}
