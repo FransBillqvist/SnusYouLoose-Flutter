@@ -12,12 +12,15 @@ class AppState {
   HabitDto? habit;
   User? user;
   ProgressionDto? progressionState;
+  bool getPregressionFailed;
 
-  AppState(
-      {this.inventorySnuffs = const [],
-      this.snuffsDetailsInInventory = const [],
-      this.selectedSnuff,
-      this.habit,
-      this.user,
-      this.progressionState});
+  AppState({
+    this.inventorySnuffs = const [],
+    this.snuffsDetailsInInventory = const [],
+    this.selectedSnuff,
+    this.habit,
+    this.user,
+    this.progressionState,
+    this.getPregressionFailed = false,
+  });
 }
