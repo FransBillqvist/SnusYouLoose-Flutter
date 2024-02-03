@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:snusyoulooseflutter/Services/app_services.dart';
 
 import '../Redux/actions.dart';
 import '../Widgets/inventory_widget.dart';
@@ -21,9 +22,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final store = StoreProvider.of<AppState>(context);
-    final userid = store.state.user?.UserId.toString();
-    store.dispatch(getSnuffInventory(userid!));
+    final userid = getUserIdService(context);
+    store.dispatch(getSnuffInventory(userid));
     store.dispatch(getUserHabit(userid, context));
+    store.dispatch(getPregression(userid));
     return Scaffold(
       body: SingleChildScrollView(
         child: StoreConnector<AppState, List<CurrentSnuffDto>>(
