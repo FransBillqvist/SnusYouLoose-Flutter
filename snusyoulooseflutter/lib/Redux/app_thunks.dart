@@ -79,3 +79,14 @@ ThunkAction<AppState> getPregression(String userId) {
     }
   };
 }
+
+ThunkAction<AppState> createAPregression(String userId) {
+  return (Store<AppState> store) async {
+    try {
+      final progression = await postNewProgressionService(userId);
+      store.dispatch(CreateProgressionAction(progression));
+    } catch (error) {
+      print(error);
+    }
+  };
+}
