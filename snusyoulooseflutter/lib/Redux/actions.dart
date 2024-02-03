@@ -59,3 +59,9 @@ class FetchProgressionAction {
 
   FetchProgressionAction(this.progression);
 }
+
+class CreateProgressionAction {
+  final ProgressionDto progression;
+
+  CreateProgressionAction(this.progression);
+}
