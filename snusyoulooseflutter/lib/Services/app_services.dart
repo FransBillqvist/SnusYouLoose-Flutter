@@ -131,10 +131,11 @@ Future<ProgressionDto> fetchUserProgressionService(String userId) async {
     final response = await http.get(
         Uri.parse(AppUrls.fetchUserProgression + userId),
         headers: {'Content-Type': 'application/json'});
-    print('This is the fetchUserProgression response: ${response.body} ');
+    print(
+        'This is the fetchUserProgression response: ${DateTime.now()} ${response.body} ');
     if (response.statusCode == 200) {
       final progression = ProgressionDto.fromJson(jsonDecode(response.body));
-      print('This is the progression: $progression');
+      print('This is the fetch progression: $progression  ${DateTime.now()}');
       inspect(progression);
       return progression;
     }
@@ -153,7 +154,7 @@ Future<ProgressionDto> postNewProgressionService(String userId) async {
         'This is the postNewProgression response: ${response.body} ${DateTime.now()} ');
     if (response.statusCode == 200) {
       final progression = ProgressionDto.fromJson(jsonDecode(response.body));
-      print('This is the progression: $progression');
+      print('This is the new POST progression: $progression');
       inspect(progression);
       return progression;
     }
