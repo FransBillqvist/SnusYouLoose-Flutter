@@ -8,9 +8,19 @@ class HabitDto {
   int numberOfHoursPerDay;
   DateTime startDate;
   DateTime endDate;
+  DateTime wakeUpTime;
+  DateTime bedTime;
 
-  HabitDto(this.doseType, this.doseAmount, this.progressionType, this.speed,
-      this.numberOfHoursPerDay, this.startDate, this.endDate);
+  HabitDto(
+      this.doseType,
+      this.doseAmount,
+      this.progressionType,
+      this.speed,
+      this.numberOfHoursPerDay,
+      this.startDate,
+      this.endDate,
+      this.wakeUpTime,
+      this.bedTime);
 
   factory HabitDto.fromJson(Map<String, dynamic> json) => HabitDto(
         json['doseType'] as String,
@@ -20,6 +30,8 @@ class HabitDto {
         json['numberOfHoursPerDay'] as int,
         DateTime.parse(json['startDate'] as String),
         DateTime.parse(json['endDate'] as String),
+        DateTime.parse(json['wakeUpTime'] as String),
+        DateTime.parse(json['bedTime'] as String),
       );
 
   Map<String, dynamic> toJson() {
@@ -31,6 +43,8 @@ class HabitDto {
     data['NumberOfHoursPerDay'] = numberOfHoursPerDay;
     data['StartDate'] = startDate.toIso8601String();
     data['EndDate'] = endDate.toIso8601String();
+    data['WakeUpTime'] = endDate.toIso8601String();
+    data['BedTime'] = endDate.toIso8601String();
     return data;
   }
 }
