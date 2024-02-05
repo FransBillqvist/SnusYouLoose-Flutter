@@ -28,8 +28,8 @@ class _HabitPageState extends State<HabitPage>
   late AnimationController _controller;
   late CurvedAnimation _curve;
   int habitStep = 0;
-  late DateTime _selectedMorningDate = DateTime(0);
-  late DateTime _selectedEveningDate = DateTime(0);
+  late DateTime _selectedMorningDate;
+  late DateTime _selectedEveningDate;
   var selectedAmount = 0;
   var selectedPortionType = '';
   var selectedMode = AppMode.NONE;
