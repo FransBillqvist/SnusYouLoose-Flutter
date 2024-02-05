@@ -18,7 +18,15 @@ AppState appReducer(AppState state, action) {
           action),
       habit: habitReducer(
           state.habit ??
-              HabitDto("ERROR", 1, "", 1, 1, DateTime(1970, 01, 01),
+              HabitDto(
+                  "ERROR",
+                  1,
+                  "",
+                  1,
+                  1,
+                  DateTime(1970, 01, 01),
+                  DateTime(1970, 01, 01),
+                  DateTime(1970, 01, 01),
                   DateTime(1970, 01, 01)),
           action),
       user: userReducer(state.user, action),
