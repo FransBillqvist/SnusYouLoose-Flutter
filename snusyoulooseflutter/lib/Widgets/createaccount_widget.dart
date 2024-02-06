@@ -24,9 +24,14 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   final _formKey = GlobalKey<FormState>();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _firstFocusNode = FocusNode();
+  final FocusNode _lastFocusNode = FocusNode();
   bool _emailIsValid = false;
   bool _passwordIsValid = false;
+  bool _firstIsValid = false;
+  bool _lastIsValid = false;
   bool _formIsValid = false;
+  bool _nameIsValid = false;
   late int stage = 0;
   var _email = '';
   var _password = '';
@@ -50,12 +55,16 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
     super.initState();
     emailController.addListener(_updateEmailValidity);
     passwordController.addListener(_updatePasswordValidity);
+    firstNameController.addListener(_updateFirstValidity);
+    lastNameController.addListener(_updateLastValidity);
   }
 
   @override
   void dispose() {
     emailController.removeListener(_updateEmailValidity);
     passwordController.removeListener(_updatePasswordValidity);
+    firstNameController.removeListener(_updateFirstValidity);
+    lastNameController.removeListener(_updateLastValidity);
     super.dispose();
   }
 
@@ -70,6 +79,20 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
     setState(() {
       _passwordIsValid = isValidPassword(passwordController.text);
       _formIsValid = _emailIsValid && _passwordIsValid;
+    });
+  }
+
+  void _updateFirstValidity() {
+    setState(() {
+      _firstIsValid = firstNameController.text.length >= 2;
+      _nameIsValid = _firstIsValid && _lastIsValid;
+    });
+  }
+
+  void _updateLastValidity() {
+    setState(() {
+      _lastIsValid = lastNameController.text.length >= 2;
+      _nameIsValid = _firstIsValid && _lastIsValid;
     });
   }
 
@@ -141,8 +164,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       fixedSize: Size(200, 50),
                     ),
                     onPressed:
-                        (_firstName.trim().length + _lastName.trim().length >=
-                                3)
+                        _nameIsValid // Enable the button if the form is valid
                             ? () {
                                 setState(() {
                                   stage = 1;
