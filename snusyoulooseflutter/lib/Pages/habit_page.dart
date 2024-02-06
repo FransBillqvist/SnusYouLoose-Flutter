@@ -28,8 +28,8 @@ class _HabitPageState extends State<HabitPage>
   late AnimationController _controller;
   late CurvedAnimation _curve;
   int habitStep = 0;
-  late DateTime _selectedMorningDate;
-  late DateTime _selectedEveningDate;
+  late Duration _selectedMorningDate;
+  late Duration _selectedEveningDate;
   var selectedAmount = 0;
   var selectedPortionType = '';
   var selectedMode = AppMode.NONE;
@@ -71,7 +71,7 @@ class _HabitPageState extends State<HabitPage>
     }
   }
 
-  void _handleDateChanged(DateTime date) {
+  void _handleDateChanged(Duration date) {
     setState(() {
       if (habitStep == 0) {
         _selectedMorningDate = date;
@@ -111,14 +111,14 @@ class _HabitPageState extends State<HabitPage>
     });
   }
 
-  int _calculateNumberOfHoursPerDay(DateTime wakeUpTime, DateTime sleepTime) {
-    var numberOfHoursPerDay = 0;
-    if (wakeUpTime.hour > sleepTime.hour) {
-      numberOfHoursPerDay = (24 - wakeUpTime.hour) + sleepTime.hour;
+  int _calculateNumberOfHoursPerDay(Duration wakeUpTime, Duration sleepTime) {
+    int numberOfHoursPerDay = 0;
+    if (wakeUpTime > sleepTime) {
+      numberOfHoursPerDay = (24 - wakeUpTime.inHours) + (sleepTime.inHours);
     } else {
-      numberOfHoursPerDay = sleepTime.hour - wakeUpTime.hour;
+      numberOfHoursPerDay = sleepTime.inHours - wakeUpTime.inHours;
     }
-    return numberOfHoursPerDay.ceil();
+    return numberOfHoursPerDay;
   }
 
   @override
@@ -399,7 +399,7 @@ String getQuestString(int habitStep) {
   }
 }
 
-Widget getDateStepWidget(int habitStep, ValueChanged<DateTime> onDateChanged) {
+Widget getDateStepWidget(int habitStep, ValueChanged<Duration> onDateChanged) {
   switch (habitStep) {
     case 0:
       return StepOneWidget(onMorningDateChanged: onDateChanged);
