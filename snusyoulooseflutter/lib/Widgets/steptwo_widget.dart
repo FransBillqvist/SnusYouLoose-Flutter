@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StepTwoWidget extends StatefulWidget {
-  final ValueChanged<DateTime> onDateChanged;
+  final ValueChanged<Duration> onDateChanged;
   StepTwoWidget({required this.onDateChanged});
 
   @override
@@ -12,12 +12,13 @@ class StepTwoWidget extends StatefulWidget {
 class _StepTwoWidgetState extends State<StepTwoWidget> {
   DateTime _date = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 22, 30);
-  DateTime _selectedDate = DateTime.now();
+  Duration _selectedDate = Duration(hours: 22, minutes: 30);
 
   void _onDateChanged(DateTime newDate) {
-    widget.onDateChanged(newDate);
+    Duration timeOnly = Duration(hours: newDate.hour, minutes: newDate.minute);
+    widget.onDateChanged(timeOnly);
     setState(() {
-      _selectedDate = newDate;
+      _selectedDate = timeOnly;
     });
   }
 
