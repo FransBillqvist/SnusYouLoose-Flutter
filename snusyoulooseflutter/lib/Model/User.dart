@@ -49,24 +49,23 @@ class User {
         json['stringCreatedAtUtc'] as String?,
       );
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['userId'] = this.UserId;
-  //   data['username'] = this.UserName;
-  //   data['firstName'] = this.FirstName;
-  //   data['lastName'] = this.LastName;
-  //   data['mobile'] = this.Mobile;
-  //   data['birthDate'] = this.BirthDate;
-  //   data['gender'] = this.Gender;
-  //   data['location'] = this.Location;
-  //   data['password'] = this.Password;
-  //   data['avatar'] = this.Avatar;
-  //   data['email'] = this.Email;
-  //   data['id'] = this.Id;
-  //   data['createdAtUtc'] = this.CreatedAtUtc;
-  //   data['stringCreatedAtUtc'] = this.StringCreatedAtUtc;
-  //   return data;
-  // }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userId'] = this.UserId;
+    data['username'] = this.UserName;
+    data['firstName'] = this.FirstName;
+    data['lastName'] = this.LastName;
+    data['mobile'] = this.Mobile;
+    data['birthDate'] = this.BirthDate;
+    data['gender'] = this.Gender;
+    data['location'] = this.Location;
+    data['password'] = this.Password;
+    data['avatar'] = this.Avatar;
+    data['email'] = this.Email;
+    data['id'] = this.Id;
+    data['createdAtUtc'] = this.CreatedAtUtc?.toIso8601String();
+    return data;
+  }
 
   // factory User.fromJson(Map<String, dynamic> json) => User(
   //       json['Password'],
