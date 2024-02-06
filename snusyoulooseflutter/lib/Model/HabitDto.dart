@@ -8,8 +8,8 @@ class HabitDto {
   int numberOfHoursPerDay;
   DateTime startDate;
   DateTime endDate;
-  DateTime wakeUpTime;
-  DateTime bedTime;
+  Duration wakeUpTime;
+  Duration bedTime;
 
   HabitDto(
       this.doseType,
@@ -30,8 +30,8 @@ class HabitDto {
         json['numberOfHoursPerDay'] as int,
         DateTime.parse(json['startDate'] as String),
         DateTime.parse(json['endDate'] as String),
-        DateTime.parse(json['wakeUpTime'] as String),
-        DateTime.parse(json['bedTime'] as String),
+        parseTime(json['wakeUpTime'] as String),
+        parseTime(json['bedTime'] as String),
       );
 
   Map<String, dynamic> toJson() {
@@ -43,8 +43,19 @@ class HabitDto {
     data['NumberOfHoursPerDay'] = numberOfHoursPerDay;
     data['StartDate'] = startDate.toIso8601String();
     data['EndDate'] = endDate.toIso8601String();
-    data['WakeUpTime'] = endDate.toIso8601String();
-    data['BedTime'] = endDate.toIso8601String();
+    data['WakeUpTime'] =
+        '${wakeUpTime.inHours.toString().padLeft(2, '0')}:${(wakeUpTime.inMinutes % 60).toString().padLeft(2, '0')}:${(wakeUpTime.inSeconds % 60).toString().padLeft(2, '0')}';
+    data['BedTime'] =
+        '${bedTime.inHours.toString().padLeft(2, '0')}:${(bedTime.inMinutes % 60).toString().padLeft(2, '0')}:${(bedTime.inSeconds % 60).toString().padLeft(2, '0')}';
     return data;
   }
+}
+
+Duration parseTime(String time) {
+  List<String> parts = time.split(':');
+  return Duration(
+    hours: int.parse(parts[0]),
+    minutes: int.parse(parts[1]),
+    seconds: int.parse(parts[2]),
+  );
 }
