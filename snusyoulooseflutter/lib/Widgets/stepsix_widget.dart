@@ -5,8 +5,8 @@ import 'package:snusyoulooseflutter/Widgets/stepfour_widget.dart';
 import '../Config/app_strings.dart';
 
 class StepSixWidget extends StatefulWidget {
-  late DateTime wakeUpTime = DateTime(0);
-  late DateTime sleepTime = DateTime(0);
+  late Duration wakeUpTime;
+  late Duration sleepTime;
   late AppMode modeType;
   late int? speed;
   late int amountOfSnuff;
@@ -114,12 +114,14 @@ class _StepSixWidgetState extends State<StepSixWidget> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(DateFormat('HH:mm').format(widget.wakeUpTime),
+                    child: Text(
+                        '${widget.wakeUpTime.inHours.toString().padLeft(2, '0')}:${(widget.wakeUpTime.inMinutes % 60).toString().padLeft(2, '0')}',
                         style: TextStyle(fontSize: 18)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(6.0),
-                    child: Text(DateFormat('HH:mm').format(widget.sleepTime),
+                    child: Text(
+                        '${widget.sleepTime.inHours.toString().padLeft(2, '0')}:${(widget.sleepTime.inMinutes % 60).toString().padLeft(2, '0')}',
                         style: TextStyle(fontSize: 18)),
                   ),
                   Padding(
