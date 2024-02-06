@@ -50,4 +50,13 @@ class AppStrings {
   static const String ok = 'Ok';
   static const String swipeToBuySnuff = 'Swipe to add in inventory';
   static const String shop = 'Shop';
+  static const String createAccount = 'Create Account';
+  static const String createAccountInfo =
+      'Create an account to keep track of your snuff usage';
+  static const String createAccountButton = 'Create Account';
+  static const String createAccountWelcome = 'Welcome to SnusYouLoose';
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
+  static const String stage0reg = 'Start by entering your first and last name';
+  static const String stage1reg = 'Start by entering your first and last name';
 }
