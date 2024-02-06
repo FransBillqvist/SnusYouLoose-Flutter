@@ -11,6 +11,8 @@ class AppTextField extends StatelessWidget {
   final bool? obscureText;
   final TextEditingController controllerName;
   final onChanged;
+  final String? Function(String?)? validator;
+  final FocusNode? focusNode;
   const AppTextField(
       {Key? key,
       this.hintText = "",
@@ -20,14 +22,18 @@ class AppTextField extends StatelessWidget {
       required this.labelText,
       this.textAlignment = "",
       this.keyboardType = "",
-      this.obscureText})
+      this.obscureText,
+      this.validator,
+      this.focusNode})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controllerName,
       onChanged: onChanged,
+      validator: validator,
+      focusNode: focusNode,
       textAlign: textAlignment == ""
           ? TextAlign.start
           : textAlignment == "center"
