@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
+import 'package:snusyoulooseflutter/Model/AuthResponse.dart';
 
 import '../Config/app_routes.dart';
 import '../Config/app_urls.dart';
@@ -240,6 +241,51 @@ Future buyMoreSnuffService(List<CreateCSDto> shopList) async {
     print('FAILED TO BUY MORE SNUFF $err');
   }
   throw Exception('Failed to buy more snuff');
+}
+
+Future<AuthResponse> postCreateAuthUser(
+    String email, String password, String fullname, String username) async {
+  final body = {
+    'email': email,
+    'password': password,
+    'fullname': fullname,
+    'username': username,
+    'confirmPassword': password,
+  };
+  print(body);
+  try {
+    final response = await http
+        .post(Uri.parse(AppUrls.createAuthUser),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(body))
+        .timeout(const Duration(seconds: 5));
+
+    if (response.statusCode == 200) {
+      print("this is the response: ${response.body} ");
+      return AuthResponse.fromJson(jsonDecode(response.body));
+    } else {
+      print("FAILED TO CREATE USER postCreateUser");
+      throw Exception('Failed to create user');
+    }
+  } catch (e) {
+    print("FAILED TO CREATE USER postCreateUser $e");
+    throw Exception('Failed to create user');
+  }
+}
+
+Future postCreateUser(User newUser) async {
+  try {
+    final response = await http.post(Uri.parse(AppUrls.createUser),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(newUser.toJson()));
+    print('This is the postCreateUser response: ${response.body} ');
+    if (response.statusCode == 200) {
+      print('This is the 200 => postCreateUser response: ${response.body} ');
+    }
+  } catch (err) {
+    print('FAILED TO POST CREATE USER $err');
+  }
+  throw Exception('Failed to post create user');
 }
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
