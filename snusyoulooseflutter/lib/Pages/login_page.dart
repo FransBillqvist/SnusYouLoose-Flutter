@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
 
 import '../Components/app_textfield.dart';
 import '../Config/app_media.dart';
@@ -8,6 +9,7 @@ import '../Config/app_strings.dart';
 import '../Redux/app_state.dart';
 import '../Redux/app_thunks.dart';
 import '../Styles/app_colors.dart';
+import '../Widgets/createaccount_widget.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class _LoginPageState extends State<LoginPage>
   final UNController = TextEditingController();
   final PWController = TextEditingController();
 
+  bool showCreateAccount = false;
   var userId = '';
   var usernamefield = '';
   var passwordfield = '';
@@ -49,6 +52,12 @@ class _LoginPageState extends State<LoginPage>
     ).animate(_controller);
   }
 
+  void toggleCreateWindow() {
+    setState(() {
+      showCreateAccount = !showCreateAccount;
+    });
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -69,7 +78,7 @@ class _LoginPageState extends State<LoginPage>
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
-                children: [
+                children: <Widget>[
                   SizedBox(height: 100),
                   Text(
                     AppStrings.appName,
@@ -189,6 +198,48 @@ class _LoginPageState extends State<LoginPage>
                                 width: 34, height: 34),
                             Padding(padding: EdgeInsets.only(left: 13)),
                             Text(AppStrings.loginWithFacebook)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 18),
+                  SizedBox(
+                    width: 260,
+                    height: 48,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print("Create Account Window");
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                child: CreateAccountWidget(
+                                  onExit: () => toggleCreateWindow(),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black87,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(36),
+                            ),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                                child: Text(
+                              AppStrings.createAccount,
+                              style: TextStyle(fontSize: 16),
+                            ))
                           ],
                         ),
                       ),
