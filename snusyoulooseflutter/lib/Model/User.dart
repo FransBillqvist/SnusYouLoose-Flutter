@@ -10,9 +10,6 @@ class User {
   final String? LastName;
   final String? BirthDate;
   final String? Gender;
-  final String? Id;
-  final DateTime? CreatedAtUtc;
-  final String? StringCreatedAtUtc;
 
   User(
       this.Password,
@@ -25,10 +22,7 @@ class User {
       this.FirstName,
       this.LastName,
       this.BirthDate,
-      this.Gender,
-      this.Id,
-      this.CreatedAtUtc,
-      this.StringCreatedAtUtc);
+      this.Gender);
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         json['password'] as String?,
@@ -42,11 +36,6 @@ class User {
         json['lastName'] as String?,
         json['birthDate'] as String?,
         json['gender'] as String?,
-        json['id'] as String?,
-        json['createdAtUtc'] == null
-            ? null
-            : DateTime.parse(json['createdAtUtc']),
-        json['stringCreatedAtUtc'] as String?,
       );
 
   Map<String, dynamic> toJson() {
@@ -62,8 +51,6 @@ class User {
     data['password'] = this.Password;
     data['avatar'] = this.Avatar;
     data['email'] = this.Email;
-    data['id'] = this.Id;
-    data['createdAtUtc'] = this.CreatedAtUtc?.toIso8601String();
     return data;
   }
 
