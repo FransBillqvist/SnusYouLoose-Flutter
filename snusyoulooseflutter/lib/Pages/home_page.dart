@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
+import 'package:snusyoulooseflutter/Widgets/snuffwatch_widget.dart';
 
 import '../Redux/actions.dart';
 import '../Widgets/inventory_widget.dart';
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Stack(
                       children: [
+                        SnuffWatchWidget(),
                         Positioned(
                           top: 20,
                           right: -24,
