@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:snusyoulooseflutter/Components/app_textfield.dart';
 import 'package:snusyoulooseflutter/Config/app_strings.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
 import '../Model/User.dart';
+import '../Redux/app_state.dart';
+import '../Redux/app_thunks.dart';
 import '../Services/app_services.dart';
 
 class CreateAccountWidget extends StatefulWidget {
@@ -180,6 +183,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                   child: AppTextField(
                     key: _emailFormKey, // Use the key here
                     controllerName: emailController,
+                    keyboardType: 'email',
                     labelText: '${AppStrings.email}',
                     focusNode: _emailFocusNode,
                     validator: (value) {
@@ -246,11 +250,11 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     _firstName,
                                     _lastName,
                                     "string",
-                                    "string",
-                                    authRequest.id,
-                                    DateTime.now(),
                                     "string");
                                 await postCreateUser(user);
+                                var store = StoreProvider.of<AppState>(context);
+                                store.dispatch(
+                                    doLogin(_email, _password, context));
                               } catch (e) {
                                 print(e);
                               }
