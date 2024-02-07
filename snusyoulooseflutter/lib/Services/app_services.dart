@@ -294,6 +294,34 @@ Future postCreateUser(User newUser) async {
   }
 }
 
+Future<Duration> fetchTimeToNextDose(String userid) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchTimeToNextDose + userid),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchTimeToNextDose response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final timeToNextDose = jsonDecode(response.body);
+      final result = parseTime(timeToNextDose);
+      print('This is the timeToNextDose: $timeToNextDose');
+      inspect(timeToNextDose);
+      return result;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH TIME TO NEXT DOSE $err');
+  }
+  throw Exception('Failed to fetch time to next dose');
+}
+
+Duration parseTime(String time) {
+  List<String> parts = time.split(':');
+  return Duration(
+    hours: int.parse(parts[0]),
+    minutes: int.parse(parts[1]),
+    seconds: int.parse(parts[2]),
+  );
+}
+
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
 //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
