@@ -275,17 +275,23 @@ Future<AuthResponse> postCreateAuthUser(
 
 Future postCreateUser(User newUser) async {
   try {
-    final response = await http.post(Uri.parse(AppUrls.createUser),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(newUser.toJson()));
+    final response = await http.post(
+      Uri.parse(AppUrls.createUser),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(newUser.toJson()),
+    );
+    inspect(response.body);
     print('This is the postCreateUser response: ${response.body} ');
     if (response.statusCode == 200) {
       print('This is the 200 => postCreateUser response: ${response.body} ');
+    } else {
+      throw Exception(
+          'Failed to post create user. Status code: ${response.statusCode}');
     }
   } catch (err) {
     print('FAILED TO POST CREATE USER $err');
+    throw Exception('Failed to post create user ${DateTime.now()}');
   }
-  throw Exception('Failed to post create user');
 }
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
