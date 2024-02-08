@@ -265,7 +265,7 @@ packages:
     source: hosted
     version: "2.1.1"
   stream_duration:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stream_duration
       sha256: d4e833a8db38faec87325ca784079d1e90ba66f78c365ca96f353a59b26bd62e
