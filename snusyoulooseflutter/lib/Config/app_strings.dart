@@ -59,4 +59,7 @@ class AppStrings {
   static const String lastName = 'Last Name';
   static const String stage0reg = 'Start by entering your first and last name';
   static const String stage1reg = 'Start by entering your first and last name';
+  static const String availableNow = 'A new snuff is available';
+  static const String notAvailable = 'Your snuff is not available right now';
+  static const String availableIn = 'Next snuff is available in';
 }
