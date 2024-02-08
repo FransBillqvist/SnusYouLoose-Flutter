@@ -44,7 +44,14 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Stack(
                       children: [
-                        SnuffWatchWidget(),
+                        Positioned(
+                          left: 76.5,
+                          top: 75,
+                          child: Container(
+                              width: 259,
+                              height: 150,
+                              child: SnuffWatchWidget()),
+                        ),
                         Positioned(
                           top: 20,
                           right: -24,
