@@ -322,6 +322,17 @@ Duration parseTime(String time) {
   );
 }
 
+List<int> splitDuration(Duration duration) {
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+  return [hours, minutes, seconds];
+}
+
+int getTotalSeconds(Duration duration) {
+  return duration.inSeconds;
+}
+
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
 //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
