@@ -140,208 +140,212 @@ class _HabitPageState extends State<HabitPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 32),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 166, //gör större mellan text och MainContainer
-                    child: Row(
-                      children: [
-                        if (habitStep > 0)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Colors.transparent,
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Stack(children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 32),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 166, //gör större mellan text och MainContainer
+                      child: Row(
+                        children: [
+                          if (habitStep > 0)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    Colors.transparent,
+                                  ),
+                                  elevation: MaterialStateProperty.all(0),
                                 ),
-                                elevation: MaterialStateProperty.all(0),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  if (habitStep == 5) {
-                                    habitStep = 3;
-                                  }
-                                  habitStep--;
-                                });
-                              },
-                              child: Icon(
-                                (habitStep == 0
-                                    ? Icons.block
-                                    : Icons.arrow_back),
-                                size: 28,
-                                color: Colors.indigoAccent[200],
+                                onPressed: () {
+                                  setState(() {
+                                    if (habitStep == 5) {
+                                      habitStep = 3;
+                                    }
+                                    habitStep--;
+                                  });
+                                },
+                                child: Icon(
+                                  (habitStep == 0
+                                      ? Icons.block
+                                      : Icons.arrow_back),
+                                  size: 28,
+                                  color: Colors.indigoAccent[200],
+                                ),
                               ),
                             ),
-                          ),
-                        if (habitStep <= 0)
-                          Padding(
+                          if (habitStep <= 0)
+                            Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.29)),
+                          if (habitStep >= 1)
+                            Padding(
                               padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width *
-                                      0.29)),
-                        if (habitStep >= 1)
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.11),
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.11),
+                            ),
+                          Image.asset(
+                            AppImages.logoWithoutBg,
+                            fit: BoxFit.contain,
+                            height: 120,
                           ),
-                        Image.asset(
-                          AppImages.logoWithoutBg,
-                          fit: BoxFit.contain,
-                          height: 120,
-                        ),
-                      ], //rad 124
+                        ], //rad 124
+                      ),
                     ),
                   ),
-                ),
-              ], //rad 117
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Text(
-                getQuestString(habitStep), //här är frågan
-                style: TextStyle(fontSize: 17, color: AppColors.textOnFocus),
+                ], //rad 117
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 68.0),
-              child: Column(children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.46,
-                  width: MediaQuery.of(context).size.width * 0.96,
-                  child: ListView(
-                    children: [
-                      if (habitStep <= 1)
-                        DecoratedBox(
-                          decoration: const BoxDecoration(
-                            color: AppColors.example2,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                          ),
-                          child:
-                              getDateStepWidget(habitStep, _handleDateChanged),
-                        ),
-                      if (habitStep >= 2)
-                        DecoratedBox(
-                          decoration: const BoxDecoration(
-                            color: AppColors.example2,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                          ),
-                          child: getOtherStepWidget(habitStep),
-                        ),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Text(
+                  getQuestString(habitStep), //här är frågan
+                  style: TextStyle(fontSize: 17, color: AppColors.textOnFocus),
                 ),
-                if (habitStep == 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        habitStep++;
-                        _handleDateChanged(_selectedMorningDate);
-                        inspect(_selectedMorningDate);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _handleDateChanged(_selectedEveningDate);
-                        habitStep++;
-                        inspect(_selectedEveningDate);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 2 && selectedAmount != 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _handleAmountChanged(selectedAmount);
-                        _handlePortionTypeChanged(selectedPortionType);
-                        habitStep++;
-                        inspect(selectedAmount);
-                        inspect(selectedPortionType);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 3 && selectedMode != AppMode.NONE)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _handleModeChanged(selectedMode);
-                        if (selectedMode == AppMode.appMode) habitStep++;
-                        if (selectedMode == AppMode.dateMode) habitStep = 5;
-                        inspect(selectedMode);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 4 && selectedReduceSpeed != 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _handleFinalChanged(selectedReduceSpeed);
-                        habitStep = 6;
-                        inspect(selectedReduceSpeed);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 5 && selectedEndDate != DateTime(0))
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _handleFinalChanged(selectedEndDate);
-                        habitStep++;
-                        inspect(selectedEndDate);
-                      });
-                    },
-                    child: Icon(Icons.arrow_forward, size: 20),
-                  ),
-                if (habitStep == 6)
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 68.0),
+                child: Column(children: [
                   SizedBox(
-                    height: 60,
-                    width: 320,
-                    child: SwipeableButtonView(
-                      buttonText: AppStrings.crtHabit,
-                      buttonWidget: Container(
-                        child: Icon(Icons.arrow_forward,
-                            color: AppColors.example5),
-                      ),
-                      activeColor: AppColors.example2,
-                      isFinished: isFinished,
-                      onWaitingProcess: () {
-                        Future.delayed(const Duration(milliseconds: 750), () {
-                          setState(() {
-                            isFinished = true;
-                          });
+                    height: MediaQuery.of(context).size.height * 0.46,
+                    width: MediaQuery.of(context).size.width * 0.96,
+                    child: ListView(
+                      children: [
+                        if (habitStep <= 1)
+                          DecoratedBox(
+                            decoration: const BoxDecoration(
+                              color: AppColors.example2,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: getDateStepWidget(
+                                habitStep, _handleDateChanged),
+                          ),
+                        if (habitStep >= 2)
+                          DecoratedBox(
+                            decoration: const BoxDecoration(
+                              color: AppColors.example2,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            child: getOtherStepWidget(habitStep),
+                          ),
+                      ],
+                    ),
+                  ),
+                  if (habitStep == 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          habitStep++;
+                          _handleDateChanged(_selectedMorningDate);
+                          inspect(_selectedMorningDate);
                         });
                       },
-                      onFinish: () async {
-                        _finalishHabit();
-                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
                     ),
-                  )
-              ]),
-            ),
-          ]),
-        ),
-      ]),
+                  if (habitStep == 1)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _handleDateChanged(_selectedEveningDate);
+                          habitStep++;
+                          inspect(_selectedEveningDate);
+                        });
+                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
+                    ),
+                  if (habitStep == 2 && selectedAmount != 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _handleAmountChanged(selectedAmount);
+                          _handlePortionTypeChanged(selectedPortionType);
+                          habitStep++;
+                          inspect(selectedAmount);
+                          inspect(selectedPortionType);
+                        });
+                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
+                    ),
+                  if (habitStep == 3 && selectedMode != AppMode.NONE)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _handleModeChanged(selectedMode);
+                          if (selectedMode == AppMode.appMode) habitStep++;
+                          if (selectedMode == AppMode.dateMode) habitStep = 5;
+                          inspect(selectedMode);
+                        });
+                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
+                    ),
+                  if (habitStep == 4 && selectedReduceSpeed != 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _handleFinalChanged(selectedReduceSpeed);
+                          habitStep = 6;
+                          inspect(selectedReduceSpeed);
+                        });
+                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
+                    ),
+                  if (habitStep == 5 && selectedEndDate != DateTime(0))
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _handleFinalChanged(selectedEndDate);
+                          habitStep++;
+                          inspect(selectedEndDate);
+                        });
+                      },
+                      child: Icon(Icons.arrow_forward, size: 20),
+                    ),
+                  if (habitStep == 6)
+                    SizedBox(
+                      height: 60,
+                      width: 320,
+                      child: SwipeableButtonView(
+                        buttonText: AppStrings.crtHabit,
+                        buttonWidget: Container(
+                          child: Icon(Icons.arrow_forward,
+                              color: AppColors.example5),
+                        ),
+                        activeColor: AppColors.example2,
+                        isFinished: isFinished,
+                        onWaitingProcess: () {
+                          Future.delayed(const Duration(milliseconds: 750), () {
+                            setState(() {
+                              isFinished = true;
+                            });
+                          });
+                        },
+                        onFinish: () async {
+                          _finalishHabit();
+                        },
+                      ),
+                    )
+                ]),
+              ),
+            ]),
+          ),
+        ]),
+      ),
     );
   }
 
