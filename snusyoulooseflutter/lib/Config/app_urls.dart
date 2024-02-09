@@ -15,7 +15,7 @@ class AppUrls {
   static const fetchSnuffViaId = '$_url/api/v2/Snuff/Get/';
   static const postForMoreSnuff = '$_url/api/v2/CurrentSnuff/CreateV2';
   static const postNewProgression =
-      '$_url/api/v2/Progression/CreateUserProgressionV2';
+      '$_url/api/v2/Progression/CreateUserProgressionV2/';
   static const fetchTimeToNextDose =
       '$_url/api/v2/Progression/TimeToNextDoseV2/';
 
