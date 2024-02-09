@@ -75,8 +75,9 @@ ThunkAction<AppState> getProgression(String userId) {
       final progression = await fetchUserProgressionService(userId);
       store.dispatch(FetchProgressionAction(progression));
     } catch (error) {
-      store.dispatch(GetProgressionFailedAction(true));
       print(error);
+    } finally {
+      store.dispatch(GetProgressionFailedAction(true));
     }
   };
 }
