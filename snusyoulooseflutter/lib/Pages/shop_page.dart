@@ -16,6 +16,7 @@ class ShopPage extends StatefulWidget {
   @override
   State<ShopPage> createState() => _ShopPageState();
   List<CreateCSDto> itemsInMyCart = [];
+
   int numberOfItemsInCart = 0;
 }
 
@@ -23,6 +24,7 @@ class _ShopPageState extends State<ShopPage> {
   final shop = fetchSnuffShopService();
   bool showCart = false;
   List<SnuffShopDto> itemsInMyCart = [];
+  final cartEmptyNotifier = ValueNotifier<bool>(false);
 
   void updateCart(List<CreateCSDto> updatedCart) {
     setState(() {
@@ -94,13 +96,20 @@ class _ShopPageState extends State<ShopPage> {
                           padding: const EdgeInsets.only(top: 5.0),
                           child: Stack(
                             children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.shopping_cart),
-                                color: (widget.numberOfItemsInCart <= 0
-                                    ? Colors.white
-                                    : Colors.indigoAccent[200]),
-                                onPressed: () {
-                                  toggleCart(widget.numberOfItemsInCart);
+                              ValueListenableBuilder<bool>(
+                                valueListenable: cartEmptyNotifier,
+                                builder: (context, cartEmpty, child) {
+                                  return IconButton(
+                                    icon: Icon(cartEmpty
+                                        ? Icons.shopping_cart
+                                        : Icons.shopping_cart_outlined),
+                                    color: (widget.numberOfItemsInCart <= 0
+                                        ? Colors.white
+                                        : Colors.indigoAccent[200]),
+                                    onPressed: () {
+                                      toggleCart(widget.numberOfItemsInCart);
+                                    },
+                                  );
                                 },
                               ),
                               if (widget.numberOfItemsInCart > 0)
@@ -151,6 +160,7 @@ class _ShopPageState extends State<ShopPage> {
                   CartWidget(
                     cartState: widget.itemsInMyCart,
                     onExit: () => toggleCart(widget.numberOfItemsInCart),
+                    cartEmptyNotifier: cartEmptyNotifier,
                   ),
               ],
             );
@@ -164,6 +174,7 @@ class _ShopPageState extends State<ShopPage> {
     if (valueAboutZero > 0)
       setState(() {
         showCart = !showCart;
+        cartEmptyNotifier.value = false;
       });
   }
 }
