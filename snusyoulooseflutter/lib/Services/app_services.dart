@@ -333,6 +333,18 @@ int getTotalSeconds(Duration duration) {
   return duration.inSeconds;
 }
 
+Future<List<SnuffShopDto>> searchForSnuff(String query) async {
+  var allData = await fetchSnuffShopService();
+
+  var result = allData
+      .where((element) =>
+          element.brand.toLowerCase().contains(query.toLowerCase()) ||
+          element.type.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+
+  return result;
+}
+
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
 //   try {
 //     final response = await http.get(Uri.parse(AppUrls.fetchSnuff + snuffId),
