@@ -65,7 +65,7 @@ class InventoryWidget extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Image.asset(
-                        AppSnuffs.images[snuff![index].imageUrl] ?? '',
+                        AppSnuffs.images[snuff![index].imageUrl]!,
                         width: 250,
                         height: 250,
                         fit: BoxFit.scaleDown,
