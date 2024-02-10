@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Components/app_textfield.dart';
 
 import '../Config/app_routes.dart';
+import '../Config/app_strings.dart';
 import '../Model/SnuffShopDto.dart';
 import '../Model/CreateCSDto.dart';
 import '../Services/app_services.dart';
@@ -20,11 +23,36 @@ class ShopPage extends StatefulWidget {
   int numberOfItemsInCart = 0;
 }
 
+class Debouncer {
+  final int milliseconds;
+  VoidCallback? action;
+  Timer? _timer;
+
+  Debouncer({required this.milliseconds});
+
+  run(VoidCallback action) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+}
+
 class _ShopPageState extends State<ShopPage> {
   final shop = fetchSnuffShopService();
   bool showCart = false;
   List<SnuffShopDto> itemsInMyCart = [];
   final cartEmptyNotifier = ValueNotifier<bool>(false);
+  late final searchController = TextEditingController();
+  Future<List<SnuffShopDto>>? shopWithSearch;
+  var query = '';
+  final Debouncer debouncer = Debouncer(milliseconds: 500);
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   void updateCart(List<CreateCSDto> updatedCart) {
     setState(() {
@@ -33,8 +61,23 @@ class _ShopPageState extends State<ShopPage> {
       });
 
       widget.numberOfItemsInCart = widget.itemsInMyCart.length;
-      inspect(widget.numberOfItemsInCart);
-      inspect(widget.itemsInMyCart);
+    });
+  }
+
+  void onSerachChanged(String query) {
+    debouncer.run(() async {
+      if (query.isNotEmpty) {
+        var results = await searchForSnuff(query);
+        if (mounted) {
+          setState(() {
+            shopWithSearch = Future.value(results);
+          });
+        }
+      } else {
+        setState(() {
+          shopWithSearch = null;
+        });
+      }
     });
   }
 
@@ -81,12 +124,15 @@ class _ShopPageState extends State<ShopPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.blue,
                                 child: Center(
-                                  child: Text(
-                                    "Add a Search-Function HERE",
-                                    style: TextStyle(
-                                        color: AppColors.textOnFocus2,
-                                        fontSize: 16),
-                                  ),
+                                  child: AppTextField(
+                                      controllerName: searchController,
+                                      labelText: AppStrings.search,
+                                      onChanged: (value) async {
+                                        setState(() {
+                                          query = value;
+                                        });
+                                        onSerachChanged(query);
+                                      }),
                                 ),
                               ),
                             ),
@@ -147,10 +193,29 @@ class _ShopPageState extends State<ShopPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
-                      child: ShopWidget(
-                        itemsInShopFuture: shop,
-                        onCartUpdated: (updatedCart) {
-                          updateCart(updatedCart);
+                      child: FutureBuilder<List<SnuffShopDto>>(
+                        future: query.isEmpty ? shop : shopWithSearch,
+                        builder: (context, snapshot) {
+                          var itemsInShop = Future.value(snapshot.data!);
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            // Visa laddningsskärm medan data laddas
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            // Visa felmeddelande
+                            return Center(child: Text(AppStrings.error));
+                          } else if (snapshot.hasData) {
+                            // Visa din ShopWidget med de faktiska datan
+                            return ShopWidget(
+                              itemsInShopFuture: itemsInShop,
+                              onCartUpdated: (updatedCart) {
+                                updateCart(updatedCart);
+                              },
+                            );
+                          } else {
+                            // Visa en tom vy eller meddelande när inga resultat finns
+                            return Center(child: Text(AppStrings.searchNoHits));
+                          }
                         },
                       ),
                     ),
@@ -178,9 +243,3 @@ class _ShopPageState extends State<ShopPage> {
       });
   }
 }
-
-
-//  DecoratedBox(
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       color: Colors.blue),
