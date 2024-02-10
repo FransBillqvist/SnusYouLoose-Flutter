@@ -15,8 +15,12 @@ import '../Services/app_services.dart';
 class CartWidget extends StatefulWidget {
   late List<CreateCSDto> cartState;
   final VoidCallback onExit;
+  final ValueNotifier<bool> cartEmptyNotifier;
 
-  CartWidget({required this.cartState, required this.onExit});
+  CartWidget(
+      {required this.cartState,
+      required this.onExit,
+      required this.cartEmptyNotifier});
 
   @override
   _CartWidgetState createState() => _CartWidgetState();
@@ -279,16 +283,17 @@ class _CartWidgetState extends State<CartWidget> {
                   activeColor: AppColors.example2,
                   isFinished: isFinished.value,
                   onWaitingProcess: () {
-                    Future.delayed(const Duration(milliseconds: 750), () {
+                    Future.delayed(const Duration(milliseconds: 350), () async {
                       setState(() {
                         isFinished.value = true;
                       });
+                      var finalCart = await listOfItemsToBuy(itemsInMyCart);
+                      await buyMoreSnuffService(finalCart);
                     });
                   },
                   onFinish: () async {
-                    var finalCart = await listOfItemsToBuy(itemsInMyCart);
-                    await buyMoreSnuffService(finalCart);
                     completePurches();
+                    widget.onExit();
                   },
                 ),
               ),
@@ -313,9 +318,10 @@ class _CartWidgetState extends State<CartWidget> {
 
   void completePurches() async {
     setState(() {
-      isFinished.value = false;
+      itemsInMyCart = [];
+      widget.cartState = [];
+      widget.cartEmptyNotifier.value = true;
     });
-    widget.onExit();
-    Navigator.pushNamed(context, AppRoutes.home);
+    await Navigator.of(context).pushReplacementNamed(AppRoutes.home);
   }
 }
