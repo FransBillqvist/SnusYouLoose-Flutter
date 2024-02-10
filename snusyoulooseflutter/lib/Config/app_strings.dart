@@ -62,4 +62,8 @@ class AppStrings {
   static const String availableNow = 'A new snuff is available';
   static const String notAvailable = 'Your snuff is not available right now';
   static const String availableIn = 'Next snuff is available in';
+  static const String search = 'Search';
+  static const String searchInfo = 'Search for brand or name';
+  static const String searchNoHits = 'This search resulted in no hits';
+  static const String error = 'Error';
 }
