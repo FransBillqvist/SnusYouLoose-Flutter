@@ -43,11 +43,13 @@ class _SnuffWatchWidgetState extends State<SnuffWatchWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(AppStrings.availableIn,
-                    style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold)),
+                streamDuration.remainingDuration.inSeconds > 0
+                    ? Text(AppStrings.availableIn,
+                        style: const TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold))
+                    : Container(),
                 Padding(
                   padding: const EdgeInsets.only(top: 28.0),
                   child: SlideCountdown(
