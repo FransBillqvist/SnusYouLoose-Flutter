@@ -331,6 +331,25 @@ Future<Duration> fetchTimeToNextDose(String userid) async {
   throw Exception('Failed to fetch time to next dose');
 }
 
+Future<List<int>> fetchUsedAndRemaingSnuffToday(String userId) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchUsedNLeftSnuff + userId),
+        headers: {'Content-Type': 'application/json'});
+    print(
+        'This is the fetchUsedAndRemaingSnuffToday response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final usedNLeft = jsonDecode(response.body);
+      print('This is the usedNLeft: $usedNLeft');
+      inspect(usedNLeft);
+      return List<int>.from(usedNLeft);
+    }
+  } catch (err) {
+    print('FAILED TO FETCH USED AND REMAING SNUFF TODAY $err');
+  }
+  throw Exception('Failed to fetch used and remaing snuff today');
+}
+
 Duration parseTime(String time) {
   List<String> parts = time.split(':');
   return Duration(
