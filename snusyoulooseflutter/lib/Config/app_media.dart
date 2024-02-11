@@ -27,6 +27,32 @@ class AppSnuffs {
   static const _snf = 'Assets/Images/snuff/';
 
   static const Map<String, String> images = {
+    'ReDo': '${_snf}.ReDo.webp',
+    'kalibervitsalmiakportionssnus':
+        '${_snf}kaliber-vit-salmiak-portionssnus.webp',
+    'kaliberoriginalportionssnus': '${_snf}kaliber-original-portionssnus.webp',
+    'lundgrensfjallenvitportion': '${_snf}lundgrens-fjallen-vit-portion.webp',
+    'lundgrensnorrlandvitportionssnus':
+        '${_snf}lundgrens-norrland-vit-portionssnus.webp',
+    'lundgrensskanestarkvitportion':
+        '${_snf}lundgrens-skane-stark-vit-portion.webp',
+    'lundgrensskanevitportionssnus':
+        '${_snf}lundgrens-skane-vit-portionssnus.webp',
+    'loopjalapenolimeslimhyperstrong':
+        '${_snf}loop-jalapeno-lime-slim-hyper-strong.webp',
+    'loopjalapenolimestrong': '${_snf}loop-jalapeno-lime-strong.webp',
+    'knoxlossnus': '${_snf}knox-lossnus.webp',
+    'knoxkaraktarbluewhiteportionssnus':
+        '${_snf}knox-karaktar-blue-white-portionssnus.webp',
+    'knoxportionssnus': '${_snf}knox-portionssnus.webp',
+    'knoxwhitestarkportionssnus': '${_snf}knox-white-stark-portionssnus.webp',
+    'knoxwhiteportionssnus': '${_snf}knox-white-portionssnus.webp',
+    'ldwhiskeyoriginallimitededition':
+        '${_snf}ld-whiskey-original-limited-edition.webp',
+    'oneblawhiteportion': '${_snf}one-bla-white-portion.webp',
+    'ldoriginalstarkportionssnus': '${_snf}ld-original-stark-portionssnus.webp',
+    'onegrawhiteportion': '${_snf}one-gra-white-portion.webp',
+    'kaptenvitportionssnus': '${_snf}kapten-vit-portionssnus.webp',
     'acexraspberrychilistrong': '${_snf}ace-x-raspberry-chili-strong.webp',
     'apresiceteapeach': '${_snf}apres-ice-tea-peach.webp',
     'fixpineapplerumcoconut4': '${_snf}fix-pineapple-rum-coconut-4.webp',
