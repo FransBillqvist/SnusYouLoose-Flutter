@@ -121,8 +121,8 @@ class _ShopPageState extends State<ShopPage> {
                               width: MediaQuery.of(context).size.width * 0.61,
                               child: Material(
                                 elevation: 14.0,
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color.fromARGB(150, 143, 191, 227),
                                 child: Center(
                                   child: AppTextField(
                                       controllerName: searchController,
