@@ -13,6 +13,7 @@ import '../Model/CurrentSnuffDto.dart';
 import '../Redux/app_state.dart';
 import '../Styles/app_colors.dart';
 
+import 'archivesnuff_widget.dart';
 import 'usesnuff_widget.dart';
 
 class InventoryWidget extends StatelessWidget {
@@ -42,8 +43,11 @@ class InventoryWidget extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return UseSnuffWidget(
-                          currentsnuffID: snuff[index].currentSnuffId);
+                      return snuff[index].amountRemaing > 0
+                          ? UseSnuffWidget(
+                              currentsnuffID: snuff[index].currentSnuffId)
+                          : ArchiveSnuffWidget(
+                              CurrentSnuffId: snuff[index].currentSnuffId);
                     },
                   );
                 },
@@ -64,13 +68,37 @@ class InventoryWidget extends StatelessWidget {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      child: Image.asset(
-                        AppSnuffs.images[snuff![index].imageUrl]!,
-                        width: 250,
-                        height: 250,
-                        fit: BoxFit.scaleDown,
-                      ),
-                    )
+                      child: snuff![index].amountRemaing > 0
+                          ? Image.asset(
+                              AppSnuffs.images[snuff![index].imageUrl]!,
+                              width: 250,
+                              height: 250,
+                              fit: BoxFit.scaleDown,
+                            )
+                          : Stack(children: [
+                              Opacity(
+                                opacity: 0.7,
+                                child: Image.asset(
+                                  AppSnuffs.images[snuff![index].imageUrl]!,
+                                  width: 250,
+                                  height: 250,
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              ),
+                              const Positioned(
+                                left: 70,
+                                top: 65,
+                                child: Opacity(
+                                  opacity: 1,
+                                  child: Icon(
+                                    Icons.delete_outline_rounded,
+                                    color: AppColors.deleteRed,
+                                    size: 100,
+                                  ),
+                                ),
+                              )
+                            ]),
+                    ),
                   ],
                 ),
               );
