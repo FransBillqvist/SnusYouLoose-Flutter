@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:snusyoulooseflutter/Config/app_routes.dart';
 import 'package:snusyoulooseflutter/Pages/home_page.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
@@ -63,9 +64,9 @@ class _UseSnuffWidgetState extends State<UseSnuffWidget> {
                 AppStrings.ok,
                 style: TextStyle(fontSize: 18, color: AppColors.primary),
               ),
-              onPressed: () {
+              onPressed: () async {
                 postSnuffTakenService(widget.currentsnuffID, selectedValue);
-                Navigator.of(context).pop();
+                Navigator.of(context).restorablePopAndPushNamed(AppRoutes.home);
               },
             ),
           ],
