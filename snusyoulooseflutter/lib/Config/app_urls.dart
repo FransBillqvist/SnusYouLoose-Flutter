@@ -21,4 +21,6 @@ class AppUrls {
 
   static const createAuthUser = '$_url/api/v1/Auth/register';
   static const createUser = '$_url/api/v2/User/CreateV2';
+  static const postCSToArchive =
+      '$_url/api/v2/CurrentSnuff/AddCurrentSnuffToArchive/';
 }
