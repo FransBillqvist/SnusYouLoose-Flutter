@@ -23,4 +23,6 @@ class AppUrls {
   static const createUser = '$_url/api/v2/User/CreateV2';
   static const postCSToArchive =
       '$_url/api/v2/CurrentSnuff/AddCurrentSnuffToArchive/';
+  static const fetchUsedNLeftSnuff =
+      '$_url/api/v2/Progression/GetUseAndLimitValues/';
 }
