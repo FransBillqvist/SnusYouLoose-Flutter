@@ -216,6 +216,24 @@ Future<SnuffShopDto> fetchSnuffDetailsWithIdService(String snuffId) async {
   throw Exception('Failed to fetch snuff details');
 }
 
+Future<bool> postCurrentSnuffToArchive(String currentSnuffId) async {
+  try {
+    final response = await http.post(
+        Uri.parse(AppUrls.postCSToArchive + currentSnuffId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the postCSToArchive response: ${response.body} ');
+    if (response.statusCode == 200) {
+      print('This is the 200 => postCSToArchive response: ${response.body} ');
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    print('FAILED TO POST CS TO ARCHIVE $err');
+  }
+  throw Exception('Failed to post CS to archive');
+}
+
 String getUserIdService(BuildContext context) {
   final store = StoreProvider.of<AppState>(context);
   final userId = store.state.user?.UserId;
