@@ -27,8 +27,7 @@ class _SnuffWatchWidgetState extends State<SnuffWatchWidget> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Show a loading spinner while waiting
         } else if (snapshot.hasError) {
-          return Text(
-              'Error: ${snapshot.error}'); // Show error if something went wrong
+          return Text(''); // Show error if something went wrong
         } else {
           final streamDuration = StreamDuration(
             config: StreamDurationConfig(
@@ -53,10 +52,12 @@ class _SnuffWatchWidgetState extends State<SnuffWatchWidget> {
                 Padding(
                   padding: const EdgeInsets.only(top: 28.0),
                   child: SlideCountdown(
-                    duration: Duration(
-                        hours: listOfInts[0],
-                        minutes: listOfInts[1],
-                        seconds: listOfInts[2]),
+                    duration: listOfInts.isEmpty
+                        ? Duration.zero
+                        : Duration(
+                            hours: listOfInts[0],
+                            minutes: listOfInts[1],
+                            seconds: listOfInts[2]),
                     streamDuration: streamDuration,
                     slideDirection: SlideDirection.down,
                     style: const TextStyle(
