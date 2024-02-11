@@ -66,4 +66,7 @@ class AppStrings {
   static const String searchInfo = 'Search for brand or name';
   static const String searchNoHits = 'This search resulted in no hits';
   static const String error = 'Error';
+  static const String todays = 'Today';
+  static const String used = 'Used';
+  static const String remaining = 'Remaining';
 }
