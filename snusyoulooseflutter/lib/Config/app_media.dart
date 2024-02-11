@@ -50,7 +50,7 @@ class AppSnuffs {
     'ldwhiskeyoriginallimitededition':
         '${_snf}ld-whiskey-original-limited-edition.webp',
     'oneblawhiteportion': '${_snf}one-bla-white-portion.webp',
-    'ldoriginalstarkportionssnus': '${_snf}ld-original-stark-portionssnus.webp',
+    'ldoriginalstarkportionssnus': '${_snf}LD-original-stark-portionssnus.webp',
     'onegrawhiteportion': '${_snf}one-gra-white-portion.webp',
     'kaptenvitportionssnus': '${_snf}kapten-vit-portionssnus.webp',
     'acexraspberrychilistrong': '${_snf}ace-x-raspberry-chili-strong.webp',
