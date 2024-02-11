@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:snusyoulooseflutter/Services/app_services.dart';
 import 'package:snusyoulooseflutter/Widgets/snuffwatch_widget.dart';
+import 'package:snusyoulooseflutter/Widgets/useindicator_widget.dart';
 
 import '../Redux/actions.dart';
 import '../Widgets/inventory_widget.dart';
@@ -45,6 +46,8 @@ class _HomePageState extends State<HomePage> {
                     Stack(
                       children: [
                         Positioned(
+                            top: 25, left: 18, child: UseIndicatorWidget()),
+                        Positioned(
                           left: 76.5,
                           top: 75,
                           child: Container(
@@ -73,11 +76,10 @@ class _HomePageState extends State<HomePage> {
                             padding:
                                 const EdgeInsets.only(top: 530.0, left: 53),
                             child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.74,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.4,
-                                child:
-                                    InventoryWidget(currentSnuffs: stateSnuff)),
+                              width: MediaQuery.of(context).size.width * 0.74,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                              child: InventoryWidget(currentSnuffs: stateSnuff),
+                            ),
                           ),
                         ),
                       ],
