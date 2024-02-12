@@ -19,15 +19,14 @@ class _SnuffWatchWidgetState extends State<SnuffWatchWidget> {
   @override
   Widget build(BuildContext context) {
     final userId = getUserIdService(context);
-    var timeToNextDose;
     return FutureBuilder(
-      future: timeToNextDose = fetchTimeToNextDose(userId),
+      future: fetchTimeToNextDose(userId),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         final listOfInts = splitDuration(snapshot.data);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Show a loading spinner while waiting
         } else if (snapshot.hasError) {
-          return Text(''); // Show error if something went wrong
+          return const CircularProgressIndicator(); // Show error if something went wrong
         } else {
           final streamDuration = StreamDuration(
             config: StreamDurationConfig(
@@ -37,7 +36,6 @@ class _SnuffWatchWidgetState extends State<SnuffWatchWidget> {
               ),
             ),
           );
-          inspect(snapshot.data);
           return SizedBox.expand(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
