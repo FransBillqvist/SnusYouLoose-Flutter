@@ -20,7 +20,36 @@ class _UseIndicatorWidgetState extends State<UseIndicatorWidget> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(); // Show a loading spinner while waiting
         } else if (snapshot.hasError) {
-          return Text(''); // Show error if something went wrong
+          return Container(
+            child: const SizedBox(
+              height: 50,
+              width: 126,
+              child: Column(children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 1),
+                      child: Text(
+                        AppStrings.used + " | " + AppStrings.remaining,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        "?" + "      |    " + "?",
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                    )
+                  ],
+                )
+              ]),
+            ),
+          ); // Show error if something went wrong
         } else {
           return Container(
             child: SizedBox(
