@@ -92,3 +92,14 @@ ThunkAction<AppState> createAPregression(String userId) {
     }
   };
 }
+
+ThunkAction<AppState> getDurationToNextPortion(String userId) {
+  return (Store<AppState> store) async {
+    try {
+      final duration = await fetchTimeToNextDose(userId);
+      store.dispatch(FetchDurationAction(duration));
+    } catch (error) {
+      print(error);
+    }
+  };
+}
