@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     store.dispatch(getSnuffInventory(userid));
     store.dispatch(getUserHabit(userid, context));
     store.dispatch(getProgression(userid));
+    store.dispatch(getDurationToNextPortion(userid));
 
     return StoreConnector<AppState, bool>(
         converter: (store) => store.state.getPregressionFailed,
