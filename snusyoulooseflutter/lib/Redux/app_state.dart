@@ -15,6 +15,7 @@ class AppState extends ChangeNotifier {
   User? user;
   ProgressionDto? progressionState;
   bool getPregressionFailed;
+  Duration? timeLeft;
 
   AppState({
     this.inventorySnuffs = const [],
@@ -24,6 +25,7 @@ class AppState extends ChangeNotifier {
     this.user,
     this.progressionState,
     this.getPregressionFailed = false,
+    this.timeLeft,
   });
 
   Future<void> fetchInventorySnuffs() async {
