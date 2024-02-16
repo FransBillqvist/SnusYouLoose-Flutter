@@ -32,7 +32,10 @@ AppState appReducer(AppState state, action) {
       user: userReducer(state.user, action),
       progressionState: progressionReducer(state.progressionState, action),
       getPregressionFailed:
-          getProgressionFailedReducer(state.getPregressionFailed, action));
+          getProgressionFailedReducer(state.getPregressionFailed, action),
+      timeLeft: getDurationReducer(
+          state.timeLeft ?? const Duration(hours: 3, minutes: 31, seconds: 42),
+          action));
 }
 
 List<CurrentSnuff> snuffReducer(List<CurrentSnuff> snuffs, action) {
@@ -112,6 +115,13 @@ bool getProgressionFailedReducer(bool getPregressionFailed, action) {
   }
   return getPregressionFailed;
 }
+
+Duration getDurationReducer(Duration timeLeft, action) {
+  if (action is FetchDurationAction) {
+    return action.duration;
+  }
+  return timeLeft;
+} 
 
 // import 'package:provider/provider.dart';
 
