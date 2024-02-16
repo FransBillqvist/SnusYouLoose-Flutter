@@ -71,3 +71,9 @@ class GetProgressionFailedAction {
 
   GetProgressionFailedAction(this.getPregressionFailed);
 }
+
+class FetchDurationAction {
+  final Duration duration;
+
+  FetchDurationAction(this.duration);
+}
