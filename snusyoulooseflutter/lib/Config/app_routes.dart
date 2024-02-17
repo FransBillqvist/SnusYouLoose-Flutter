@@ -5,6 +5,7 @@ import '../Pages/habit_page.dart';
 import '../Pages/home_page.dart';
 import '../Pages/login_page.dart';
 import '../Pages/shop_page.dart';
+import '../Pages/statistics_page.dart';
 import '../Redux/app_state.dart';
 
 class AppRoutes {
@@ -13,12 +14,14 @@ class AppRoutes {
     home: (context) => _checkAuth(context, HomePage()),
     habit: (context) => _checkAuth(context, HabitPage()),
     shop: (context) => _checkAuth(context, ShopPage()),
+    statistics: (context) => _checkAuth(context, StatisticsPage()),
   };
 
   static const String login = '/';
   static const String home = '/home';
   static const String habit = '/habit';
   static const String shop = '/shop';
+  static const String statistics = '/statistics';
 
   static Widget _checkAuth(BuildContext context, Widget page) {
     var store = StoreProvider.of<AppState>(context);
