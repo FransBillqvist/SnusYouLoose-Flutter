@@ -25,4 +25,8 @@ class AppUrls {
       '$_url/api/v2/CurrentSnuff/AddCurrentSnuffToArchive/';
   static const fetchUsedNLeftSnuff =
       '$_url/api/v2/Progression/GetUseAndLimitValues/';
+  static const fetchStatisticsForPeriod =
+      '$_url/api/v2/Statistics/GetStatisticsForPeriod/{userId}/{from}/{to}'; //NOT IN USE YET
+  static const fetchStatisticsForToday =
+      '$_url/api/v2/Statistics/GetLatestStatistics/';
 }
