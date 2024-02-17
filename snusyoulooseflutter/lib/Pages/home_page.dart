@@ -124,6 +124,25 @@ class _HomePageState extends State<HomePage> {
                     title: const Row(
                       children: [
                         Text(
+                          AppStrings.statistics,
+                          style: TextStyle(fontSize: 22),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Icon(Icons.bar_chart_rounded,
+                              size: 30, color: AppColors.cartBgLight),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(AppRoutes.statistics);
+                    },
+                  ),
+                  ListTile(
+                    title: const Row(
+                      children: [
+                        Text(
                           AppStrings.logout,
                           style: TextStyle(fontSize: 22),
                         ),
