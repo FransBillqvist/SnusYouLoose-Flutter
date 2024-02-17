@@ -21,4 +21,14 @@ class Snuff {
         json['size'] as int,
         // json['selected'] as bool,
       );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'brand': Brand,
+        'type': Type,
+        'price': Price,
+        'defaultAmount': DefaultAmount,
+        'imageUrl': ImageUrl,
+        'size': Size,
+      };
 }
