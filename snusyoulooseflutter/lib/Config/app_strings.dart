@@ -69,4 +69,5 @@ class AppStrings {
   static const String todays = 'Today';
   static const String used = 'Used';
   static const String remaining = 'Remaining';
+  static const String statistics = 'Statistics';
 }
