@@ -14,6 +14,7 @@ import '../Model/ProgressionDto.dart';
 import '../Model/CreateCSDto.dart';
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/HabitDto.dart';
+import '../Model/StatisticDto.dart';
 import '../Model/User.dart';
 import '../Model/LoginResponse.dart';
 import '../Redux/app_state.dart';
@@ -348,6 +349,24 @@ Future<List<int>> fetchUsedAndRemaingSnuffToday(String userId) async {
     print('FAILED TO FETCH USED AND REMAING SNUFF TODAY $err');
   }
   throw Exception('Failed to fetch used and remaing snuff today');
+}
+
+Future<StatisticDto> fetchDailyStatisticService(String userId) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchStatisticsForToday + userId),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchDailyStatisticService response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final statistic = StatisticDto.fromJson(jsonDecode(response.body));
+      print('This is the statistic: $statistic');
+      inspect(statistic);
+      return statistic;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH DAILY STATISTIC $err');
+  }
+  throw Exception('Failed to fetch daily statistic');
 }
 
 Duration parseTime(String time) {
