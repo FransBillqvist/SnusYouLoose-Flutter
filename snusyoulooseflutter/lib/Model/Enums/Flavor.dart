@@ -9,6 +9,7 @@ enum Flavor {
   cloudberry,
   blackcurrant,
   blackberry,
+  juniper,
   apple,
   cherry,
   citrus,
