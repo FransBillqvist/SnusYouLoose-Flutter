@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(AppStrings.shop, style: TextStyle(fontSize: 22)),
                         Padding(
-                          padding: EdgeInsets.only(left: 38),
+                          padding: EdgeInsets.only(left: 60),
                           child: Icon(Icons.shopping_cart_rounded,
                               size: 30, color: AppColors.cartBgLight),
                         )
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontSize: 22),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: const EdgeInsets.only(left: 50),
                           child: Icon(Icons.logout,
                               size: 30, color: AppColors.cartBgLight),
                         ),
