@@ -70,4 +70,10 @@ class AppStrings {
   static const String used = 'Used';
   static const String remaining = 'Remaining';
   static const String statistics = 'Statistics';
+  static const String week = 'Week';
+  static const String twoWeek = 'Two Weeks';
+  static const String month = 'Month';
+  static const String quarter = 'Quarter';
+  static const String year = 'Year';
+  static const String allTime = 'All Time';
 }
