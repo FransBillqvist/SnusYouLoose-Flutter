@@ -34,12 +34,6 @@ class _StatisticsPageState extends State<StatisticsPage>
 
   @override
   Widget build(BuildContext context) {
-    var yesterday = DateTime.now().subtract(Duration(days: 1));
-    var lastWeek = DateTime.now().subtract(Duration(days: 8));
-    var twoWeeksAgo = DateTime.now().subtract(Duration(days: 15));
-    var lastMonth = DateTime.now().subtract(Duration(days: 31));
-    var lastQuarter = DateTime.now().subtract(Duration(days: 91));
-    var lastYear = DateTime.now().subtract(Duration(days: 366));
     final userId = getUserIdService(context);
     return Scaffold(
       appBar: AppBar(
