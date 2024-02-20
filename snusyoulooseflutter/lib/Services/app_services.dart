@@ -369,6 +369,50 @@ Future<StatisticDto> fetchDailyStatisticService(String userId) async {
   throw Exception('Failed to fetch daily statistic');
 }
 
+Future<StatisticDto> fetchStatisticsForPeriodService(
+    String userId, DateTime start, DateTime end) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchStatisticsForPeriod +
+            userId +
+            '/' +
+            start.toIso8601String() +
+            '/' +
+            end.toIso8601String()),
+        headers: {'Content-Type': 'application/json'});
+    print(
+        'This is the fetchStatisticsForPeriodService response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final statistic = StatisticDto.fromJson(jsonDecode(response.body));
+      print('This is the statistic: $statistic');
+      inspect(statistic);
+      return statistic;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH STATISTICS FOR PERIOD $err');
+  }
+  throw Exception('Failed to fetch statistics for period');
+}
+
+Future<StatisticDto> fetchLifeTimeStatisticService(String userId) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchAllTimeStatistic + userId),
+        headers: {'Content-Type': 'application/json'});
+    print(
+        'This is the fetchLifeTimeStatisticService response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final statistic = StatisticDto.fromJson(jsonDecode(response.body));
+      print('This is the statistic: $statistic');
+      inspect(statistic);
+      return statistic;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH LIFE TIME STATISTIC $err');
+  }
+  throw Exception('Failed to fetch life time statistic');
+}
+
 Duration parseTime(String time) {
   List<String> parts = time.split(':');
   return Duration(
