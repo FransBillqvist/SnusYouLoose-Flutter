@@ -76,4 +76,11 @@ class AppStrings {
   static const String quarter = 'Quarter';
   static const String year = 'Year';
   static const String allTime = 'All Time';
+  static const String stat4Today = 'Todays Statistics';
+  static const String stat4Week = 'Statistics 7 Days';
+  static const String stat4Two = 'Statistics 14 Days';
+  static const String stat4Month = 'Statistics 30 Day';
+  static const String stat4Quarter = 'Statistics 90 Days';
+  static const String stat4Year = 'Statistics Last Year';
+  static const String stat4LT = 'Statistics All Time';
 }
