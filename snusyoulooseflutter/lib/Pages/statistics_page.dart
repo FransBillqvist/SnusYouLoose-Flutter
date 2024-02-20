@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Model/StatisticDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+import 'package:snusyoulooseflutter/Widgets/statistic_widget.dart';
 
 import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
@@ -30,41 +31,44 @@ class _StatisticsPageState extends State<StatisticsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: _pages.length, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final userId = getUserIdService(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppStrings.statistics),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () =>
-                Navigator.of(context).pushReplacementNamed(AppRoutes.home)),
-        backgroundColor: AppColors.cartBgLight,
-        bottom: TabBar(
-          controller: _tabController,
-          dividerColor: AppColors.cartBgLight,
-          isScrollable: true,
-          tabs: _pages.map((String page) => Tab(text: page)).toList(),
+        appBar: AppBar(
+          title: Text(AppStrings.statistics),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () =>
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.home)),
+          backgroundColor: AppColors.cartBgLight,
+          bottom: TabBar(
+            controller: _tabController,
+            dividerColor: AppColors.cartBgLight,
+            isScrollable: true,
+            tabs: _pages.map((String page) => Tab(text: page)).toList(),
+          ),
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: _pages.map((String page) {
-          return Center(
-              child: Text(
-            'This is the $page page',
-            style: TextStyle(color: Colors.black, fontSize: 20),
-          ));
-        }).toList(),
-      ),
-    );
+        body: TabBarView(
+          controller: _tabController,
+          children: _pages.map((String page) {
+            return StatisticWidget(mode: _tabController.index);
+          }).toList(),
+        ));
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_handleTabSelection);
     _tabController.dispose();
     super.dispose();
   }
