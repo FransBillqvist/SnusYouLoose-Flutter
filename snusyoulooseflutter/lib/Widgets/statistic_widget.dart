@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Model/StatisticDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
 
+import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
+import '../Model/Snuff.dart';
 import '../Services/app_services.dart';
 
 class StatisticWidget extends StatefulWidget {
@@ -63,11 +65,11 @@ class _StatisticWidgetState extends State<StatisticWidget> {
       90,
       365,
     ];
-    var baseStyle = TextStyle(
+    const baseStyle = TextStyle(
         color: AppColors.textPrimary,
         fontSize: 20,
         fontWeight: FontWeight.bold);
-    var propStyle = TextStyle(
+    const propStyle = TextStyle(
         color: AppColors.textPrimary2,
         fontSize: 20,
         fontWeight: FontWeight.normal);
@@ -82,6 +84,32 @@ class _StatisticWidgetState extends State<StatisticWidget> {
         } else {
           var stats = snapshot.data;
           // Använd `snapshot.data` för att bygga din widget baserat på den hämtade statistiken
+          if (stats == null) {
+            return const Text('No data');
+          }
+          List<Snuff> snuffs = stats.usedSnuffSorts;
+          List<int> ints = stats.usedAmountOfSnuffs;
+
+          // Create a map where each unique Snuff is a key and the corresponding int values are added together
+          Map<Snuff, int> snuffMap = {};
+          for (int i = 0; i < snuffs.length; i++) {
+            snuffMap.update(
+                snuffs[i], (existingValue) => existingValue + ints[i],
+                ifAbsent: () => ints[i]);
+          }
+
+          // Convert the map to a list of pairs
+          List<MapEntry<Snuff, int>> pairs = snuffMap.entries.toList();
+
+          // Sort the list in descending order based on the int value
+          pairs.sort((a, b) => b.value.compareTo(a.value));
+
+          // Take the first three elements
+          List<MapEntry<Snuff, int>> topThreePairs = pairs.take(3).toList();
+
+          // Extract the indices of the original Snuff objects
+          List<int> topThreeIndices =
+              topThreePairs.map((pair) => snuffs.indexOf(pair.key)).toList();
           return Stack(
             children: [
               Positioned(
@@ -105,24 +133,155 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             ),
                           ]),
                       child: Container(
-                          height: MediaQuery.of(context).size.height * 0.78,
-                          width: MediaQuery.of(context).size.width * 0.94,
-                          child: Column(
-                            children: [
-                              Text(
-                                titles[widget.mode],
-                                style: baseStyle,
-                              ),
-                              Text(
-                                '${stats!.rating.toString()}',
-                                style: baseStyle,
-                              ),
-                              Text(
-                                  '${stats.totalAmoutUsed.toString()} / ${stats.limitOfUse.toString()}',
-                                  style: baseStyle),
-                              Text('', style: baseStyle),
+                        height: MediaQuery.of(context).size.height * 0.78,
+                        width: MediaQuery.of(context).size.width * 0.94,
+                        child: Column(
+                          children: [
+                            Text(
+                              titles[widget.mode],
+                              style: baseStyle,
+                            ),
+                            Text(
+                              '${stats.rating.toString()}',
+                              style: baseStyle,
+                            ),
+                            Text(
+                                '${stats.totalAmoutUsed.toString()} / ${stats.limitOfUse.toString()}',
+                                style: baseStyle),
+                            Text('', style: baseStyle),
+                            if (topThreeIndices.isNotEmpty) ...[
+                              Image.asset(
+                                  AppSnuffs.images[snuffs[topThreeIndices[0]]
+                                          .ImageUrl] ??
+                                      '',
+                                  width: 80,
+                                  height: 80),
+                              Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    child: Transform(
+                                      transform: Matrix4.identity()
+                                        ..setEntry(3, 2, 1)
+                                        ..rotateX(0.0001),
+                                      child: Container(
+                                        width: 72,
+                                        height: 45, // Height of the "roof"
+                                        decoration: BoxDecoration(
+                                          color: AppColors.goldPlace,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(3),
+                                            topRight: Radius.circular(3),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top:
+                                            10), // Push the box down by the height of the "roof"
+                                    child: DecoratedBox(
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.goldPlace,
+                                        border: Border.fromBorderSide(
+                                            BorderSide(
+                                                color: AppColors.goldPlace,
+                                                width: 2.0)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColors.goldPlace,
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: Offset(0, 3))
+                                        ],
+                                      ),
+                                      child: Container(
+                                        width: 72,
+                                        height: 140,
+                                        child: Column(children: [
+                                          Text(
+                                            ints[topThreeIndices[0]].toString(),
+                                            style: baseStyle,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )),
+                            if (topThreeIndices[1] != 0) ...[
+                              Image.asset(
+                                  AppSnuffs.images[snuffs[topThreeIndices[1]]
+                                          .ImageUrl] ??
+                                      '',
+                                  width: 80,
+                                  height: 80),
+                              Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    child: Transform(
+                                      transform: Matrix4.identity()
+                                        ..setEntry(3, 2, 1)
+                                        ..rotateX(0.0001),
+                                      child: Container(
+                                        width: 72,
+                                        height: 45, // Height of the "roof"
+                                        decoration: BoxDecoration(
+                                          color: AppColors.silverPlace,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(3),
+                                            topRight: Radius.circular(3),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top:
+                                            10), // Push the box down by the height of the "roof"
+                                    child: DecoratedBox(
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.silverPlace,
+                                        border: Border.fromBorderSide(
+                                            BorderSide(
+                                                color: AppColors.silverPlace,
+                                                width: 2.0)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColors.silverPlace,
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: Offset(0, 3))
+                                        ],
+                                      ),
+                                      child: Container(
+                                        width: 72,
+                                        height: 100,
+                                        child: Column(children: [
+                                          Text(
+                                            ints[topThreeIndices[1]].toString(),
+                                            style: baseStyle,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
