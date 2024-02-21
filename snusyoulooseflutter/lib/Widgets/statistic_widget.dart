@@ -59,6 +59,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
       AppStrings.stat4LT
     ];
     var dataDays = [
+      null,
       7,
       14,
       30,
@@ -148,99 +149,27 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             Text(
                                 '${stats.totalAmoutUsed.toString()} / ${stats.limitOfUse.toString()}',
                                 style: baseStyle),
-                            Text('', style: baseStyle),
-                            if (topThreeIndices.isNotEmpty) ...[
-                              Image.asset(
-                                  AppSnuffs.images[snuffs[topThreeIndices[0]]
-                                          .ImageUrl] ??
-                                      '',
-                                  width: 80,
-                                  height: 80),
-                              Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    child: Transform(
-                                      transform: Matrix4.identity()
-                                        ..setEntry(3, 2, 1)
-                                        ..rotateX(0.0001),
-                                      child: Container(
-                                        width: 72,
-                                        height: 45, // Height of the "roof"
-                                        decoration: BoxDecoration(
-                                          color: AppColors.goldPlace,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(3),
-                                            topRight: Radius.circular(3),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                            SizedBox(
+                              height: 66,
+                            ),
+                            Row(children: [
+                              Padding(padding: EdgeInsets.only(left: 66)),
+                              if (topThreeIndices[0] == 0 &&
+                                  topThreeIndices[1] == 0 &&
+                                  topThreeIndices[2] == 0) ...[
+                                Text('No snuff used', style: baseStyle),
+                              ],
+                              if (topThreeIndices[1] != 0) ...[
+                                Column(children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top:
-                                            10), // Push the box down by the height of the "roof"
-                                    child: DecoratedBox(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.goldPlace,
-                                        border: Border.fromBorderSide(
-                                            BorderSide(
-                                                color: AppColors.goldPlace,
-                                                width: 2.0)),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.goldPlace,
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              offset: Offset(0, 3))
-                                        ],
-                                      ),
-                                      child: Container(
-                                        width: 72,
-                                        height: 140,
-                                        child: Column(children: [
-                                          Text(
-                                            ints[topThreeIndices[0]].toString(),
-                                            style: baseStyle,
-                                          ),
-                                        ]),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                            if (topThreeIndices[1] != 0) ...[
-                              Image.asset(
-                                  AppSnuffs.images[snuffs[topThreeIndices[1]]
-                                          .ImageUrl] ??
-                                      '',
-                                  width: 80,
-                                  height: 80),
-                              Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    child: Transform(
-                                      transform: Matrix4.identity()
-                                        ..setEntry(3, 2, 1)
-                                        ..rotateX(0.0001),
-                                      child: Container(
-                                        width: 72,
-                                        height: 45, // Height of the "roof"
-                                        decoration: BoxDecoration(
-                                          color: AppColors.silverPlace,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(3),
-                                            topRight: Radius.circular(3),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    padding: const EdgeInsets.only(top: 40.0),
+                                    child: Image.asset(
+                                        AppSnuffs.images[
+                                                snuffs[topThreeIndices[1]]
+                                                    .ImageUrl] ??
+                                            '',
+                                        width: 80,
+                                        height: 80),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -265,19 +194,123 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                         ],
                                       ),
                                       child: Container(
-                                        width: 72,
+                                        width: 82,
                                         height: 100,
                                         child: Column(children: [
                                           Text(
-                                            ints[topThreeIndices[1]].toString(),
+                                            ints[topThreeIndices[0]].toString(),
                                             style: baseStyle,
                                           ),
                                         ]),
                                       ),
                                     ),
+                                  )
+                                ])
+                              ],
+                              if (topThreeIndices.isNotEmpty) ...[
+                                Column(children: [
+                                  Image.asset(
+                                      AppSnuffs.images[
+                                              snuffs[topThreeIndices[0]]
+                                                  .ImageUrl] ??
+                                          '',
+                                      width: 80,
+                                      height: 80),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: DecoratedBox(
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.goldPlace,
+                                        border: Border.fromBorderSide(
+                                            BorderSide(
+                                                color: AppColors.goldPlace,
+                                                width: 2.0)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColors.goldPlace,
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: Offset(0, 3))
+                                        ],
+                                      ),
+                                      child: Container(
+                                        width: 82,
+                                        height: 140,
+                                        child: Column(children: [
+                                          Text(
+                                            ints[topThreeIndices[0]].toString(),
+                                            style: baseStyle,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                              ],
+                              if (topThreeIndices[2] != 0) ...[
+                                Column(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 80.0),
+                                    child: Image.asset(
+                                        AppSnuffs.images[
+                                                snuffs[topThreeIndices[2]]
+                                                    .ImageUrl] ??
+                                            '',
+                                        width: 80,
+                                        height: 80),
                                   ),
-                                ],
-                              )
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: DecoratedBox(
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.bronzePlace,
+                                        border: Border.fromBorderSide(
+                                            BorderSide(
+                                                color: AppColors.bronzePlace,
+                                                width: 2.0)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(0),
+                                            topRight: Radius.circular(0)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: AppColors.bronzePlace,
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: Offset(0, 3))
+                                        ],
+                                      ),
+                                      child: Container(
+                                        width: 82,
+                                        height: 60,
+                                        child: Column(children: [
+                                          Text(
+                                            ints[topThreeIndices[2]].toString(),
+                                            style: baseStyle,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                              ],
+                            ]),
+                            Row(
+                              children: [
+                                if (topThreeIndices[1] != 0) ...[],
+                                if (topThreeIndices.isNotEmpty) ...[],
+                                if (topThreeIndices[2] != 0) ...[],
+                              ],
+                            ),
+                            SizedBox(
+                              height: 66,
+                            ),
+                            if (stats.numberOfDays !=
+                                dataDays[widget.mode]) ...[
+                              Text('Data covers ${stats.numberOfDays} days',
+                                  style: propStyle)
                             ],
                           ],
                         ),
