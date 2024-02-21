@@ -58,14 +58,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
       AppStrings.stat4Year,
       AppStrings.stat4LT
     ];
-    var dataDays = [
-      null,
-      7,
-      14,
-      30,
-      90,
-      365,
-    ];
+    var dataDays = [0, 7, 14, 30, 90, 365, 365];
     const baseStyle = TextStyle(
         color: AppColors.textPrimary,
         fontSize: 20,
@@ -154,11 +147,6 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             ),
                             Row(children: [
                               Padding(padding: EdgeInsets.only(left: 66)),
-                              if (topThreeIndices[0] == 0 &&
-                                  topThreeIndices[1] == 0 &&
-                                  topThreeIndices[2] == 0) ...[
-                                Text('No snuff used', style: baseStyle),
-                              ],
                               if (topThreeIndices[1] != 0) ...[
                                 Column(children: [
                                   Padding(
@@ -207,6 +195,13 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                   )
                                 ])
                               ],
+                              Row(
+                                children: [
+                                  if (topThreeIndices.isEmpty) ...[
+                                    Text('No snuff used', style: baseStyle)
+                                  ],
+                                ],
+                              ),
                               if (topThreeIndices.isNotEmpty) ...[
                                 Column(children: [
                                   Image.asset(
@@ -297,13 +292,6 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                 ]),
                               ],
                             ]),
-                            Row(
-                              children: [
-                                if (topThreeIndices[1] != 0) ...[],
-                                if (topThreeIndices.isNotEmpty) ...[],
-                                if (topThreeIndices[2] != 0) ...[],
-                              ],
-                            ),
                             SizedBox(
                               height: 66,
                             ),
