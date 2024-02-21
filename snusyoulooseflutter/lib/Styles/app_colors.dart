@@ -22,5 +22,9 @@ class AppColors {
 
   static const cartBgLight = Color.fromRGBO(0, 169, 255, 1.0);
   static const cartBgLight2 = Color.fromRGBO(137, 207, 243, 1.0);
+
+  static const goldPlace = Color(0xFFFFD700);
+  static const silverPlace = Color(0xFFC0C0C0);
+  static const bronzePlace = Color(0xFFCD7F32);
   //Black mode alt 0x272727
 }
