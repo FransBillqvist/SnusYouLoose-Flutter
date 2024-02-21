@@ -178,6 +178,24 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                           width: 82,
                                           height: 100,
                                           child: Column(children: [
+                                            SizedBox(height: 12),
+                                            const Text('#2',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color:
+                                                      AppColors.silverStamped,
+                                                  shadows: [
+                                                    Shadow(
+                                                      offset: Offset(1.0, 1.0),
+                                                      blurRadius: 2.0,
+                                                    )
+                                                  ],
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                )),
+                                            SizedBox(
+                                                height:
+                                                    28), // Push the text down by the height of the "roof" (8 pixels in this case
                                             Text(
                                               ints[topThreeIndices[1]]
                                                   .toString(),
@@ -229,6 +247,28 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                           width: 82,
                                           height: 140,
                                           child: Column(children: [
+                                            SizedBox(
+                                                height:
+                                                    12), // Push the text down by the height of the "roof" (8 pixels in this case
+                                            const Text('#1',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: AppColors.goldStamped,
+                                                  shadows: [
+                                                    Shadow(
+                                                      offset: Offset(1.0,
+                                                          1.0), // Lätt förskjuten skugga ger djup
+                                                      blurRadius:
+                                                          2.0, // En liten suddighet för realism
+                                                      // Halvtransparent svart för mjuk skugga
+                                                    ),
+                                                  ],
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                )),
+                                            SizedBox(
+                                                height:
+                                                    28), // Push the text down by the height of the "roof" (8 pixels in this case
                                             Text(
                                               ints[topThreeIndices[0]]
                                                   .toString(),
@@ -276,6 +316,25 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                           width: 82,
                                           height: 60,
                                           child: Column(children: [
+                                            SizedBox(height: 8),
+                                            const Text(
+                                              '#3',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: AppColors.bronzeStamped,
+                                                shadows: [
+                                                  Shadow(
+                                                    offset: Offset(1.0,
+                                                        1.0), // Lätt förskjuten skugga ger djup
+                                                    blurRadius:
+                                                        2.0, // En liten suddighet för realism // Halvtransparent svart för mjuk skugga
+                                                  ),
+                                                ],
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            ),
+                                            SizedBox(height: 4),
                                             Text(
                                               ints[topThreeIndices[2]]
                                                   .toString(),
