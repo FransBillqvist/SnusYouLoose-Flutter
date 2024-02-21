@@ -51,6 +51,14 @@ class _UseIndicatorWidgetState extends State<UseIndicatorWidget> {
             ),
           ); // Show error if something went wrong
         } else {
+          String text = '';
+          if (snapshot.data[0].toString().length == 0) {
+            text = "      |    ";
+          } else if (snapshot.data[0].toString().length == 1) {
+            text = "     |    ";
+          } else if (snapshot.data[0].toString().length >= 2) {
+            text = "   |    ";
+          }
           return Container(
             child: SizedBox(
               height: 50,
@@ -72,9 +80,7 @@ class _UseIndicatorWidgetState extends State<UseIndicatorWidget> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        snapshot.data[0].toString() +
-                            "      |    " +
-                            snapshot.data[1].toString(),
+                        '${snapshot.data[0]} ${text} ${snapshot.data[1]}',
                         style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
                     )
