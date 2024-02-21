@@ -307,10 +307,11 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             SizedBox(
                               height: 66,
                             ),
-                            if (stats.numberOfDays !=
-                                dataDays[widget.mode]) ...[
-                              Text('Data covers ${stats.numberOfDays} days',
-                                  style: propStyle)
+                            if (dataDays[widget.mode]! > 0) ...[
+                              if (stats.numberOfDays! < dataDays[widget.mode]!)
+                                Text(
+                                    'Data for ${stats.numberOfDays} of ${dataDays[widget.mode]} days',
+                                    style: propStyle)
                             ],
                           ],
                         ),
