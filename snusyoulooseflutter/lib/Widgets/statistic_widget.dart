@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Model/StatisticDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
@@ -77,33 +79,23 @@ class _StatisticWidgetState extends State<StatisticWidget> {
           return Text('Error: ${snapshot.error}');
         } else {
           var stats = snapshot.data;
-          // Använd `snapshot.data` för att bygga din widget baserat på den hämtade statistiken
+
           if (stats == null) {
             return const Text('No data');
           }
           List<Snuff> snuffs = stats.usedSnuffSorts;
           List<int> ints = stats.usedAmountOfSnuffs;
 
-          // Create a map where each unique Snuff is a key and the corresponding int values are added together
-          Map<Snuff, int> snuffMap = {};
-          for (int i = 0; i < snuffs.length; i++) {
-            snuffMap.update(
-                snuffs[i], (existingValue) => existingValue + ints[i],
-                ifAbsent: () => ints[i]);
-          }
+          // Convert the list to a map with indices as keys
+          Map<int, int> indexedInts = ints.asMap();
 
-          // Convert the map to a list of pairs
-          List<MapEntry<Snuff, int>> pairs = snuffMap.entries.toList();
+          // Convert the map to a list of entries and sort it in descending order based on the values
+          List<MapEntry<int, int>> sortedEntries = indexedInts.entries.toList()
+            ..sort((a, b) => b.value.compareTo(a.value));
 
-          // Sort the list in descending order based on the int value
-          pairs.sort((a, b) => b.value.compareTo(a.value));
-
-          // Take the first three elements
-          List<MapEntry<Snuff, int>> topThreePairs = pairs.take(3).toList();
-
-          // Extract the indices of the original Snuff objects
+          // Take the first three entries and map them to their keys (which are the original indices)
           List<int> topThreeIndices =
-              topThreePairs.map((pair) => snuffs.indexOf(pair.key)).toList();
+              sortedEntries.take(3).map((entry) => entry.key).toList();
           return Stack(
             children: [
               Positioned(
@@ -147,149 +139,154 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             ),
                             Row(children: [
                               Padding(padding: EdgeInsets.only(left: 66)),
-                              if (topThreeIndices[1] != 0) ...[
-                                Column(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 40.0),
-                                    child: Image.asset(
-                                        AppSnuffs.images[
-                                                snuffs[topThreeIndices[1]]
-                                                    .ImageUrl] ??
-                                            '',
-                                        width: 80,
-                                        height: 80),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top:
-                                            10), // Push the box down by the height of the "roof"
-                                    child: DecoratedBox(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.silverPlace,
-                                        border: Border.fromBorderSide(
-                                            BorderSide(
+                              if (snuffs.isNotEmpty) ...[
+                                if (snuffs[topThreeIndices[1]] != 0) ...[
+                                  Column(children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 40.0),
+                                      child: Image.asset(
+                                          AppSnuffs.images[
+                                                  snuffs[topThreeIndices[1]]
+                                                      .ImageUrl] ??
+                                              '',
+                                          width: 80,
+                                          height: 80),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top:
+                                              10), // Push the box down by the height of the "roof"
+                                      child: DecoratedBox(
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.silverPlace,
+                                          border: Border.fromBorderSide(
+                                              BorderSide(
+                                                  color: AppColors.silverPlace,
+                                                  width: 2.0)),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(0),
+                                              topRight: Radius.circular(0)),
+                                          boxShadow: [
+                                            BoxShadow(
                                                 color: AppColors.silverPlace,
-                                                width: 2.0)),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.silverPlace,
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              offset: Offset(0, 3))
-                                        ],
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                offset: Offset(0, 3))
+                                          ],
+                                        ),
+                                        child: Container(
+                                          width: 82,
+                                          height: 100,
+                                          child: Column(children: [
+                                            Text(
+                                              ints[topThreeIndices[1]]
+                                                  .toString(),
+                                              style: baseStyle,
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                      child: Container(
-                                        width: 82,
-                                        height: 100,
-                                        child: Column(children: [
-                                          Text(
-                                            ints[topThreeIndices[0]].toString(),
-                                            style: baseStyle,
-                                          ),
-                                        ]),
-                                      ),
-                                    ),
-                                  )
-                                ])
-                              ],
-                              Row(
-                                children: [
-                                  if (topThreeIndices.isEmpty) ...[
-                                    Text('No snuff used', style: baseStyle)
-                                  ],
+                                    )
+                                  ])
                                 ],
-                              ),
-                              if (topThreeIndices.isNotEmpty) ...[
-                                Column(children: [
-                                  Image.asset(
-                                      AppSnuffs.images[
-                                              snuffs[topThreeIndices[0]]
-                                                  .ImageUrl] ??
-                                          '',
-                                      width: 80,
-                                      height: 80),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: DecoratedBox(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.goldPlace,
-                                        border: Border.fromBorderSide(
-                                            BorderSide(
-                                                color: AppColors.goldPlace,
-                                                width: 2.0)),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.goldPlace,
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              offset: Offset(0, 3))
-                                        ],
-                                      ),
-                                      child: Container(
-                                        width: 82,
-                                        height: 140,
-                                        child: Column(children: [
-                                          Text(
-                                            ints[topThreeIndices[0]].toString(),
-                                            style: baseStyle,
-                                          ),
-                                        ]),
-                                      ),
-                                    ),
-                                  )
-                                ]),
-                              ],
-                              if (topThreeIndices[2] != 0) ...[
-                                Column(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 80.0),
-                                    child: Image.asset(
+                                Row(
+                                  children: [
+                                    if (snuffs.isEmpty) ...[
+                                      Text('No snuff used', style: baseStyle)
+                                    ],
+                                  ],
+                                ),
+                                if (snuffs.isNotEmpty) ...[
+                                  Column(children: [
+                                    Image.asset(
                                         AppSnuffs.images[
-                                                snuffs[topThreeIndices[2]]
+                                                snuffs[topThreeIndices[0]]
                                                     .ImageUrl] ??
                                             '',
                                         width: 80,
                                         height: 80),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: DecoratedBox(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.bronzePlace,
-                                        border: Border.fromBorderSide(
-                                            BorderSide(
-                                                color: AppColors.bronzePlace,
-                                                width: 2.0)),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(0),
-                                            topRight: Radius.circular(0)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.bronzePlace,
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              offset: Offset(0, 3))
-                                        ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: DecoratedBox(
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.goldPlace,
+                                          border: Border.fromBorderSide(
+                                              BorderSide(
+                                                  color: AppColors.goldPlace,
+                                                  width: 2.0)),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(0),
+                                              topRight: Radius.circular(0)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColors.goldPlace,
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                offset: Offset(0, 3))
+                                          ],
+                                        ),
+                                        child: Container(
+                                          width: 82,
+                                          height: 140,
+                                          child: Column(children: [
+                                            Text(
+                                              ints[topThreeIndices[0]]
+                                                  .toString(),
+                                              style: baseStyle,
+                                            ),
+                                          ]),
+                                        ),
                                       ),
-                                      child: Container(
-                                        width: 82,
-                                        height: 60,
-                                        child: Column(children: [
-                                          Text(
-                                            ints[topThreeIndices[2]].toString(),
-                                            style: baseStyle,
-                                          ),
-                                        ]),
-                                      ),
+                                    )
+                                  ]),
+                                ],
+                                if (snuffs[topThreeIndices[2]] != 0) ...[
+                                  Column(children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 80.0),
+                                      child: Image.asset(
+                                          AppSnuffs.images[
+                                                  snuffs[topThreeIndices[2]]
+                                                      .ImageUrl] ??
+                                              '',
+                                          width: 80,
+                                          height: 80),
                                     ),
-                                  )
-                                ]),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: DecoratedBox(
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.bronzePlace,
+                                          border: Border.fromBorderSide(
+                                              BorderSide(
+                                                  color: AppColors.bronzePlace,
+                                                  width: 2.0)),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(0),
+                                              topRight: Radius.circular(0)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColors.bronzePlace,
+                                                spreadRadius: 0,
+                                                blurRadius: 0,
+                                                offset: Offset(0, 3))
+                                          ],
+                                        ),
+                                        child: Container(
+                                          width: 82,
+                                          height: 60,
+                                          child: Column(children: [
+                                            Text(
+                                              ints[topThreeIndices[2]]
+                                                  .toString(),
+                                              style: baseStyle,
+                                            ),
+                                          ]),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                ],
                               ],
                             ]),
                             SizedBox(
