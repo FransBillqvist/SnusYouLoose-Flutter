@@ -103,6 +103,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
           // Take the first three entries and map them to their keys (which are the original indices)
           List<int> topThreeIndices =
               sortedEntries.take(3).map((entry) => entry.key).toList();
+          inspect(snuffs);
           return Stack(
             children: [
               Positioned(
@@ -146,8 +147,8 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             ),
                             Row(children: [
                               Padding(padding: EdgeInsets.only(left: 66)),
-                              if (snuffs.isNotEmpty) ...[
-                                if (snuffs[topThreeIndices[1]] != 0) ...[
+                              if (topThreeIndices.isNotEmpty) ...[
+                                if (topThreeIndices.length >= 1) ...[
                                   Column(children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 40.0),
@@ -219,7 +220,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                     ],
                                   ],
                                 ),
-                                if (snuffs.isNotEmpty) ...[
+                                if (topThreeIndices.length >= 0) ...[
                                   Column(children: [
                                     Image.asset(
                                         AppSnuffs.images[
@@ -283,7 +284,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                     )
                                   ]),
                                 ],
-                                if (snuffs[topThreeIndices[2]] != 0) ...[
+                                if (topThreeIndices.length > 1) ...[
                                   Column(children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 80.0),
