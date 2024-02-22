@@ -62,9 +62,16 @@ class _StatisticWidgetState extends State<StatisticWidget> {
     ];
     var dataDays = [0, 7, 14, 30, 90, 365, 365];
     const baseStyle = TextStyle(
-        color: AppColors.textPrimary,
-        fontSize: 20,
-        fontWeight: FontWeight.bold);
+      color: AppColors.textPrimary,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+    const usedStyle = TextStyle(
+      color: AppColors.textPrimary2,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      decoration: TextDecoration.underline,
+    );
     const propStyle = TextStyle(
         color: AppColors.textPrimary2,
         fontSize: 20,
@@ -190,8 +197,6 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                                       blurRadius: 2.0,
                                                     )
                                                   ],
-                                                  decoration:
-                                                      TextDecoration.underline,
                                                 )),
                                             SizedBox(
                                                 height:
@@ -199,7 +204,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                             Text(
                                               ints[topThreeIndices[1]]
                                                   .toString(),
-                                              style: baseStyle,
+                                              style: usedStyle,
                                             ),
                                           ]),
                                         ),
@@ -263,8 +268,6 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                                       // Halvtransparent svart för mjuk skugga
                                                     ),
                                                   ],
-                                                  decoration:
-                                                      TextDecoration.underline,
                                                 )),
                                             SizedBox(
                                                 height:
@@ -272,7 +275,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                             Text(
                                               ints[topThreeIndices[0]]
                                                   .toString(),
-                                              style: baseStyle,
+                                              style: usedStyle,
                                             ),
                                           ]),
                                         ),
@@ -330,15 +333,13 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                                         2.0, // En liten suddighet för realism // Halvtransparent svart för mjuk skugga
                                                   ),
                                                 ],
-                                                decoration:
-                                                    TextDecoration.underline,
                                               ),
                                             ),
                                             SizedBox(height: 4),
                                             Text(
                                               ints[topThreeIndices[2]]
                                                   .toString(),
-                                              style: baseStyle,
+                                              style: usedStyle,
                                             ),
                                           ]),
                                         ),
