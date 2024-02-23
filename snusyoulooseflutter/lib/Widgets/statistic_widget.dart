@@ -165,6 +165,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                     amount: ints[topThreeIndices[2]])
                               ],
                               if (listLength == 2) ...[
+                                SizedBox(width: 20.5),
                                 PodiumWidget(
                                     position: 2,
                                     snuff: snuffs[topThreeIndices[1]],
@@ -175,6 +176,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                     amount: ints[topThreeIndices[0]]),
                               ],
                               if (listLength == 1) ...[
+                                SizedBox(width: 82),
                                 PodiumWidget(
                                     position: 1,
                                     snuff: snuffs[topThreeIndices[0]],
