@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:snusyoulooseflutter/Model/StatisticDto.dart';
 import 'package:snusyoulooseflutter/Styles/app_colors.dart';
+import 'package:snusyoulooseflutter/Widgets/podium_widget.dart';
 
 import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
@@ -103,7 +104,9 @@ class _StatisticWidgetState extends State<StatisticWidget> {
           // Take the first three entries and map them to their keys (which are the original indices)
           List<int> topThreeIndices =
               sortedEntries.take(3).map((entry) => entry.key).toList();
+          var listLength = topThreeIndices.length;
           inspect(snuffs);
+          inspect(listLength);
           return Stack(
             children: [
               Positioned(
@@ -147,214 +150,42 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             ),
                             Row(children: [
                               Padding(padding: EdgeInsets.only(left: 66)),
-                              if (topThreeIndices.isNotEmpty) ...[
-                                if (topThreeIndices.length >= 1) ...[
-                                  Column(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 40.0),
-                                      child: Image.asset(
-                                          AppSnuffs.images[
-                                                  snuffs[topThreeIndices[1]]
-                                                      .ImageUrl] ??
-                                              '',
-                                          width: 80,
-                                          height: 80),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top:
-                                              10), // Push the box down by the height of the "roof"
-                                      child: DecoratedBox(
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.silverPlace,
-                                          border: Border.fromBorderSide(
-                                              BorderSide(
-                                                  color: AppColors.silverPlace,
-                                                  width: 2.0)),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(0),
-                                              topRight: Radius.circular(0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.silverPlace,
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                offset: Offset(0, 3))
-                                          ],
-                                        ),
-                                        child: Container(
-                                          width: 82,
-                                          height: 100,
-                                          child: Column(children: [
-                                            SizedBox(height: 12),
-                                            const Text('#2',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color:
-                                                      AppColors.silverStamped,
-                                                  shadows: [
-                                                    Shadow(
-                                                      offset: Offset(1.0, 1.0),
-                                                      blurRadius: 2.0,
-                                                    )
-                                                  ],
-                                                )),
-                                            SizedBox(
-                                                height:
-                                                    28), // Push the text down by the height of the "roof" (8 pixels in this case
-                                            Text(
-                                              ints[topThreeIndices[1]]
-                                                  .toString(),
-                                              style: usedStyle,
-                                            ),
-                                          ]),
-                                        ),
-                                      ),
-                                    )
-                                  ])
-                                ],
-                                Row(
-                                  children: [
-                                    if (snuffs.isEmpty) ...[
-                                      Text('No snuff used', style: baseStyle)
-                                    ],
-                                  ],
-                                ),
-                                if (topThreeIndices.length >= 0) ...[
-                                  Column(children: [
-                                    Image.asset(
-                                        AppSnuffs.images[
-                                                snuffs[topThreeIndices[0]]
-                                                    .ImageUrl] ??
-                                            '',
-                                        width: 80,
-                                        height: 80),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: DecoratedBox(
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.goldPlace,
-                                          border: Border.fromBorderSide(
-                                              BorderSide(
-                                                  color: AppColors.goldPlace,
-                                                  width: 2.0)),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(0),
-                                              topRight: Radius.circular(0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.goldPlace,
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                offset: Offset(0, 3))
-                                          ],
-                                        ),
-                                        child: Container(
-                                          width: 82,
-                                          height: 140,
-                                          child: Column(children: [
-                                            SizedBox(
-                                                height:
-                                                    12), // Push the text down by the height of the "roof" (8 pixels in this case
-                                            const Text('#1',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: AppColors.goldStamped,
-                                                  shadows: [
-                                                    Shadow(
-                                                      offset: Offset(1.0,
-                                                          1.0), // Lätt förskjuten skugga ger djup
-                                                      blurRadius:
-                                                          2.0, // En liten suddighet för realism
-                                                      // Halvtransparent svart för mjuk skugga
-                                                    ),
-                                                  ],
-                                                )),
-                                            SizedBox(
-                                                height:
-                                                    28), // Push the text down by the height of the "roof" (8 pixels in this case
-                                            Text(
-                                              ints[topThreeIndices[0]]
-                                                  .toString(),
-                                              style: usedStyle,
-                                            ),
-                                          ]),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
-                                ],
-                                if (topThreeIndices.length > 1) ...[
-                                  Column(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 80.0),
-                                      child: Image.asset(
-                                          AppSnuffs.images[
-                                                  snuffs[topThreeIndices[2]]
-                                                      .ImageUrl] ??
-                                              '',
-                                          width: 80,
-                                          height: 80),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: DecoratedBox(
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.bronzePlace,
-                                          border: Border.fromBorderSide(
-                                              BorderSide(
-                                                  color: AppColors.bronzePlace,
-                                                  width: 2.0)),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(0),
-                                              topRight: Radius.circular(0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.bronzePlace,
-                                                spreadRadius: 0,
-                                                blurRadius: 0,
-                                                offset: Offset(0, 3))
-                                          ],
-                                        ),
-                                        child: Container(
-                                          width: 82,
-                                          height: 60,
-                                          child: Column(children: [
-                                            SizedBox(height: 8),
-                                            const Text(
-                                              '#3',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: AppColors.bronzeStamped,
-                                                shadows: [
-                                                  Shadow(
-                                                    offset: Offset(1.0,
-                                                        1.0), // Lätt förskjuten skugga ger djup
-                                                    blurRadius:
-                                                        2.0, // En liten suddighet för realism // Halvtransparent svart för mjuk skugga
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              ints[topThreeIndices[2]]
-                                                  .toString(),
-                                              style: usedStyle,
-                                            ),
-                                          ]),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
-                                ],
+                              if (listLength == 3) ...[
+                                PodiumWidget(
+                                    position: 2,
+                                    snuff: snuffs[topThreeIndices[1]],
+                                    amount: ints[topThreeIndices[1]]),
+                                PodiumWidget(
+                                    position: 1,
+                                    snuff: snuffs[topThreeIndices[0]],
+                                    amount: ints[topThreeIndices[0]]),
+                                PodiumWidget(
+                                    position: 3,
+                                    snuff: snuffs[topThreeIndices[2]],
+                                    amount: ints[topThreeIndices[2]])
                               ],
+                              if (listLength == 2) ...[
+                                PodiumWidget(
+                                    position: 2,
+                                    snuff: snuffs[topThreeIndices[1]],
+                                    amount: ints[topThreeIndices[1]]),
+                                PodiumWidget(
+                                    position: 1,
+                                    snuff: snuffs[topThreeIndices[0]],
+                                    amount: ints[topThreeIndices[0]]),
+                              ],
+                              if (listLength == 1) ...[
+                                PodiumWidget(
+                                    position: 1,
+                                    snuff: snuffs[topThreeIndices[0]],
+                                    amount: ints[topThreeIndices[0]]),
+                              ]
                             ]),
                             SizedBox(
                               height: 66,
                             ),
-                            if (dataDays[widget.mode]! > 0) ...[
-                              if (stats.numberOfDays! < dataDays[widget.mode]!)
+                            if (dataDays[widget.mode] > 0) ...[
+                              if (stats.numberOfDays! < dataDays[widget.mode])
                                 Text(
                                     'Data for ${stats.numberOfDays} of ${dataDays[widget.mode]} days',
                                     style: propStyle)
