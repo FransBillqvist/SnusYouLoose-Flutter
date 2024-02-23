@@ -13,7 +13,7 @@ class PodiumWidget extends StatelessWidget {
 
   static const usedStyle = TextStyle(
     color: AppColors.textPrimary2,
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: FontWeight.bold,
     decoration: TextDecoration.underline,
   );
@@ -32,21 +32,25 @@ class PodiumWidget extends StatelessWidget {
             : AppColors.bronzeStamped;
 
     var podiumHeight = (position == 1)
-        ? 140.0
+        ? 160.0
         : (position == 2)
-            ? 100.0
-            : 60.0;
+            ? 120.0
+            : 80.0;
     var numberHash = (position == 1)
         ? '#1'
         : (position == 2)
             ? '#2'
             : '#3';
     var numberSizedbox = (position == 1)
-        ? 12.0
+        ? 16.0
         : (position == 2)
-            ? 10.0
+            ? 11.0
             : 4.0;
-    var numberTextHeight = (position == 1 || position == 2) ? 28.0 : 4.0;
+    var numberTextHeight = (position == 1)
+        ? 22.0
+        : (position == 2)
+            ? 14.0
+            : 4.0;
 
     var fromTop = (position == 1)
         ? 10.0
@@ -93,10 +97,8 @@ class PodiumWidget extends StatelessWidget {
                   color: secondColor,
                   shadows: [
                     Shadow(
-                      offset:
-                          Offset(1.0, 1.0), // Lätt förskjuten skugga ger djup
-                      blurRadius:
-                          2.0, // En liten suddighet för realism // Halvtransparent svart för mjuk skugga
+                      offset: Offset(1.0, 1.0),
+                      blurRadius: 2.0,
                     ),
                   ],
                 ),
