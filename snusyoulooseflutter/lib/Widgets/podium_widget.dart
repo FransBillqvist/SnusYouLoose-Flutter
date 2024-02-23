@@ -53,6 +53,11 @@ class PodiumWidget extends StatelessWidget {
         : (position == 2)
             ? 40.0
             : 80.0;
+    var secondFromTop = (position == 1)
+        ? 10.0
+        : (position == 2)
+            ? 20.0
+            : 20.0;
 
     return Column(children: [
       Padding(
@@ -61,7 +66,7 @@ class PodiumWidget extends StatelessWidget {
             width: 80, height: 80),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.only(top: secondFromTop),
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: color,
@@ -80,7 +85,7 @@ class PodiumWidget extends StatelessWidget {
             width: 82,
             height: podiumHeight,
             child: Column(children: [
-              SizedBox(height: 8),
+              SizedBox(height: numberTextHeight),
               Text(
                 numberHash,
                 style: TextStyle(
