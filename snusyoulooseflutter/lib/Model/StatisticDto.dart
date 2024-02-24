@@ -8,6 +8,8 @@ class StatisticDto {
   int limitOfUse;
   double rating;
   String createdDate;
+  double purchaseCost;
+  double usageCost;
   int? numberOfDays;
 
   StatisticDto(
@@ -18,6 +20,8 @@ class StatisticDto {
       this.limitOfUse,
       this.rating,
       this.createdDate,
+      this.purchaseCost,
+      this.usageCost,
       this.numberOfDays);
 
   factory StatisticDto.fromJson(Map<String, dynamic> json) => StatisticDto(
@@ -28,6 +32,8 @@ class StatisticDto {
       json['limitOfUse'] as int,
       (json['rating'] as num).toDouble(),
       json['createdDate'] as String,
+      (json['purchaseCost'] as num).toDouble(),
+      (json['usageCost'] as num).toDouble(),
       json['numberOfDays'] as int?);
 
   Map<String, dynamic> toJson() {
@@ -42,6 +48,8 @@ class StatisticDto {
     data['limitOfUse'] = this.limitOfUse;
     data['rating'] = this.rating;
     data['createdDate'] = this.createdDate;
+    data['purchaseCost'] = this.purchaseCost;
+    data['usageCost'] = this.usageCost;
     data['numberOfDays'] = this.numberOfDays;
     return data;
   }
