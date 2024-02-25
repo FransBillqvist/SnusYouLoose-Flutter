@@ -83,4 +83,6 @@ class AppStrings {
   static const String stat4Quarter = 'Statistics 90 Days';
   static const String stat4Year = 'Statistics Last Year';
   static const String stat4LT = 'Statistics All Time';
+  static const String consumedFor = 'Snuff consumed for ';
+  static const String boughtFor = 'Snuff bought for ';
 }
