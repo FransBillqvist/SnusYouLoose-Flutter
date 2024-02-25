@@ -25,6 +25,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
   late DateTime lastMonth;
   late DateTime lastQuarter;
   late DateTime lastYear;
+  bool showHistory = false;
 
   @override
   void initState() {
@@ -134,9 +135,13 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                         width: MediaQuery.of(context).size.width * 0.94,
                         child: Column(
                           children: [
-                            Text(
-                              titles[widget.mode],
-                              style: baseStyle,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                              child: Text(
+                                titles[widget.mode],
+                                style: baseStyle,
+                              ),
                             ),
                             Text(
                               '${stats.rating.toString()}',
@@ -145,6 +150,16 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             Text(
                                 '${stats.totalAmoutUsed.toString()} / ${stats.limitOfUse.toString()}',
                                 style: baseStyle),
+                            Text(
+                              AppStrings.consumedFor +
+                                  '${stats.usageCost.toString()}',
+                              style: baseStyle,
+                            ), //use snuff for a value
+                            Text(
+                              AppStrings.boughtFor +
+                                  '${stats.purchaseCost.toString()}',
+                              style: baseStyle,
+                            ), // bougth snuff
                             SizedBox(
                               height: 66,
                             ),
@@ -183,6 +198,21 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                     amount: ints[topThreeIndices[0]]),
                               ]
                             ]),
+                            if (snuffs.length > 3) ...[
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.history,
+                                      color: AppColors.bronzeStamped,
+                                    ),
+                                    onPressed: () {
+                                      print('SHOWFULLHISTORY');
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
                             SizedBox(
                               height: 66,
                             ),
@@ -204,6 +234,12 @@ class _StatisticWidgetState extends State<StatisticWidget> {
         }
       },
     );
+  }
+
+  void historyView() {
+    setState(() {
+      showHistory = !showHistory;
+    });
   }
 
   Future<StatisticDto> fetchData(int mode, String userId) async {
