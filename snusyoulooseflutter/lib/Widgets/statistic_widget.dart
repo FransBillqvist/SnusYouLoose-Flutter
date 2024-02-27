@@ -9,6 +9,7 @@ import '../Config/app_media.dart';
 import '../Config/app_strings.dart';
 import '../Model/Snuff.dart';
 import '../Services/app_services.dart';
+import 'consumed_widget.dart';
 
 class StatisticWidget extends StatefulWidget {
   late int mode;
@@ -207,7 +208,13 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                       color: AppColors.bronzeStamped,
                                     ),
                                     onPressed: () {
-                                      print('SHOWFULLHISTORY');
+                                      print('History button pressed');
+                                      ConsumedWidget(
+                                          snuffs: snuffs,
+                                          amounts: ints,
+                                          onExit: () {
+                                            historyView();
+                                          });
                                     },
                                   ),
                                 ],
@@ -239,6 +246,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
   void historyView() {
     setState(() {
       showHistory = !showHistory;
+      print(showHistory);
     });
   }
 
