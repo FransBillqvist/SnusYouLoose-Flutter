@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 import '../Config/app_media.dart';
 import '../Model/Snuff.dart';
@@ -32,10 +33,10 @@ class PodiumWidget extends StatelessWidget {
             : AppColors.bronzeStamped;
 
     var podiumHeight = (position == 1)
-        ? 160.0
+        ? 170.0
         : (position == 2)
-            ? 120.0
-            : 80.0;
+            ? 130.0
+            : 90.0;
     var numberHash = (position == 1)
         ? '#1'
         : (position == 2)
@@ -50,7 +51,7 @@ class PodiumWidget extends StatelessWidget {
         ? 22.0
         : (position == 2)
             ? 14.0
-            : 4.0;
+            : 0.0;
 
     var fromTop = (position == 1)
         ? 10.0
@@ -61,57 +62,103 @@ class PodiumWidget extends StatelessWidget {
         ? 10.0
         : (position == 2)
             ? 20.0
-            : 20.0;
-
-    return Column(children: [
-      Padding(
-        padding: EdgeInsets.only(top: fromTop),
-        child: Image.asset(AppSnuffs.images[snuff.ImageUrl] ?? '',
-            width: 80, height: 80),
-      ),
-      Padding(
-        padding: EdgeInsets.only(top: secondFromTop),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.fromBorderSide(BorderSide(color: color, width: 2.0)),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(0), topRight: Radius.circular(0)),
-            boxShadow: [
-              BoxShadow(
+            : 10.0;
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: fromTop),
+          child: Image.asset(AppSnuffs.images[snuff.ImageUrl] ?? '',
+              width: 80, height: 80),
+        ),
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            // Sidan av podiet
+            Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..rotateX(0.1)
+                ..rotateY(0.5), // Exempel på rotation
+              child: Container(
+                width: 82,
+                height: podiumHeight,
+                color: color,
+              ),
+            ),
+            // Toppen av podiet
+            Container(
+              width: 90,
+              height: 10,
+              decoration: BoxDecoration(
+                color: secondColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+            ),
+            // Plattformen på podiet
+            Transform.translate(
+              offset:
+                  Offset(0, -10), // Justera positionen baserat på ditt layout
+              child: Container(
+                width: 88,
+                height: 5,
+                decoration: BoxDecoration(
                   color: color,
-                  spreadRadius: 0,
-                  blurRadius: 0,
-                  offset: Offset(0, 3))
-            ],
-          ),
-          child: Container(
-            width: 82,
-            height: podiumHeight,
-            child: Column(children: [
-              SizedBox(height: numberTextHeight),
-              Text(
-                numberHash,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: secondColor,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(1.0, 1.0),
-                      blurRadius: 2.0,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: numberSizedbox),
-              Text(
-                amount.toString(),
-                style: usedStyle,
+            ),
+            // Nummer och antal
+            Positioned(
+              top:
+                  secondFromTop, // Använd 'secondFromTop' för att justera positionen vertikalt
+              child: Column(
+                children: [
+                  SizedBox(height: numberTextHeight),
+                  Text(
+                    numberHash,
+                    style: TextStyle(
+                      fontSize:
+                          20, // Du kanske vill justera storleken baserat på 'position'
+                      color: secondColor, // Justera färgen om det behövs
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 2.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: numberSizedbox),
+                  Text(
+                    amount.toString(),
+                    style: TextStyle(
+                      fontSize:
+                          28, // Använd 'usedStyle' om du vill behålla stilen som definierats tidigare
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
               ),
-            ]),
-          ),
+            ),
+          ],
         ),
-      )
-    ]);
+      ],
+    );
   }
 }
