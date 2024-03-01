@@ -26,6 +26,7 @@ class _StatisticsPageState extends State<StatisticsPage>
     AppStrings.allTime
   ];
   late TabController _tabController;
+  bool showHistory = false;
 
   @override
   void initState() {
@@ -71,6 +72,13 @@ class _StatisticsPageState extends State<StatisticsPage>
     _tabController.removeListener(_handleTabSelection);
     _tabController.dispose();
     super.dispose();
+  }
+
+  void historyView() {
+    setState(() {
+      showHistory = !showHistory;
+      print(showHistory);
+    });
   }
 }
 
