@@ -208,13 +208,16 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                       color: AppColors.bronzeStamped,
                                     ),
                                     onPressed: () {
-                                      print('History button pressed');
-                                      ConsumedWidget(
-                                          snuffs: snuffs,
-                                          amounts: ints,
-                                          onExit: () {
-                                            historyView();
-                                          });
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ConsumedWidget(
+                                                  snuffs: snuffs,
+                                                  amounts: ints,
+                                                  onExit: historyView,
+                                                )),
+                                      );
                                     },
                                   ),
                                 ],
