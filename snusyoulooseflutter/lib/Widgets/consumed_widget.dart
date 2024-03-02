@@ -46,7 +46,7 @@ class _ConsumedWidgetState extends State<ConsumedWidget> {
                 icon: Stack(
                   clipBehavior: Clip.none,
                   children: <Widget>[
-                    Icon(
+                    const Icon(
                       Icons.abc,
                       color: AppColors.example2,
                     ),
@@ -69,84 +69,88 @@ class _ConsumedWidgetState extends State<ConsumedWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(29.5, 80, 8, 0),
-              child: Column(children: [
-                Container(
-                  constraints:
-                      BoxConstraints(maxHeight: 725), // Set max height here
-                  width: MediaQuery.of(context).size.width * 0.86,
-                  decoration: BoxDecoration(
-                    color: AppColors.example2,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: List.generate(
-                      widget.snuffs.length,
-                      (index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      AppSnuffs.images[
-                                          widget.snuffs[index].ImageUrl!]!,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 4, 0, 2),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.snuffs[index].Brand,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.snuffs[index].Type,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white70,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Amount: ${widget.amounts[index]}',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white70,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                padding: const EdgeInsets.fromLTRB(29.5, 80, 8, 0),
+                child: Column(
+                  children: [
+                    Container(
+                      constraints: const BoxConstraints(
+                          maxHeight: 725), // Set max height here
+                      width: MediaQuery.of(context).size.width * 0.86,
+                      decoration: BoxDecoration(
+                        color: AppColors.example2,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
                           ),
-                        );
-                      },
+                        ],
+                      ),
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: List.generate(
+                          widget.snuffs.length,
+                          (index) {
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(10, 10, 10,
+                                  index == widget.snuffs.length - 1 ? 12 : 2),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 70,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          AppSnuffs.images[
+                                              widget.snuffs[index].ImageUrl!]!,
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 4, 0, 2),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.snuffs[index].Brand,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          widget.snuffs[index].Type,
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Amount: ${widget.amounts[index]}',
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ]),
-            )
+                  ],
+                )),
           ],
         ),
       ),
