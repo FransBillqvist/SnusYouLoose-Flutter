@@ -45,26 +45,29 @@ class _StatisticsPageState extends State<StatisticsPage>
   Widget build(BuildContext context) {
     final userId = getUserIdService(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppStrings.statistics),
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () =>
-                  Navigator.of(context).pushReplacementNamed(AppRoutes.home)),
-          backgroundColor: AppColors.cartBgLight,
-          bottom: TabBar(
-            controller: _tabController,
-            dividerColor: AppColors.cartBgLight,
-            isScrollable: true,
-            tabs: _pages.map((String page) => Tab(text: page)).toList(),
-          ),
-        ),
-        body: TabBarView(
+      appBar: AppBar(
+        title: Text(AppStrings.statistics),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () =>
+                Navigator.of(context).pushReplacementNamed(AppRoutes.home)),
+        backgroundColor: AppColors.cartBgLight,
+        bottom: TabBar(
           controller: _tabController,
-          children: _pages.map((String page) {
-            return StatisticWidget(mode: _tabController.index);
-          }).toList(),
-        ));
+          dividerColor: AppColors.cartBgLight,
+          isScrollable: true,
+          tabs: _pages.map((String page) => Tab(text: page)).toList(),
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: _pages.asMap().entries.map((entry) {
+          int index = entry.key;
+          String page = entry.value;
+          return StatisticWidget(mode: index);
+        }).toList(),
+      ),
+    );
   }
 
   @override
