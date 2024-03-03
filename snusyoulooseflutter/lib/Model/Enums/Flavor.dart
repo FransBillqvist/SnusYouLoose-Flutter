@@ -19,6 +19,7 @@ enum Flavor {
   cinnamon,
   cranberry,
   eucalyptus,
+  fruit,
   ginger,
   grape,
   honey,
@@ -43,4 +44,6 @@ enum Flavor {
   pomegranate,
   kiwi,
   passionfruit,
+  coconut,
+  violet,
 }
