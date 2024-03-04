@@ -46,4 +46,26 @@ enum Flavor {
   passionfruit,
   coconut,
   violet,
+  cactus,
+  elderflower,
+  cola,
+  toffee,
+  tropical,
+  spearmint,
+  jalapeno,
+}
+
+final flavorValues = Map<int, Flavor>.fromIterable(Flavor.values,
+    key: (v) => v.index, value: (v) => v);
+
+Flavor? flavorFromInt(int number) {
+  if (flavorValues.containsKey(number)) {
+    return flavorValues[number];
+  } else {
+    throw ArgumentError('Invalid flavor number: $number');
+  }
+}
+
+int intFromFlavor(Flavor flavor) {
+  return flavor.index;
 }
