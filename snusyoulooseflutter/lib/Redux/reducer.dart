@@ -1,9 +1,11 @@
+import 'package:snusyoulooseflutter/Model/Enums/Format.dart';
 import 'package:snusyoulooseflutter/Model/HabitDto.dart';
 import 'package:snusyoulooseflutter/Model/ProgressionDto.dart';
 
 import '../Model/CurrentSnuff.dart';
 import '../Model/CurrentSnuffDto.dart';
 import '../Model/Snuff.dart';
+import '../Model/SnuffInfo.dart';
 import '../Model/User.dart';
 import 'actions.dart';
 import 'app_state.dart';
@@ -13,8 +15,15 @@ AppState appReducer(AppState state, action) {
       inventorySnuffs: fetchInventoryReducer(state.inventorySnuffs, action),
       selectedSnuff: snuffSelectedReducer(
           state.selectedSnuff ??
-              Snuff("1", "Skruf", "Original Portion2", 50, 20,
-                  "assets/images/skruf.png", 1),
+              Snuff(
+                  "1",
+                  "Skruf",
+                  "Original Portion2",
+                  50,
+                  20,
+                  "assets/images/skruf.png",
+                  1,
+                  Snuffinfo("", 0, 0, [], Format.normal)),
           action),
       habit: habitReducer(
           state.habit ??
