@@ -13,8 +13,8 @@ class Snuffinfo {
 
   factory Snuffinfo.fromJson(Map<String, dynamic> json) => Snuffinfo(
         json['snusId'] as String,
-        json['nicotinePerGram'] as double,
-        json['nicotinePerPortion'] as double,
+        (json['nicotinePerGram'] as num).toDouble(),
+        (json['nicotinePerPortion'] as num).toDouble(),
         (json['flavors'] as List<dynamic>)
             .map((e) => flavorFromInt(e as int)!)
             .toList(),
