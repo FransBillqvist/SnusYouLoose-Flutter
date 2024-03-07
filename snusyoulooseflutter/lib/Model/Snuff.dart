@@ -8,7 +8,7 @@ class Snuff {
   int DefaultAmount;
   String ImageUrl;
   int Size;
-  Snuffinfo snuffInfo;
+  Snuffinfo? snuffInfo;
   // bool selected;
 
   Snuff(this.id, this.Brand, this.Type, this.Price, this.DefaultAmount,
