@@ -29,5 +29,9 @@ class AppColors {
   static const silverStamped = Color(0xFFB4B4B4);
   static const bronzePlace = Color(0xFFCC8E35);
   static const bronzeStamped = Color(0xFF995A22);
+
+  static const snuffChartColor = Color(0xA00D47A1);
+  static const nicotineChartColor = Color(0xADe30b0b);
+  static const avarageChartColor = Color(0xFF5DF052);
   //Black mode alt 0x272727
 }
