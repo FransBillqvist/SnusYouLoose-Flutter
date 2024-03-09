@@ -23,7 +23,7 @@ class _UseIndicatorWidgetState extends State<UseIndicatorWidget> {
           return Container(
             child: const SizedBox(
               height: 50,
-              width: 126,
+              width: 129,
               child: Column(children: [
                 Row(
                   children: [
@@ -62,7 +62,7 @@ class _UseIndicatorWidgetState extends State<UseIndicatorWidget> {
           return Container(
             child: SizedBox(
               height: 50,
-              width: 126,
+              width: 129,
               child: Column(children: [
                 Row(
                   children: [
