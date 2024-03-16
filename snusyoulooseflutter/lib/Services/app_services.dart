@@ -9,6 +9,7 @@ import 'package:snusyoulooseflutter/Model/AuthResponse.dart';
 
 import '../Config/app_routes.dart';
 import '../Config/app_urls.dart';
+import '../Model/NicotineStats.dart';
 import '../Model/SnuffShopDto.dart';
 import '../Model/ProgressionDto.dart';
 import '../Model/CreateCSDto.dart';
@@ -443,6 +444,24 @@ Future<List<SnuffShopDto>> searchForSnuff(String query) async {
       .toList();
 
   return result;
+}
+
+Future<NicotineStats> fetchNicotineStats(String userId, String period) async {
+  try {
+    final response = await http.get(
+        Uri.parse(AppUrls.fetchNicotineStatistics + userId + '/$period'),
+        headers: {'Content-Type': 'application/json'});
+    print('This is the fetchNicotineStats response: ${response.body} ');
+    if (response.statusCode == 200) {
+      final nicotineStats = NicotineStats.fromJson(jsonDecode(response.body));
+      print('This is the nicotineStats: $nicotineStats');
+      inspect(nicotineStats);
+      return nicotineStats;
+    }
+  } catch (err) {
+    print('FAILED TO FETCH NICOTINE STATS $err');
+  }
+  throw Exception('Failed to fetch nicotine stats');
 }
 
 // Future<Snuff> fetchSnuffDetails(String snuffId) async {
