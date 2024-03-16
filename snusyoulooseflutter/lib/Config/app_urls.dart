@@ -31,4 +31,6 @@ class AppUrls {
       '$_url/api/v2/Statistics/GetLatestStatistics/';
   static const fetchAllTimeStatistic =
       '$_url/api/v2/Statistics/LifeTimeStatistic/';
+  static const fetchNicotineStatistics =
+      '$_url/api/v2/Statistics/GetNicotineUsage/';
 }
