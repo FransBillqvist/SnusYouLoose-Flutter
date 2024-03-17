@@ -446,7 +446,8 @@ Future<List<SnuffShopDto>> searchForSnuff(String query) async {
   return result;
 }
 
-Future<NicotineStats> fetchNicotineStats(String userId, String period) async {
+Stream<NicotineStats> fetchNicotineStatsStream(
+    String userId, String period) async* {
   try {
     final response = await http.get(
         Uri.parse(AppUrls.fetchNicotineStatistics + userId + '/$period'),
@@ -456,7 +457,7 @@ Future<NicotineStats> fetchNicotineStats(String userId, String period) async {
       final nicotineStats = NicotineStats.fromJson(jsonDecode(response.body));
       print('This is the nicotineStats: $nicotineStats');
       inspect(nicotineStats);
-      return nicotineStats;
+      yield nicotineStats;
     }
   } catch (err) {
     print('FAILED TO FETCH NICOTINE STATS $err');
