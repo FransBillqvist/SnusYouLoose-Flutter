@@ -10,6 +10,7 @@ import '../Config/app_strings.dart';
 import '../Model/Snuff.dart';
 import '../Services/app_services.dart';
 import 'consumed_widget.dart';
+import 'nicotineusageindicator_widget.dart';
 
 class StatisticWidget extends StatefulWidget {
   late int mode;
@@ -63,6 +64,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
       AppStrings.stat4Year,
       AppStrings.stat4LT
     ];
+    var page = ["today", "week", "twoweek", "month", "quarter", "year"];
     var dataDays = [0, 7, 14, 30, 90, 365, 365];
     const baseStyle = TextStyle(
       color: AppColors.textPrimary,
@@ -223,6 +225,8 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                                 ],
                               )
                             ],
+                            NicotineUsageIndicatorWidget(
+                                userId: userId, period: page[widget.mode]),
                             SizedBox(
                               height: 66,
                             ),
