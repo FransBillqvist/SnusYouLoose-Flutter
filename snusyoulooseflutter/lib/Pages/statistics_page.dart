@@ -65,13 +65,7 @@ class _StatisticsPageState extends State<StatisticsPage>
         children: _pages.asMap().entries.map((entry) {
           int index = entry.key;
           String page = entry.value;
-          return Column(
-            children: [
-              StatisticWidget(mode: index),
-              if (page != AppStrings.allTime)
-                NicotineUsageIndicatorWidget(userId: userId, period: page),
-            ],
-          );
+          return StatisticWidget(mode: index);
         }).toList(),
       ),
     );
