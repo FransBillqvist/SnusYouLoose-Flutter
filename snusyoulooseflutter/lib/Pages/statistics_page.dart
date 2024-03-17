@@ -6,6 +6,7 @@ import 'package:snusyoulooseflutter/Widgets/statistic_widget.dart';
 import '../Config/app_routes.dart';
 import '../Config/app_strings.dart';
 import '../Services/app_services.dart';
+import '../Widgets/nicotineusageindicator_widget.dart';
 
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({super.key});
@@ -64,7 +65,13 @@ class _StatisticsPageState extends State<StatisticsPage>
         children: _pages.asMap().entries.map((entry) {
           int index = entry.key;
           String page = entry.value;
-          return StatisticWidget(mode: index);
+          return Column(
+            children: [
+              StatisticWidget(mode: index),
+              if (page != AppStrings.allTime)
+                NicotineUsageIndicatorWidget(userId: userId, period: page),
+            ],
+          );
         }).toList(),
       ),
     );
