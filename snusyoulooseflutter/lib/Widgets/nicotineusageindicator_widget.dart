@@ -38,23 +38,10 @@ class NicotineUsageIndicatorWidget extends StatelessWidget {
           return Container(
             width: 100,
             height: 100,
-            child: Stack(
-              children: [
-                // Create the arrow widget with rotation
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Transform.rotate(
-                    angle: rotationAngle, // Use the previously calculated angle
-                    child: Icon(
-                      Icons.arrow_forward,
-                      size: 50,
-                    ),
-                  ),
-                ),
-              ],
+            // Use the previously calculated angle
+            child: Icon(
+              Icons.arrow_forward,
+              size: 50,
             ),
           );
         }
